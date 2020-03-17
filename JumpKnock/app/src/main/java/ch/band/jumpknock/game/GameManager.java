@@ -65,11 +65,13 @@ public class GameManager {
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
-			distance = heightOffset + gameVariables.screenSize.y - platforms.get(platforms.size() - 1).position.y;
+			distance = heightOffset + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
 		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 3 ){
 			Platform p = new Platform();
-			p.position = new PointF(r.nextFloat() * (gameVariables.screenSize.x - gameVariables.platformSize.x),heightOffset+ gameVariables.screenSize.y + gameVariables.platformSize.y);
+			p.position = new PointF(
+					r.nextFloat() * (gameVariables.gameFieldSize.x - gameVariables.platformSize.x),
+					heightOffset + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
 			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
 			p.isOneTimeUse = false;
 			if(r.nextBoolean()){
@@ -89,7 +91,10 @@ public class GameManager {
 				i--;
 			}
 		}
+		if(player.position.y + gameVariables.playerSize.y - heightOffset <= 0)
+			player.velocity.y = -1.05f * player.velocity.y;
 		player.update(gameVariables,heightOffset,deltaTime);
+		if(player.position.y <= getHeightOffset())
 		uiNotifier.updateUi(heightOffset);
 		uiNotifier.UpdateGame(platforms,player,heightOffset);
 		return deltaTime;

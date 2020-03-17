@@ -35,6 +35,10 @@ public class Player extends Placeable {
 			velocity.x = -calcMaxVelocity;
 		if(velocity.x > calcMaxVelocity)
 			velocity.x = calcMaxVelocity;
+		if(velocity.y < -calcMaxVelocity)
+			velocity.y = -calcMaxVelocity;
+		if(velocity.y > calcMaxVelocity)
+			velocity.y = calcMaxVelocity;
 
 		PointF futurePosition = new PointF(
 				position.x + getPositionDelta(velocity.x,deltaTimeNs),
@@ -54,7 +58,7 @@ public class Player extends Placeable {
 			position = futurePosition;
 		}
 		//Simulate Gravity
-		velocity.y -= getPositionDelta(calcMaxVelocity,deltaTimeNs);
+		velocity.y -= getPositionDelta(calcMaxVelocity / 70000,deltaTimeNs);
 		Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);
 	}
 }
