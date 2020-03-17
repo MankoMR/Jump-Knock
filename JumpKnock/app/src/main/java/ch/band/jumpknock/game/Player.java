@@ -2,9 +2,12 @@ package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
 import android.hardware.SensorManager;
+import android.util.Log;
+
 import androidx.annotation.DrawableRes;
 
 public class Player extends Placeable {
+	private static final String TAG = Player.class.getCanonicalName();
 	public PointF velocity;
 	public float gravity;
 	private float maxSpeedPerSec;
@@ -17,6 +20,8 @@ public class Player extends Placeable {
 		this.velocity = new PointF();
 		velocity = new PointF();
 		gravity = SensorManager.GRAVITY_EARTH;
+		maxSpeedPerSec = 30;
+
 	}
 
 	@Override
@@ -24,16 +29,32 @@ public class Player extends Placeable {
 		super.update(deltaTimeNs);
 	}
 	public void update(GameVariables gameVariables,int heightOffset,int deltaTimeNs){
+		float calcMaxVelocity = getPositionDelta(maxSpeedPerSec,GameVariables.SEC_TO_NANO_SEC);
 
+		if(velocity.x < -calcMaxVelocity)
+			velocity.x = -calcMaxVelocity;
+		if(velocity.x > calcMaxVelocity)
+			velocity.x = calcMaxVelocity;
 
-		if(position.x + getPositionDelta(velocity.y,deltaTimeNs) <= gameVariables.playerSize.y / 2)
-			position.x = position.x + gameVariables.screenSize.x - getPositionDelta(velocity.y,deltaTimeNs);
-		else
-			position.x = (position.x + getPositionDelta(velocity.x,deltaTimeNs)) % gameVariables.screenSize.x;
-		velocity.y += getPositionDelta(gravity* 1000000,deltaTimeNs);
-		position.y = (position.y + getPositionDelta(velocity.y,deltaTimeNs));
-		if(position.y< heightOffset - gameVariables.screenSize.y){
-			velocity.y *= -1;
+		PointF futurePosition = new PointF(
+				position.x + getPositionDelta(velocity.x,deltaTimeNs),
+				position.y + getPositionDelta(velocity.y,deltaTimeNs));
+
+		//Case player is out of screen on the left side;
+		if(futurePosition.x <= 0)
+			position.x = gameVariables.gameFieldSize.x - (futurePosition.x);
+		//Case player is out of screen on the right side
+		else if(futurePosition.x >= gameVariables.gameFieldSize.x - gameVariables.getLeftOrRightMargin()) {
+			position.x = futurePosition.x - (gameVariables.gameFieldSize.x - gameVariables.getLeftOrRightMargin());
+			if(position.x <= 0)
+				position.x = 1;
 		}
+		//Case player is visible
+		else {
+			position = futurePosition;
+		}
+		//Simulate Gravity
+		velocity.y -= getPositionDelta(calcMaxVelocity,deltaTimeNs);
+		Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);
 	}
 }
