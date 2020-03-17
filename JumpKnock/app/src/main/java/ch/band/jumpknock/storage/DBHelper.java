@@ -55,10 +55,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor resultData = db.rawQuery("Select * from " + RECORD_TABLE_NAME,null);
 
         resultData.moveToFirst();
-        do {
+        resultData.move(-1);
+        while (resultData.moveToNext()){
             Record record = new Record(resultData.getString(0),resultData.getInt(1));
             recordArrayList.add(record);
-        } while (resultData.moveToNext());
+        }
 
         return recordArrayList;
     }
