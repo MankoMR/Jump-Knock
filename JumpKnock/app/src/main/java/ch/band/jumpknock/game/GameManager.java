@@ -13,7 +13,8 @@ public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
 	GameVariables gameVariables;
 	private long playTimeNs;
-	private int heightOffset;
+	private float heightOffset;
+	private float oldPlayerHeight;
 	private Player player;
 	private ArrayList<Platform> platforms = new ArrayList<>();
 	private Random r;
@@ -53,7 +54,7 @@ public class GameManager {
 	public void ChangeDisplayVariables(GameVariables gameVariables){
 		this.gameVariables = gameVariables;
 	}
-	public int getHeightOffset() {return heightOffset; }
+	public float getHeightOffset() {return heightOffset; }
 	public int update(){
 		int deltaTime = GetDeltaTime();
 		if (isPaused)
@@ -61,7 +62,17 @@ public class GameManager {
 		int speedPerSecond = 400;
 		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.SEC_TO_NANO_SEC);
 		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
-		heightOffset += adjustedSpeed;
+		//heightOffset += adjustedSpeed;
+
+		if(player.position.y <= 0)
+			player.velocity.y = -1.05f * player.velocity.y;
+		player.update(gameVariables,heightOffset,deltaTime);
+
+		float delta = player.position.y - oldPlayerHeight;
+		if(delta > 0){
+			heightOffset+= delta;
+		}
+		oldPlayerHeight = (int)player.position.y;
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
@@ -91,10 +102,6 @@ public class GameManager {
 				i--;
 			}
 		}
-		if(player.position.y + gameVariables.playerSize.y - heightOffset <= 0)
-			player.velocity.y = -1.05f * player.velocity.y;
-		player.update(gameVariables,heightOffset,deltaTime);
-		if(player.position.y <= getHeightOffset())
 		uiNotifier.updateUi(heightOffset);
 		uiNotifier.UpdateGame(platforms,player,heightOffset);
 		return deltaTime;
