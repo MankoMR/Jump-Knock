@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorRecords"
+    tools:context=".ShowRecordsActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_Top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_LeftGold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_RightGold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_BottomGold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_TopSilver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_LeftSilver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_RightSilver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_BottomSilver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_TopBronce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_LeftBronce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_RightBronce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_BottomBronce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+
+
+    <ImageView
+        android:id="@+id/iv_trophyGold"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:src="@drawable/goldpokal"
+        app:layout_constraintBottom_toBottomOf="@id/gl_BottomGold"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightGold"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftGold"
+        app:layout_constraintTop_toTopOf="@id/gl_Top" />
+
+    <ImageView
+        android:id="@+id/iv_trophySilver"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginRight="64dp"
+        android:src="@drawable/silverpokal"
+        app:layout_constraintBottom_toBottomOf="@id/gl_BottomSilver"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightSilver"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftSilver"
+        app:layout_constraintTop_toTopOf="@id/gl_TopSilver" />
+
+    <ImageView
+        android:id="@+id/iv_trophyBronce"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="64dp"
+        android:src="@drawable/bronzepokal"
+        app:layout_constraintBottom_toBottomOf="@id/gl_BottomBronce"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightBronce"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftBronce"
+        app:layout_constraintTop_toTopOf="@id/gl_TopBronce" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/gl_LeftGold"
+        app:layout_constraintRight_toRightOf="@id/gl_RightGold"
+        app:layout_constraintTop_toTopOf="@id/gl_BottomBronce">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_fourthToTenth"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_fourth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_fourth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_fourth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_fourth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_fourth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fourth_name" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_fourth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <ImageView
+                    android:id="@+id/iv_fourth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_fourth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <TextView
+                    android:id="@+id/tv_fourth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_fourth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_fourth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_fourth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_fourth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_fifth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_fifth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_fifth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_fifth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_fifth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_fifth_name" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_fifth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <ImageView
+                    android:id="@+id/iv_fifth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_fifth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <TextView
+                    android:id="@+id/tv_fifth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_fifth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_fifth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_fifth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_fifth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_sixth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_sixth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_sixth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_sixth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_sixth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sixth_name" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_sixth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <ImageView
+                    android:id="@+id/iv_sixth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_sixth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <TextView
+                    android:id="@+id/tv_sixth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_sixth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_sixth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_sixth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_sixth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_seventh_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_seventh"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_seventh"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_seventh_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_seventh"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_seventh_name" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_seventh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <ImageView
+                    android:id="@+id/iv_seventh"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_seventh"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <TextView
+                    android:id="@+id/tv_seventh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="7"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_seventh"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_seventh"
+                    app:layout_constraintStart_toStartOf="@+id/iv_seventh"
+                    app:layout_constraintTop_toTopOf="@+id/iv_seventh"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_eighth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_eighth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_eighth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_eighth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_eighth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_eighth_name" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_eighth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <ImageView
+                    android:id="@+id/iv_eighth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_eighth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <TextView
+                    android:id="@+id/tv_eighth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_eighth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_eighth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_eighth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_eighth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/cl_ninth"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_ninth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_ninth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_ninth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_ninth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_ninth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ninth_name" />
+
+                <ImageView
+                    android:id="@+id/iv_ninth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_ninth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_ninth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/tv_ninth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_ninth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_ninth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_ninth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_ninth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:id="@+id/cl_tenth"
+                android:layout_height="96dp">
+
+                <TextView
+                    android:id="@+id/tv_tenth_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="tv_tenth"
+                    app:layout_constraintLeft_toLeftOf="@id/gl_tenth"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="@tools:sample/last_names" />
+
+                <TextView
+                    android:id="@+id/tv_tenth_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="TextView"
+                    app:layout_constraintStart_toStartOf="@+id/gl_tenth"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tenth_name"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_tenth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toStartOf="@+id/gl_tenth"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/badge" />
+
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/gl_tenth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/tv_tenth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_tenth"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_tenth"
+                    app:layout_constraintStart_toStartOf="@+id/iv_tenth"
+                    app:layout_constraintTop_toTopOf="@+id/iv_tenth"
+                    app:layout_constraintVertical_bias="0.19999999"
+                    android:textColor="@color/trophyText"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tv_first"
+        app:layout_constraintBottom_toTopOf="@+id/gl_Top"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightGold"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftGold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="64dp"
+        android:text="tv_second"
+        app:layout_constraintBottom_toTopOf="@+id/gl_TopSilver"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightSilver"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftSilver"
+        app:layout_constraintTop_toBottomOf="@id/gl_second" />
+
+    <TextView
+        android:id="@+id/tv_third"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="64dp"
+        android:text="tv_third"
+        app:layout_constraintBottom_toTopOf="@+id/gl_TopBronce"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightBronce"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftBronce"
+        app:layout_constraintTop_toBottomOf="@id/gl_TopSilver" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

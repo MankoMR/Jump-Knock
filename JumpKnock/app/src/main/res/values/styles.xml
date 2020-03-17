@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorMain</item>
+        <item name="colorPrimaryDark">@color/colorMainDark</item>
+        <item name="colorAccent">@color/colorMainAccent</item>
+    </style>
+    <style name="GoodTheme" parent="MainTheme">
+        <item name="colorPrimary">@color/colorGood</item>
+        <item name="colorPrimaryDark">@color/colorGoodDark</item>
+        <item name="colorAccent">@color/colorGoodAccent</item>
+    </style>
+    <style name="BadTheme" parent="MainTheme">
+        <item name="colorPrimary">@color/colorBad</item>
+        <item name="colorPrimaryDark">@color/colorBadDark</item>
+        <item name="colorAccent">@color/colorBadAccent</item>
+    </style>
+    <style name="RecordTheme" parent="MainTheme">
+        <item name="colorPrimary">@color/colorRecords</item>
+        <item name="colorPrimaryDark">@color/colorRecordsDark</item>
+        <item name="colorAccent">@color/colorRecordsAccent</item>
+    </style>
+
+</resources>
