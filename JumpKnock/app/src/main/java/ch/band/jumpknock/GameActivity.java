@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Random;
 
 import ch.band.jumpknock.game.GameManager;
+import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
 import ch.band.jumpknock.game.UiNotifier;
@@ -176,7 +177,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 PointF playerSize = new PointF(lp.width,lp.height);
 
                 //now initialising the gamemanager, and stop listening anymore.
-                gameManager = new GameManager(notifier,gameFieldSize,playerSize,platformSize);
+                GameVariables gameVariables = new GameVariables(screenSize,gameFieldSize,playerSize,platformSize);
+                gameManager = new GameManager(notifier,gameVariables);
                 movementSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
                 sensorManager.registerListener(sensorEventListener,movementSensor,SensorManager.SENSOR_DELAY_GAME);
 

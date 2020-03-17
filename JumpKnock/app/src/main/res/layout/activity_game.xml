@@ -12,7 +12,6 @@
         android:id="@+id/FlGameContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#E3F2FD"
         android:foregroundGravity="left|bottom"
         android:foregroundTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

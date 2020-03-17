@@ -11,10 +11,7 @@ import ch.band.jumpknock.R;
 
 public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
-	public static final int SEC_TO_NANO_SEC = 1_000_000_000;
-	public PointF screenSize;
-	public PointF playerSize;
-	public PointF platformSize;
+	GameVariables gameVariables;
 	private long playTimeNs;
 	private int heightOffset;
 	private Player player;
@@ -28,15 +25,13 @@ public class GameManager {
 	private static int FPS = 60;
 	Platform top;
 
-	public GameManager(UiNotifier uiNotifier, PointF screenSize, PointF playerSize, PointF platformSize){
+	public GameManager(UiNotifier uiNotifier,GameVariables gameVariables){
 		this.uiNotifier = uiNotifier;
-		this.screenSize = screenSize;
-		this.playerSize = playerSize;
-		this.platformSize = platformSize;
+		this.gameVariables = gameVariables;
 		r = new Random();
 		player = new Player();
 		player.drawableId = R.drawable.jumper;
-		player.position = new PointF(screenSize.x / 2 - playerSize.x / 2,screenSize.y / 2);
+		player.position = new PointF(gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,gameVariables.gameFieldSize.y / 2);
 		isPaused = isStopped = false;
 		gameRunner = new Handler();
 		gameRunner.postDelayed(createGameLoop(),1000);
@@ -57,10 +52,8 @@ public class GameManager {
 			}
 		};
 	}
-	public void ChangeDisplayVariables(PointF screenSize,PointF playerSize, PointF platformSize){
-		this.screenSize = screenSize;
-		this.playerSize = playerSize;
-		this.platformSize = platformSize;
+	public void ChangeDisplayVariables(GameVariables gameVariables){
+		this.gameVariables = gameVariables;
 	}
 	public int getHeightOffset() {return heightOffset; }
 	public int update(){
@@ -68,17 +61,17 @@ public class GameManager {
 		if (isPaused)
 			return deltaTime;
 		int speedPerSecond = 400;
-		float adjustedSpeed = speedPerSecond * ((float)deltaTime / SEC_TO_NANO_SEC);
+		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.SEC_TO_NANO_SEC);
 		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
 		heightOffset += adjustedSpeed;
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
-			distance = heightOffset + screenSize.y - platforms.get(platforms.size() - 1).position.y;
+			distance = heightOffset + gameVariables.screenSize.y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
-		if (platforms.size() == 0 || distance > platformSize.y * 3 ){
+		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 3 ){
 			Platform p = new Platform();
-			p.position = new PointF(r.nextFloat() * (screenSize.x - platformSize.x),heightOffset+ screenSize.y + platformSize.y);
+			p.position = new PointF(r.nextFloat() * (gameVariables.screenSize.x - gameVariables.platformSize.x),heightOffset+ gameVariables.screenSize.y + gameVariables.platformSize.y);
 			p.drawableId = Platform.PlatformResIds[r.nextInt(Platform.PlatformResIds.length)];
 			p.isOneTimeUse = false;
 			if(r.nextBoolean()){
@@ -92,13 +85,13 @@ public class GameManager {
 		}
 		for(int i = 0;i < platforms.size();i++){
 			Platform plat = platforms.get(i);
-			if(plat.position.y + platformSize.y * 3 - heightOffset <= 0){
+			if(plat.position.y + gameVariables.platformSize.y * 3 - heightOffset <= 0){
 				uiNotifier.removePlatform(plat);
 				platforms.remove(i);
 				i--;
 			}
 		}
-		player.update(screenSize,heightOffset,deltaTime);
+		player.update(gameVariables,heightOffset,deltaTime);
 		uiNotifier.updateUi(heightOffset);
 		uiNotifier.UpdateGame(platforms,player,heightOffset);
 		return deltaTime;
@@ -111,7 +104,7 @@ public class GameManager {
 	}
 	public void getAcceleration(float acceleration, long deltaTime){
 		float pixPerSec = 30;
-		float calcSpeed = pixPerSec * (float)deltaTime / SEC_TO_NANO_SEC;
+		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.SEC_TO_NANO_SEC;
 		float multiplier = calcSpeed / 1.5f;
 
 		Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);

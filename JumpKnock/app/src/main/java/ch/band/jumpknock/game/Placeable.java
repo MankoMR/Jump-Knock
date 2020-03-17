@@ -9,7 +9,7 @@ public class Placeable {
 
 	}
 	public static float getPositionDelta( float velocity, long timeDeltaNs){
-		float bla = velocity * ((float)GameManager.SEC_TO_NANO_SEC / timeDeltaNs);
+		float bla = velocity * ((float)GameVariables.SEC_TO_NANO_SEC / timeDeltaNs);
 		return bla;
 	}
 }
