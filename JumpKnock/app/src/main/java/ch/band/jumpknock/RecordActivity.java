@@ -21,10 +21,17 @@ public class RecordActivity extends AppCompatActivity {
     private static String dbName = "knockJumpDB";
     private int reachedHeight;
 
+    TextView tv_name;
+    TextView tv_points;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekord);
+
+        tv_name = findViewById(R.id.tv_name);
+        tv_points = findViewById(R.id.tv_points);
+        //TODO FST weiter fehler korrigieren
 
         reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
@@ -45,16 +52,13 @@ public class RecordActivity extends AppCompatActivity {
         tv_points.setText(reachedHeight +"");
     }
 
-    TextView tv_name;
-    TextView tv_points;
 
     public void btnBackToStartGameClicked(android.view.View view)
     {
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
 
-        tv_name = findViewById(R.id.tv_name);
-        tv_points = findViewById(R.id.tv_points);
+
         String point = "" + tv_points.getText();//todo code convertet
         String name = "" + tv_name.getText();
         Record record = new Record(1,name,Integer.parseInt(point));
