@@ -2,11 +2,19 @@ package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
 import android.hardware.SensorManager;
+import androidx.annotation.DrawableRes;
 
 public class Player extends Placeable {
 	public PointF velocity;
 	public float gravity;
-	public Player(){
+	private float maxSpeedPerSec;
+	public Player(GameVariables gameVariables, @DrawableRes int picRessource){
+		super();
+		this.position = new PointF(
+				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
+				gameVariables.gameFieldSize.y * 2f / 3f);
+		this.drawableId = picRessource;
+		this.velocity = new PointF();
 		velocity = new PointF();
 		gravity = SensorManager.GRAVITY_EARTH;
 	}

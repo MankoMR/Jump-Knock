@@ -164,6 +164,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 //TODO: Calculate Correct Size
                 lp.width = (int) (dPlayer.getIntrinsicWidth() * Scalefactor / platforWidthScale);
                 lp.height = (int) (dPlayer.getIntrinsicHeight() * Scalefactor / platforWidthScale);
+                lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
                 flContainer.updateViewLayout(player,lp);
 
                 //Adding Height to the View because when the Platform is near the Top or Bottom it Resizes to still fit into the Container
@@ -177,7 +178,17 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 PointF playerSize = new PointF(lp.width,lp.height);
 
                 //now initialising the gamemanager, and stop listening anymore.
-                GameVariables gameVariables = new GameVariables(screenSize,gameFieldSize,playerSize,platformSize);
+                GameVariables gameVariables = new GameVariables(
+                        screenSize, gameFieldSize, playerSize, platformSize,
+                        R.drawable.jumper ,new int[]{
+                        R.drawable.eearthblock1, R.drawable.eearthblock2,
+                        R.drawable.grasblock1, R.drawable.grasblock2,
+                        R.drawable.stoneblock1, R.drawable.stoneblock2,
+                        R.drawable.stoneblockwithgrass1, R.drawable.stoneblockwithgrass2,
+                        R.drawable.cloud1, R.drawable.cloud2 },
+                        new int[]{
+                        R.drawable.tree, R.drawable.bush1, R.drawable.bush2 }
+                        );
                 gameManager = new GameManager(notifier,gameVariables);
                 movementSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
                 sensorManager.registerListener(sensorEventListener,movementSensor,SensorManager.SENSOR_DELAY_GAME);

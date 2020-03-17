@@ -29,9 +29,7 @@ public class GameManager {
 		this.uiNotifier = uiNotifier;
 		this.gameVariables = gameVariables;
 		r = new Random();
-		player = new Player();
-		player.drawableId = R.drawable.jumper;
-		player.position = new PointF(gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,gameVariables.gameFieldSize.y / 2);
+		player = new Player(gameVariables,R.drawable.jumper);
 		isPaused = isStopped = false;
 		gameRunner = new Handler();
 		gameRunner.postDelayed(createGameLoop(),1000);
@@ -72,12 +70,12 @@ public class GameManager {
 		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 3 ){
 			Platform p = new Platform();
 			p.position = new PointF(r.nextFloat() * (gameVariables.screenSize.x - gameVariables.platformSize.x),heightOffset+ gameVariables.screenSize.y + gameVariables.platformSize.y);
-			p.drawableId = Platform.PlatformResIds[r.nextInt(Platform.PlatformResIds.length)];
+			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
 			p.isOneTimeUse = false;
 			if(r.nextBoolean()){
 				p.decoration = new Decoration();
 				p.decoration.position = r.nextFloat();
-				p.decoration.drawableId = Decoration.DecResIds[r.nextInt(Decoration.DecResIds.length)];
+				p.decoration.drawableId = gameVariables.decorationDrawIds[r.nextInt(gameVariables.decorationDrawIds.length)];
 			}
 			platforms.add(p);
 			uiNotifier.addPlatform(p);
