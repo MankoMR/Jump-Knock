@@ -276,11 +276,11 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         platforms.remove(platform);
     }
     @Override
-    public void UpdateGame(List<Platform> platforms, Player player, int reachedHeight) {
+    public void UpdateGame(List<Platform> platforms, Player player, float reachedHeight) {
         for (Platform platform: platforms){
             ConstraintLayout layout = this.platforms.get(platform);
             FrameLayout.LayoutParams layoutParams =  (FrameLayout.LayoutParams) layout.getLayoutParams();
-            layoutParams.bottomMargin = (int)platform.position.y - reachedHeight;
+            layoutParams.bottomMargin =  (int)(platform.position.y - reachedHeight);
             layoutParams.leftMargin = (int)platform.position.x;
             layout.setLayoutParams(layoutParams);
         }
@@ -290,7 +290,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         this.player.setLayoutParams(lp);
     }
     @Override
-    public void updateUi(int height) {
+    public void updateUi(float height) {
         tvReachedHeight.setText(String.valueOf(height));
     }
     @Override

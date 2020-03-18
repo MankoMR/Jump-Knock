@@ -28,7 +28,7 @@ public class Player extends Placeable {
 	public void update(int deltaTimeNs) {
 		super.update(deltaTimeNs);
 	}
-	public void update(GameVariables gameVariables,int heightOffset,int deltaTimeNs){
+	public void update(GameVariables gameVariables, float heightOffset, int deltaTimeNs){
 		float calcMaxVelocity = getPositionDelta(maxSpeedPerSec,GameVariables.SEC_TO_NANO_SEC);
 
 		if(velocity.x < -calcMaxVelocity)
