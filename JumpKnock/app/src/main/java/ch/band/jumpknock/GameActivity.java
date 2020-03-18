@@ -72,6 +72,13 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /* TODO für testzwecke
+        Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
+        recordIntent.putExtra(REACHED_HEIGHT,(int)5000);
+        startActivity(recordIntent);
+        */
+
         setContentView(R.layout.activity_game);
         //Initialising variables.
         tvReachedHeight = findViewById(R.id.TvHeight);
