@@ -21,7 +21,7 @@ public class Player extends Placeable {
 		this.velocity.y = 1.2500f;
 		gravity = SensorManager.GRAVITY_EARTH;
 		maxSpeedPerSec = 30;
-
+		//example commit to show how to push to origin / GitHub.
 	}
 
 	@Override
