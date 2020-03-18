@@ -67,9 +67,9 @@ public class GameManager {
 		float delta = player.update(gameVariables,heightOffset,deltaTime);
 		if(delta <= 0){
 			testForCollision();
-			if(player.position.y - heightOffset - gameVariables.getTopOrBottomMargin() <= 0){
+			if(player.position.y <= heightOffset){
 				if(!isGameOver){
-					//uiNotifier.gameOver(heightOffset);
+					uiNotifier.gameOver(heightOffset);
 					isGameOver = true;
 					Log.d(TAG,"Player Velocity: "+player.velocity.toString()+" Position:"+ player.position.toString());
 				}

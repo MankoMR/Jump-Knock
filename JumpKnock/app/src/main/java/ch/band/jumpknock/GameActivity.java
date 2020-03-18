@@ -287,7 +287,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             layout.setLayoutParams(layoutParams);
         }
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) this.player.getLayoutParams();
-        lp.bottomMargin = (int)player.position.y;
+        lp.bottomMargin = (int)(player.position.y - reachedHeight);
         lp.leftMargin = (int)player.position.x;
         this.player.setLayoutParams(lp);
     }
