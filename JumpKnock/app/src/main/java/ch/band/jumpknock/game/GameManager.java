@@ -164,4 +164,7 @@ public class GameManager {
 				}
 		}
 	}
+	public boolean removePlatform(Platform platform){
+		return platforms.remove(platform);
+	}
 }
