@@ -25,27 +25,42 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         super(context, DATABASE_NAME,null,1);
     }
+
+    /**
+     * erschaft die tabelle Records
+     * mit den Felder NICKNAME und HEIGHT
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + RECORD_TABLE_NAME + " (" + RECORD_NICKNAME + " VARCHAR, " + RECORD_HEIGHT + " INTEGER);");
     }
 
+    /**
+     * löscht und erstellt die benutzen tabellen neu
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + RECORD_TABLE_NAME);
         onCreate(db);
     }
 
+    /**
+     * speichert den mitgebenen Record datensatz in der Datenbank
+     * @param record den zu speichernden Record datensatzt
+     */
     public void saveRecord(Record record)
     {
-        //TODO daten hier speichern
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("INSERT INTO " + RECORD_TABLE_NAME + " VALUES('" + record.getNickname() + "','" + record.getHeight() + "');");
     }
 
     /**
      * gibt alle Daten aus der Datenbank
-     * @return gibt alle Daten aus der Datenbank
+     * @return eine Record Liste mit allen Daten aus der Datenbank
      */
     public ArrayList<Record> getAllRecords()
     {
