@@ -3,58 +3,44 @@ package ch.band.jumpknock;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
-import ch.band.jumpknock.storage.SqliteStorageBackend;
 
 public class ShowRecordsActivity extends AppCompatActivity {
 
-    TextView[] firSecThir = new TextView[3];
-    LinearLayout linearLayout;
+    TextView[] tv_firstToThird = new TextView[3];
+    LinearLayout ll_fourthToTenth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_rekord);
 
+        tv_firstToThird[0] = findViewById(R.id.tv_first);
+        tv_firstToThird[1] = findViewById(R.id.tv_second);
+        tv_firstToThird[2] = findViewById(R.id.tv_third);
+
+        ll_fourthToTenth = findViewById(R.id.ll_fourthToTenth);
+
         RecordRepository recordRepository = new RecordRepository(this);
-        Record[] records = recordRepository.GetTopTen();
+        Record[] foundRecords = recordRepository.GetTopTen();
 
-       // RecordRepository recordRepository = RecordRepository.getRecordRepository();
-        //List<Record> recordList  = recordRepository.GetTopTen();
-
-        firSecThir[0] = findViewById(R.id.tv_first);
-        firSecThir[1] = findViewById(R.id.tv_second);
-        firSecThir[2] = findViewById(R.id.tv_third);
-
-        linearLayout = findViewById(R.id.ll_fourthToTenth);
-        ((ConstraintLayout) linearLayout.getChildAt(0)).getChildAt(0).setBackgroundColor(Color.MAGENTA);
-
+        //damit es keine probleme bei der weiterverarbeitung gibt muss topTen aus 10 Record datenstätze bestenen
         Record[] topTen = new Record[10];
         for(int i = 0; i < topTen.length - 1; i++)
         {
-            if(i < records.length)
+            if(i < foundRecords.length)
             {
-                topTen[i] = records[i];
+                topTen[i] = foundRecords[i];
             }
         }
 
-        //TODO ??
-        //SqliteStorageBackend backend = new SqliteStorageBackend();
-        //backend.getRecords();
-
+        //loop über die ersten 3 Angezeigten Ergebnisse
         for(int i = 0; i < 3; i++)
         {
             if(topTen[i] == null)
@@ -64,7 +50,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
             }
             else
             {
-                firSecThir[i].setText(topTen[i].toString());
+                tv_firstToThird[i].setText(topTen[i].toString());
             }
         }
 
@@ -73,23 +59,25 @@ public class ShowRecordsActivity extends AppCompatActivity {
         {
             if(topTen[i + 3] == null)
             {
-                linearLayout.getChildAt(i).setVisibility(View.INVISIBLE);
+                ll_fourthToTenth.getChildAt(i).setVisibility(View.INVISIBLE);
             }
             else
             {
-                ((TextView)((ConstraintLayout)linearLayout.getChildAt(i)).getChildAt(0)).setText(topTen[i + 3].getNickname());
-                ((TextView)((ConstraintLayout)linearLayout.getChildAt(i)).getChildAt(1)).setText(Integer.toString(topTen[i + 3].getHeight()));
+                ((TextView)((ConstraintLayout) ll_fourthToTenth.getChildAt(i)).getChildAt(0)).setText(topTen[i + 3].getNickname());
+                ((TextView)((ConstraintLayout) ll_fourthToTenth.getChildAt(i)).getChildAt(1)).setText(Integer.toString(topTen[i + 3].getHeight()));
             }
         }
     }
 
-    //loop für die Views zum sie Unsichtbar zu machen, falls es keine Daten hat
+    /**
+     * loop für die Views zum sie Unsichtbar zu machen, falls es keine Daten hat
+     * @param nbr nummer der View 1-3
+     */
     public void setInvisble(int nbr) {
             for (int i = nbr; i < 3; i++) {
-                firSecThir[i].setVisibility(View.INVISIBLE);
+                tv_firstToThird[i].setVisibility(View.INVISIBLE);
             }
-        linearLayout.setVisibility(View.INVISIBLE);
+        ll_fourthToTenth.setVisibility(View.INVISIBLE);
     }
-
 
 }
