@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,8 @@ public class RecordActivity extends AppCompatActivity {
     private static String dbTable = "Records";
     private static String dbName = "knockJumpDB";
     private int reachedHeight;
+    public static final  String SHOWTEXT = "showText";
+    private String text;
 
     TextView tv_name;
     TextView tv_points;
@@ -59,7 +61,7 @@ public class RecordActivity extends AppCompatActivity {
      * öffnet wieder die Startview und speichert zuerst noch den Rekord daten satz in der DB
      * @param view
      */
-    public void btnBackToStartGameClicked(android.view.View view)
+    public void btnBackToStartGameClicked(View view)
     {
 
         Integer points = Integer.parseInt("" + tv_points.getText());
@@ -85,14 +87,7 @@ public class RecordActivity extends AppCompatActivity {
         RecordRepository recordRepository = new RecordRepository(this);
         Random random = new Random();
         newRecord.setHeight(random.nextInt(10000));
-        if(recordRepository.Save(newRecord))
-        {
-            Toast.makeText(this,"Daten wurden gespeichert",Toast.LENGTH_SHORT);
-        }
-        else
-        {
-            Toast.makeText(this,"Fehler beim speichern der Daten",Toast.LENGTH_SHORT);
-        }
+        recordRepository.Save(newRecord);
         /*
         Random random = new Random();
         int height = random.nextInt(10000);
