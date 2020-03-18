@@ -12,12 +12,8 @@ import java.util.Random;
 
 
 public class SqlBackend implements StorageBackendInterface {
-    private ArrayList<Record> records = new ArrayList<>();
 
     private  Context context;
-    //TODO useless
-    private static String dbTable = "Records";
-    private static String dbName = "knockJumpDB";
 
     public SqlBackend(Context context)
     {
@@ -27,14 +23,14 @@ public class SqlBackend implements StorageBackendInterface {
     /**
      * speichert den mitgeben Record in der Datenbank
      * @param record
-     * @return false
+     * @return ture falls zeug gespeichert wurde
      */
     @Override
     public boolean addRecord(Record record) {
         DBHelper dbHelper = new DBHelper(context);
-        dbHelper.saveRecord(record);
-        //TODO speicher erfolg überprüfungsmeldung
-        return false;
+        boolean saved = dbHelper.saveRecord(record);
+        dbHelper.close();
+        return saved;
     }
 
     /**
@@ -49,24 +45,14 @@ public class SqlBackend implements StorageBackendInterface {
     }
 
     /**
-     * gibt false zurück
-     * @param id
-     * @return
-     */
-    @Override
-    public boolean removeRecord(int id) {
-        return false;
-        //TODO useless
-    }
-
-    /**
      * gibt eine Liste mit allen Records aus der Datenbank zurück
      * @return
      */
     @Override
     public List<Record> getRecords() {
         DBHelper dbHelper = new DBHelper(context);
-        records = dbHelper.getAllRecords();
+        ArrayList<Record> records = dbHelper.getAllRecords();
+        dbHelper.close();
         return records;
     }
 }

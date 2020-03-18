@@ -6,19 +6,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecordRepository {
-	//private static final RecordRepository ourRecordRepository = new RecordRepository();
 	private StorageBackendInterface storageBackend;
 
-	//TODO changet to public
 	public RecordRepository(Context context){
-	//	storageBackend = new TestBackend();
 		storageBackend = new SqlBackend(context);
 	}
 
-	//public static RecordRepository getRecordRepository(){
-	//	return ourRecordRepository;
-	//}
-
+	/**
+	 *
+	 * @param record
+	 * @return
+	 */
 	public boolean  IsInTopTen(Record record){
 		List<Record> records = storageBackend.getRecords();
 		Collections.sort(records);//sortiert liste
@@ -27,13 +25,19 @@ public class RecordRepository {
 			return true;
 		else {
 			for (Record r : topTen) {
-				if (r.nickname == record.nickname && r.height == record.height){
+				if(r.getNickname() == record.getNickname() && r.getHeight() == record.getHeight())
+				{
 					return  true;
 				}
 			}
 		}
 		return false;
 	}
+
+	/**
+	 *
+	 * @return
+	 */
 	public Record[] GetTopTen(){
 		List<Record> records = storageBackend.getRecords();
 		Collections.sort(records);
@@ -41,6 +45,12 @@ public class RecordRepository {
 		Record[] recordArray = topten.toArray(new Record[topten.size()]);
 		return recordArray;
 	}
+
+	/**
+	 * speichert den Record in der Datenbank
+	 * @param record
+	 * @return true falls gespeichert wurde
+	 */
 	public boolean Save(Record record){
 		return storageBackend.addRecord(record);
 	}
