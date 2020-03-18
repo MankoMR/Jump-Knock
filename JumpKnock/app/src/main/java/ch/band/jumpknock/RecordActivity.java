@@ -31,7 +31,7 @@ public class RecordActivity extends AppCompatActivity {
 
         tv_name = findViewById(R.id.tv_name);
         tv_points = findViewById(R.id.tv_points);
-        //TODO FST weiter fehler korrigieren
+        //TODO Test
 
         reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
