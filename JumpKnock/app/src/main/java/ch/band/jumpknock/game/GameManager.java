@@ -19,6 +19,7 @@ public class GameManager {
 	private Random r;
 	public boolean isPaused;
 	public boolean isStopped;
+	private boolean isGameOver = false;
 
 	private UiNotifier uiNotifier;
 	private Handler gameRunner;
@@ -66,6 +67,14 @@ public class GameManager {
 		float delta = player.update(gameVariables,heightOffset,deltaTime);
 		if(delta <= 0){
 			testForCollision();
+			if(player.position.y - heightOffset - gameVariables.getTopOrBottomMargin() <= 0){
+				if(!isGameOver){
+					//uiNotifier.gameOver(heightOffset);
+					isGameOver = true;
+					Log.d(TAG,"Player Velocity: "+player.velocity.toString()+" Position:"+ player.position.toString());
+				}
+				heightOffset +=delta;
+			}
 		}else {
 			heightOffset+= delta;
 		}

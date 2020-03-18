@@ -15,7 +15,7 @@ public class Player extends Placeable {
 		super();
 		this.position = new PointF(
 				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
-				gameVariables.gameFieldSize.y * 1f / 10f);
+				gameVariables.getTopOrBottomMargin() * 1.2f);
 		this.drawableId = picRessource;
 		this.velocity = new PointF();
 		this.velocity.y = 1.2500f;

@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private MediaPlayer backgroundMusic;
     private MediaPlayer fallSound;
     private Random random;
+    private Handler handler;
 
 
     @Override
@@ -98,7 +100,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         bouncer.seekTo(0);
         bouncer.start();
     }
-    private void PlayFall(){
+    private void playFall(){
         fallSound.seekTo(0);
         fallSound.start();
     }
@@ -114,7 +116,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             playBounce();
         });
         btnGameOver.setOnClickListener(view -> {
-            PlayFall();
+            playFall();
         });
         btnFinish.setOnClickListener(view ->{
             gameOver(random.nextInt(20001));
@@ -294,10 +296,14 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         tvReachedHeight.setText(String.valueOf(height));
     }
     @Override
-    public void gameOver(int height) {
-        Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
-        recordIntent.putExtra(REACHED_HEIGHT,height);
-        startActivity(recordIntent);
+    public void gameOver(float height) {
+        playFall();
+        handler.postDelayed(()->{
+            Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
+            recordIntent.putExtra(REACHED_HEIGHT,height);
+            startActivity(recordIntent);
+            gameManager.isStopped = true;
+        },4000);
     }
     @Override
     public void playerCollidedWith(Platform platform) {
