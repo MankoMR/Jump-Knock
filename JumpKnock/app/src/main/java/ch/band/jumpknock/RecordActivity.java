@@ -40,7 +40,9 @@ public class RecordActivity extends AppCompatActivity {
         Record[] topTen = recordRepository.GetTopTen();
         HashMap<String,Integer> usedNames = new HashMap<>();
         for (Record rec:topTen){
-            int nameCount = usedNames.get(rec.getNickname());
+            Integer nameCount = usedNames.get(rec.getNickname());
+            if(nameCount == null)
+                nameCount = new Integer(0);
             nameCount++;
             usedNames.put(rec.getNickname(),nameCount);
         }

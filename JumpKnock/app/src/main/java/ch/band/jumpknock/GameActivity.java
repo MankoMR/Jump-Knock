@@ -44,8 +44,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     public static final  String REACHED_HEIGHT = "reached_height";
     GameManager gameManager;
     TextView tvReachedHeight;
-    //All moving things are in the flContainer
+    //All moving things except the player are in the flContainer
     FrameLayout flContainer;
+    //The the player needs to be always in the foreground. That makes a separate framelayout necessary.
+    FrameLayout flPlayerContainer;
     //For Debug Purposes
     LinearLayout debugContainer;
     Button btnBounce, btnGameOver, btnFinish;
@@ -61,6 +63,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private MediaPlayer[] bounceSounds = new MediaPlayer[3];
     private MediaPlayer backgroundMusic;
     private MediaPlayer fallSound;
+    private int bounceSoundCounter;
     private Random random;
     private Handler handler;
 
@@ -71,11 +74,12 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         setContentView(R.layout.activity_game);
         //Initialising variables.
         tvReachedHeight = findViewById(R.id.TvHeight);
-        flContainer = findViewById(R.id.FlGameContainer);
+        flContainer = findViewById(R.id.FlPlatformContainer);
+        flPlayerContainer = findViewById(R.id.FlPlayerContainer);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         random = new Random();
         ofSetValues = getIntent().getFloatArrayExtra(CalibrateActivity.SENSOR_OFFSETS);
-
+        handler = new Handler();
         InitDebugStuff();
         InitSounds();
         ExecuteGameInitialisation();
@@ -96,7 +100,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         fallSound.release();
     }
     private void playBounce(){
-        MediaPlayer bouncer = bounceSounds[random.nextInt(3)];
+        MediaPlayer bouncer = bounceSounds[bounceSoundCounter%3];
+        bounceSoundCounter++;
         bouncer.seekTo(0);
         bouncer.start();
     }
@@ -155,19 +160,19 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
 
                 //getting the size of the player
-                player = new ImageView(flContainer.getContext());
+                player = new ImageView(flPlayerContainer.getContext());
                 player.setImageResource(R.drawable.jumper);
                 player.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 //this adjusts the scaling so that the aspect ratio stays the same.
                 player.setAdjustViewBounds(true);
-                flContainer.addView(player);
+                flPlayerContainer.addView(player);
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) player.getLayoutParams();
                 Drawable dPlayer = getResources().getDrawable(R.drawable.jumper);
                 //TODO: Calculate Correct Size
                 lp.width = (int) (dPlayer.getIntrinsicWidth() * Scalefactor / platforWidthScale);
                 lp.height = (int) (dPlayer.getIntrinsicHeight() * Scalefactor / platforWidthScale);
                 lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
-                flContainer.updateViewLayout(player,lp);
+                flPlayerContainer.updateViewLayout(player,lp);
 
                 //Adding Height to the View because when the Platform is near the Top or Bottom it Resizes to still fit into the Container
                 ConstraintLayout.LayoutParams containerParams = (ConstraintLayout.LayoutParams) flContainer.getLayoutParams();
@@ -175,6 +180,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 containerParams.height =(int)platformSize.y * 6 + flContainer.getHeight();
                 containerParams.width = lp.width + flContainer.getWidth();
                 flContainer.setLayoutParams(containerParams);
+                ConstraintLayout.LayoutParams playerContainerParams = (ConstraintLayout.LayoutParams) flPlayerContainer.getLayoutParams();
+                playerContainerParams.height = containerParams.height;
+                playerContainerParams.width = containerParams.width;
+                flPlayerContainer.setLayoutParams(playerContainerParams);
 
                 PointF gameFieldSize = new PointF(containerParams.width, containerParams.height);
                 PointF playerSize = new PointF(lp.width,lp.height);
