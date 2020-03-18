@@ -10,6 +10,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private MediaPlayer backgroundMusic;
     private MediaPlayer fallSound;
     private Random random;
+    private Handler handler;
 
 
     @Override
@@ -93,12 +95,12 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         backgroundMusic.release();
         fallSound.release();
     }
-    private void PlayBounce(){
+    private void playBounce(){
         MediaPlayer bouncer = bounceSounds[random.nextInt(3)];
         bouncer.seekTo(0);
         bouncer.start();
     }
-    private void PlayFall(){
+    private void playFall(){
         fallSound.seekTo(0);
         fallSound.start();
     }
@@ -111,10 +113,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         etHeight.setText(random.nextInt(20001)+"");
 
         btnBounce.setOnClickListener((view)->{
-            PlayBounce();
+            playBounce();
         });
         btnGameOver.setOnClickListener(view -> {
-            PlayFall();
+            playFall();
         });
         btnFinish.setOnClickListener(view ->{
             gameOver(random.nextInt(20001));
@@ -294,16 +296,19 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         tvReachedHeight.setText(String.valueOf(height));
     }
     @Override
-    public void gameOver(int height) {
-        Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
-        recordIntent.putExtra(REACHED_HEIGHT,height);
-        startActivity(recordIntent);
+    public void gameOver(float height) {
+        playFall();
+        handler.postDelayed(()->{
+            Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
+            recordIntent.putExtra(REACHED_HEIGHT,height);
+            startActivity(recordIntent);
+            gameManager.isStopped = true;
+        },4000);
     }
     @Override
     public void playerCollidedWith(Platform platform) {
-
+        this.playBounce();
     }
-
     @Override
     public float getSmartPhoneRotation() {
         return 0;
@@ -348,7 +353,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         //Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
         gameManager.getAcceleration(event.values[1] - ofSetValues[1],deltatime);
-        Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
+        //Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
     }
 
     /**

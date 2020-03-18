@@ -7,7 +7,7 @@ public interface UiNotifier {
 	void removePlatform(Platform platform);
 	void UpdateGame(List<Platform> platforms, Player player, float reachedHeight);
 	void updateUi(float height);
-	void gameOver(int height);
+	void gameOver(float height);
 	void playerCollidedWith(Platform platform);
 	float getSmartPhoneRotation();
 }
