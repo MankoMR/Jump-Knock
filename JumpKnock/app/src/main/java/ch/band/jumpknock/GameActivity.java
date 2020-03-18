@@ -150,7 +150,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     private void NavigateGameOver(int reachedHeight){
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
-        boolean isTopTen = recordRepository.IsInTopTen(new Record(0,"",reachedHeight));
+        boolean isTopTen = recordRepository.IsInTopTen(new Record("",reachedHeight));
         if(isTopTen){
         }else {
 

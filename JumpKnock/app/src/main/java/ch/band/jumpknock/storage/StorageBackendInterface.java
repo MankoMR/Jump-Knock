@@ -5,6 +5,6 @@ import java.util.List;
 public interface StorageBackendInterface {
 	boolean addRecord(Record record);
 	boolean removeRecord(Record record);
-	boolean removeRecord(int id);
+	//TODO braucht es ein removeRecord?
 	List<Record> getRecords();
 }

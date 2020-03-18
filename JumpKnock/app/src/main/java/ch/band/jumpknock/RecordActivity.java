@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +36,7 @@ public class RecordActivity extends AppCompatActivity {
 
         reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
-        Record curRec = new Record(0,null,reachedHeight);
+        Record curRec = new Record(null,reachedHeight);
         boolean isInTopTen = recordRepository.IsInTopTen(curRec);
         Record[] topTen = recordRepository.GetTopTen();
         HashMap<String,Integer> usedNames = new HashMap<>();
@@ -54,30 +55,44 @@ public class RecordActivity extends AppCompatActivity {
         tv_points.setText(reachedHeight +"");
     }
 
-
+    /**
+     * öffnet wieder die Startview und speichert zuerst noch den Rekord daten satz in der DB
+     * @param view
+     */
     public void btnBackToStartGameClicked(android.view.View view)
     {
-        Intent main = new Intent(this, MainActivity.class);
-        startActivity(main);
 
-
-        String point = "" + tv_points.getText();//todo code convertet
+        Integer points = Integer.parseInt("" + tv_points.getText());
         String name = "" + tv_name.getText();
-        Record record = new Record(1,name,Integer.parseInt(point));
+        Record record = new Record(name,points);
 
 
         mydatabase = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
         //mydatabase.execSQL("DROP TABLE IF EXISTS " + dbTable);
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS " + dbTable + " (Name VARCHAR, Height INTEGER);");
         updateDB(record);
+
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
     }
 
+    /**
+     * speicher den Record in der Datenbank
+     * @param newRecord
+     */
     public void updateDB(Record newRecord)
     {
         RecordRepository recordRepository = new RecordRepository(this);
         Random random = new Random();
-        newRecord.height = random.nextInt(10000);
-        recordRepository.Save(newRecord);
+        newRecord.setHeight(random.nextInt(10000));
+        if(recordRepository.Save(newRecord))
+        {
+            Toast.makeText(this,"Daten wurden gespeichert",Toast.LENGTH_SHORT);
+        }
+        else
+        {
+            Toast.makeText(this,"Fehler beim speichern der Daten",Toast.LENGTH_SHORT);
+        }
         /*
         Random random = new Random();
         int height = random.nextInt(10000);

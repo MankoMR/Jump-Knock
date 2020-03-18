@@ -5,25 +5,11 @@ import androidx.annotation.NonNull;
 
 public class Record implements Comparable {
 
+	private String nickname;
+	private int height;
 
-	int id;
-	public String nickname;
-	public int height;
-
-
-
-
-	public Record(int id,String nickname,int height){
-		this.id = id;
+	public Record(String nickname,int height){
 		this.nickname = nickname;
-		this.height = height;
-	}
-
-	//construktor ohne id
-	//TODO es braucht id vermutlich gar nicht
-	public Record (String name, int height)
-	{
-		this.nickname = name;
 		this.height = height;
 	}
 
@@ -78,29 +64,42 @@ public class Record implements Comparable {
 		return 1;
 	}
 
-	@NonNull
 	@Override
 	public String toString()
 	{
 		return nickname + " " + height;
 	}
-	//public String toString() {
-		//return nickname + " jumped over " + height;
-	//}
 
-	public String getNickname() {
+
+	public String getNickname()
+	{
 		return nickname;
 	}
 
-	public void setNickname(String nickname) {
+	/**
+	 * speichert den mitgeben String als nickname ab
+	 * @param nickname
+	 */
+	public void setNickname(String nickname)
+	{
 		this.nickname = nickname;
 	}
 
-	public int getHeight() {
+	/**
+	 * gibt den Wert height zurück
+	 * @return height
+	 */
+	public int getHeight()
+	{
 		return height;
 	}
 
-	public void setHeight(int height) {
+	/**
+	 * speichert den mitgebenen int als height ab
+	 * @param height
+	 */
+	public void setHeight(int height)
+	{
 		this.height = height;
 	}
 }
