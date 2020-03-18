@@ -309,7 +309,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         playFall();
         handler.postDelayed(()->{
             Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
-            recordIntent.putExtra(REACHED_HEIGHT,height);
+            recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
             gameManager.isStopped = true;
         },4000);
