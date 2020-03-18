@@ -57,7 +57,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     //managing the player is easier
     ImageView player;
     TextView heightoffset;
-    int platforWidthScale = 3;
+    int platforWidthScale = 5;
     private SensorManager sensorManager;
     private Sensor movementSensor;
     private float[] ofSetValues = new float[4];
