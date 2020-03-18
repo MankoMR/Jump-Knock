@@ -93,7 +93,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         backgroundMusic.release();
         fallSound.release();
     }
-    private void PlayBounce(){
+    private void playBounce(){
         MediaPlayer bouncer = bounceSounds[random.nextInt(3)];
         bouncer.seekTo(0);
         bouncer.start();
@@ -111,7 +111,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         etHeight.setText(random.nextInt(20001)+"");
 
         btnBounce.setOnClickListener((view)->{
-            PlayBounce();
+            playBounce();
         });
         btnGameOver.setOnClickListener(view -> {
             PlayFall();
@@ -301,9 +301,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     @Override
     public void playerCollidedWith(Platform platform) {
-
+        this.playBounce();
     }
-
     @Override
     public float getSmartPhoneRotation() {
         return 0;
@@ -348,7 +347,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         //Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
         gameManager.getAcceleration(event.values[1] - ofSetValues[1],deltatime);
-        Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
+        //Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
     }
 
     /**

@@ -14,7 +14,6 @@ public class GameManager {
 	GameVariables gameVariables;
 	private long playTimeNs;
 	private float heightOffset;
-	private float oldPlayerHeight;
 	private Player player;
 	private ArrayList<Platform> platforms = new ArrayList<>();
 	private Random r;
@@ -64,15 +63,12 @@ public class GameManager {
 		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
 		//heightOffset += adjustedSpeed;
 
-		if(player.position.y <= 0)
-			player.velocity.y = -1.05f * player.velocity.y;
-		player.update(gameVariables,heightOffset,deltaTime);
-
-		float delta = player.position.y - oldPlayerHeight;
-		if(delta > 0){
+		float delta = player.update(gameVariables,heightOffset,deltaTime);
+		if(delta <= 0){
+			testForCollision();
+		}else {
 			heightOffset+= delta;
 		}
-		oldPlayerHeight = (int)player.position.y;
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
@@ -117,7 +113,7 @@ public class GameManager {
 		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.SEC_TO_NANO_SEC;
 		float multiplier = calcSpeed / 1.5f;
 
-		Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);
+		//Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);
 		acceleration *= multiplier ;
 
 		this.player.velocity.x += acceleration;
@@ -126,5 +122,16 @@ public class GameManager {
 		if(player.velocity.x > calcSpeed)
 			player.velocity.x = calcSpeed;
 		//Log.d(TAG,"Velocity: "+ player.velocity.toString()+ " Position: "+ player.position.toString());
+	}
+	private void testForCollision(){
+		for (Platform plat:platforms){
+			//test if overlays with the platform horizontally.
+			if(plat.position.x <= player.position.x + gameVariables.playerSize.x && plat.position.x+ gameVariables.platformSize.x >= player.position.x)
+				//checking if the player overlays with the platform vertically
+				if (plat.position.y + gameVariables.platformSize.y >= player.position.y && plat.position.y <= player.position.y){
+					player.velocity.y = 1.2500f;
+					uiNotifier.playerCollidedWith(plat);
+				}
+		}
 	}
 }

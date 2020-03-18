@@ -15,10 +15,10 @@ public class Player extends Placeable {
 		super();
 		this.position = new PointF(
 				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
-				gameVariables.gameFieldSize.y * 2f / 3f);
+				gameVariables.gameFieldSize.y * 1f / 10f);
 		this.drawableId = picRessource;
 		this.velocity = new PointF();
-		velocity = new PointF();
+		this.velocity.y = 1.2500f;
 		gravity = SensorManager.GRAVITY_EARTH;
 		maxSpeedPerSec = 30;
 
@@ -28,7 +28,7 @@ public class Player extends Placeable {
 	public void update(int deltaTimeNs) {
 		super.update(deltaTimeNs);
 	}
-	public void update(GameVariables gameVariables, float heightOffset, int deltaTimeNs){
+	public float update(GameVariables gameVariables, float heightOffset, int deltaTimeNs){
 		float calcMaxVelocity = getPositionDelta(maxSpeedPerSec,GameVariables.SEC_TO_NANO_SEC);
 
 		if(velocity.x < -calcMaxVelocity)
@@ -43,7 +43,7 @@ public class Player extends Placeable {
 		PointF futurePosition = new PointF(
 				position.x + getPositionDelta(velocity.x,deltaTimeNs),
 				position.y + getPositionDelta(velocity.y,deltaTimeNs));
-
+		float deltaHeight = futurePosition.y - position.y;
 		//Case player is out of screen on the left side;
 		if(futurePosition.x <= 0)
 			position.x = gameVariables.gameFieldSize.x - (futurePosition.x);
@@ -59,6 +59,7 @@ public class Player extends Placeable {
 		}
 		//Simulate Gravity
 		velocity.y -= getPositionDelta(calcMaxVelocity / 70000,deltaTimeNs);
-		Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);
+		//Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);
+		return deltaHeight;
 	}
 }
