@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     HashMap<Platform, ConstraintLayout> platforms = new HashMap<>();
     //managing the player is easier
     ImageView player;
+    TextView heightoffset;
     int platforWidthScale = 3;
     private SensorManager sensorManager;
     private Sensor movementSensor;
@@ -111,11 +112,14 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     private void InitDebugStuff(){
         debugContainer = findViewById(R.id.LlDebug);
+        //debugContainer.setVisibility(View.VISIBLE);
         btnBounce = findViewById(R.id.BtnBounce);
         btnGameOver = findViewById(R.id.BtnGameOver);
         btnFinish = findViewById(R.id.BtnGameFinished);
         etHeight = findViewById(R.id.EtvHeight);
         etHeight.setText(random.nextInt(20001)+"");
+        heightoffset = findViewById(R.id.TvHeightOffset);
+        heightoffset.setVisibility(View.VISIBLE);
 
         btnBounce.setOnClickListener((view)->{
             playBounce();
@@ -287,7 +291,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         platforms.remove(platform);
     }
     @Override
-    public void UpdateGame(List<Platform> platforms, Player player, float reachedHeight) {
+    public void UpdateGame(List<Platform> platforms, Player player, float reachedHeight,GameVariables gameVariables) {
         for (Platform platform: platforms){
             ConstraintLayout layout = this.platforms.get(platform);
             FrameLayout.LayoutParams layoutParams =  (FrameLayout.LayoutParams) layout.getLayoutParams();

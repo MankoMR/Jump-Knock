@@ -15,10 +15,10 @@ public class Player extends Placeable {
 		super();
 		this.position = new PointF(
 				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
-				gameVariables.getTopOrBottomMargin());
+				gameVariables.gameFieldSize.y / 2.5f);
 		this.drawableId = picRessource;
 		this.velocity = new PointF();
-		this.velocity.y = 1.400f;
+		this.velocity.y = 1.800f;
 		gravity = SensorManager.GRAVITY_EARTH;
 		maxSpeedPerSec = 30;
 		//example commit to show how to push to origin / GitHub.

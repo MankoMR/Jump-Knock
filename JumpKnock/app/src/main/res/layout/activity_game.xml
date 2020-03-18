@@ -8,6 +8,18 @@
     android:background="@color/colorMain"
     tools:context=".GameActivity">
 
+    <TextView
+        android:id="@+id/TvHeightOffset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#2196F3"
+        android:text="HeightOffset"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <FrameLayout
         android:id="@+id/FlPlatformContainer"
         android:layout_width="0dp"
@@ -52,6 +64,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|fill_vertical"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

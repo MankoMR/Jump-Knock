@@ -13,7 +13,9 @@ public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
 	GameVariables gameVariables;
 	private long playTimeNs;
-	private float heightOffset;
+	//should always be in the middle of the screen.
+	private float currentHeight;
+	private float reachedHeight;
 	private Player player;
 	private ArrayList<Platform> platforms = new ArrayList<>();
 	private Random r;
@@ -54,7 +56,7 @@ public class GameManager {
 	public void ChangeDisplayVariables(GameVariables gameVariables){
 		this.gameVariables = gameVariables;
 	}
-	public float getHeightOffset() {return heightOffset; }
+	public float getCurrentHeight() {return currentHeight; }
 	public int update(){
 		int deltaTime = GetDeltaTime();
 		if (isPaused)
@@ -62,32 +64,40 @@ public class GameManager {
 		int speedPerSecond = 400;
 		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.SEC_TO_NANO_SEC);
 		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
-		//heightOffset += adjustedSpeed;
+		//currentHeight += adjustedSpeed;
 
-		float delta = player.update(gameVariables,heightOffset,deltaTime);
+		float delta = player.update(gameVariables, currentHeight,deltaTime);
+		float playerheight = player.position.y + gameVariables.playerSize.y;
+		currentHeight += delta;
+		if(currentHeight >= reachedHeight)
+			reachedHeight = currentHeight;
+
 		if(delta <= 0){
 			testForCollision();
-			if(player.position.y <= heightOffset){
-				if(!isGameOver){
-					uiNotifier.gameOver(heightOffset);
+			if(player.position.y + gameVariables.gameFieldSize.y < reachedHeight){
+				boolean cheatMode = false;
+				if(!isGameOver && !cheatMode){
+					uiNotifier.gameOver(reachedHeight);
 					isGameOver = true;
-					Log.d(TAG,"Player Velocity: "+player.velocity.toString()+" Position:"+ player.position.toString());
+					Log.d(TAG,"Lost Game: Player Velocity: "+player.velocity.toString()+" Position:"+ player.position.toString());
 				}
-				heightOffset +=delta;
+				if(cheatMode){
+					player.velocity.y = 1.2500f;
+					uiNotifier.playerCollidedWith(null);
+				}
+				//currentHeight +=delta;
 			}
-		}else {
-			heightOffset+= delta;
 		}
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
-			distance = heightOffset + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
+			distance = currentHeight + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
 		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 3 ){
 			Platform p = new Platform();
 			p.position = new PointF(
 					r.nextFloat() * (gameVariables.gameFieldSize.x - gameVariables.platformSize.x),
-					heightOffset + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
+					currentHeight + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
 			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
 			p.isOneTimeUse = false;
 			if(r.nextBoolean()){
@@ -101,14 +111,14 @@ public class GameManager {
 		}
 		for(int i = 0;i < platforms.size();i++){
 			Platform plat = platforms.get(i);
-			if(plat.position.y + gameVariables.platformSize.y * 3 - heightOffset <= 0){
+			if(plat.position.y + gameVariables.platformSize.y * 3 - currentHeight <= 0){
 				uiNotifier.removePlatform(plat);
 				platforms.remove(i);
 				i--;
 			}
 		}
-		uiNotifier.updateUi(heightOffset);
-		uiNotifier.UpdateGame(platforms,player,heightOffset);
+		uiNotifier.updateUi(reachedHeight);
+		uiNotifier.UpdateGame(platforms,player, currentHeight,gameVariables);
 		return deltaTime;
 	}
 	private int GetDeltaTime(){
