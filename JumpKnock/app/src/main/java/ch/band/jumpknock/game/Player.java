@@ -15,7 +15,7 @@ public class Player extends Placeable {
 		super();
 		this.position = new PointF(
 				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
-				gameVariables.gameFieldSize.y / 2.5f);
+				gameVariables.gameFieldSize.y / 4);
 		this.drawableId = picRessource;
 		this.velocity = new PointF();
 		this.velocity.y = 1.800f;
@@ -46,7 +46,7 @@ public class Player extends Placeable {
 		float deltaHeight = futurePosition.y - position.y;
 		//Case player is out of screen on the left side;
 		if(futurePosition.x <= 0)
-			position.x = gameVariables.gameFieldSize.x - (futurePosition.x);
+			position.x = gameVariables.gameFieldSize.x - (futurePosition.x) - gameVariables.playerSize.x;
 		//Case player is out of screen on the right side
 		else if(futurePosition.x >= gameVariables.gameFieldSize.x - gameVariables.getLeftOrRightMargin()) {
 			position.x = futurePosition.x - (gameVariables.gameFieldSize.x - gameVariables.getLeftOrRightMargin());
@@ -55,8 +55,9 @@ public class Player extends Placeable {
 		}
 		//Case player is visible
 		else {
-			position = futurePosition;
+			position.x = futurePosition.x;
 		}
+		position.y = futurePosition.y;
 		//Simulate Gravity
 		velocity.y -= getPositionDelta(calcMaxVelocity / 70000,deltaTimeNs);
 		//Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);

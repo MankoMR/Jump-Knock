@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -57,11 +58,12 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     //managing the player is easier
     ImageView player;
     TextView heightoffset;
-    int platforWidthScale = 3;
+    int platforWidthScale = 5;
     private SensorManager sensorManager;
     private Sensor movementSensor;
     private float[] ofSetValues = new float[4];
     private MediaPlayer[] bounceSounds = new MediaPlayer[3];
+    private MediaPlayer[] bloobSounds = new MediaPlayer[7];
     private MediaPlayer backgroundMusic;
     private MediaPlayer fallSound;
     private int bounceSoundCounter;
@@ -96,7 +98,14 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         bounceSounds[0] = MediaPlayer.create(getBaseContext(), R.raw.bounce1);
         bounceSounds[1] = MediaPlayer.create(getBaseContext(), R.raw.bounce2);
         bounceSounds[2] = MediaPlayer.create(getBaseContext(), R.raw.bounce3);
-        backgroundMusic = MediaPlayer.create(getBaseContext(), R.raw.bounce1);
+
+        bloobSounds[0] = MediaPlayer.create(getBaseContext(), R.raw.bloop01);
+        bloobSounds[1] = MediaPlayer.create(getBaseContext(), R.raw.bloop02);
+        bloobSounds[2] = MediaPlayer.create(getBaseContext(), R.raw.bloop03);
+        bloobSounds[3] = MediaPlayer.create(getBaseContext(), R.raw.bloop04);
+        bloobSounds[4] = MediaPlayer.create(getBaseContext(), R.raw.bloop05);
+        bloobSounds[5] = MediaPlayer.create(getBaseContext(), R.raw.bloop06);
+        bloobSounds[6] = MediaPlayer.create(getBaseContext(), R.raw.bloop07);
         fallSound = MediaPlayer.create(getBaseContext(), R.raw.fall);
         fallSound.setVolume(0.3f,0.3f);
     }
@@ -104,14 +113,23 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         for(MediaPlayer player:bounceSounds){
             player.release();
         }
-        backgroundMusic.release();
+        for (MediaPlayer player:bloobSounds){
+            player.release();
+        }
+        //backgroundMusic.release();
         fallSound.release();
     }
     private void playBounce(){
-        MediaPlayer bouncer = bounceSounds[bounceSoundCounter%3];
+        MediaPlayer bouncer = bounceSounds[bounceSoundCounter%bounceSounds.length];
         bounceSoundCounter++;
         bouncer.seekTo(0);
         bouncer.start();
+    }
+    private void playBloob(){
+        MediaPlayer bloober = bloobSounds[bounceSoundCounter%(bloobSounds.length)];
+        bounceSoundCounter++;
+        bloober.seekTo(0);
+        bloober.start();
     }
     private void playFall(){
         fallSound.seekTo(0);
@@ -327,7 +345,15 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     @Override
     public void playerCollidedWith(Platform platform) {
-        this.playBounce();
+        if(platform.isOneTimeUse){
+            playBloob();
+            handler.postDelayed(()->{
+                removePlatform(platform);
+                gameManager.removePlatform(platform);
+            },1000);
+        }
+        else
+            playBounce();
     }
     @Override
     public float getSmartPhoneRotation() {

@@ -57,6 +57,7 @@ public class GameManager {
 		this.gameVariables = gameVariables;
 	}
 	public float getCurrentHeight() {return currentHeight; }
+
 	public int update(){
 		int deltaTime = GetDeltaTime();
 		if (isPaused)
@@ -93,14 +94,21 @@ public class GameManager {
 		if (platforms.size() !=  0)
 			distance = currentHeight + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
-		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 3 ){
+		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 5 ){
 			Platform p = new Platform();
 			p.position = new PointF(
 					r.nextFloat() * (gameVariables.gameFieldSize.x - gameVariables.platformSize.x),
 					currentHeight + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
 			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
-			p.isOneTimeUse = false;
-			if(r.nextBoolean()){
+
+			if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
+				p.isOneTimeUse = true;
+
+			if(r.nextBoolean() && (
+					p.drawableId == R.drawable.grasblock1
+					|| p.drawableId == R.drawable.grasblock2
+					|| p.drawableId == R.drawable.stoneblockwithgrass1
+					|| p.drawableId == R.drawable.stoneblockwithgrass2 )){
 				p.decoration = new Decoration();
 				p.decoration.position = r.nextFloat();
 				p.decoration.drawableId = gameVariables.decorationDrawIds[r.nextInt(gameVariables.decorationDrawIds.length)];
@@ -143,14 +151,20 @@ public class GameManager {
 		//Log.d(TAG,"Velocity: "+ player.velocity.toString()+ " Position: "+ player.position.toString());
 	}
 	private void testForCollision(){
-		for (Platform plat:platforms){
+		for (int i = 0; i < platforms.size();i++){
+			Platform plat = platforms.get(i);
 			//test if overlays with the platform horizontally.
 			if(plat.position.x <= player.position.x + gameVariables.playerSize.x && plat.position.x+ gameVariables.platformSize.x >= player.position.x)
 				//checking if the player overlays with the platform vertically
 				if (plat.position.y + gameVariables.platformSize.y >= player.position.y && plat.position.y <= player.position.y){
 					player.velocity.y = 1.2500f;
 					uiNotifier.playerCollidedWith(plat);
+					if(plat.isOneTimeUse) {
+					}
 				}
 		}
+	}
+	public boolean removePlatform(Platform platform){
+		return platforms.remove(platform);
 	}
 }
