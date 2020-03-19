@@ -44,6 +44,7 @@ public class SoundEngine {
                 MediaPlayer player = MediaPlayer.create(applicationContext,soundVariations[i]);
                 player.setVolume(soundVolume,soundVolume);
                 player.setOnCompletionListener((mp)->{
+                    mp.stop();
                     mp.seekTo(0);
                 });
                 this.soundVariations[i] = player;

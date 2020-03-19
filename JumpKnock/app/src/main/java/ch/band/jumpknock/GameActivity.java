@@ -316,6 +316,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
             gameManager.isStopped = true;
+            soundEngine.release();
         },4000);
     }
     @Override
