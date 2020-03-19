@@ -80,6 +80,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         ofSetValues = getIntent().getFloatArrayExtra(CalibrateActivity.SENSOR_OFFSETS);
         handler = new Handler();
         //InitDebugStuff();
+        InitSounds();
         ExecuteGameInitialisation();
     }
     private void InitSounds(){
@@ -202,7 +203,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 sensorManager.registerListener(sensorEventListener,movementSensor,SensorManager.SENSOR_DELAY_GAME);
 
                 Log.d(TAG,"Screen: "+screenSize.toString()+" | Player: "+playerSize.toString()+" | Plat: "+platformSize);
-                InitSounds();
                 flContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
             }
@@ -311,7 +311,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
             gameManager.isStopped = true;
-            soundEngine.release();
+            //soundEngine.release();
             finish();
         },4000);
     }
