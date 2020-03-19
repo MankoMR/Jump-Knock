@@ -14,7 +14,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
+/*
+ *Copyright (c) 2020 Freddy Stalder, All rights reserved.
+ */
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "knockJumpDB";

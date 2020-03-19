@@ -1,7 +1,9 @@
 package ch.band.jumpknock.game;
 
 import java.util.List;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public interface UiNotifier {
 	void addPlatform(Platform platform);
 	void removePlatform(Platform platform);

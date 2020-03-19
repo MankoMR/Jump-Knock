@@ -15,9 +15,10 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import ch.band.jumpknock.Constants;
 import ch.band.jumpknock.GameActivity;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class SoundEngine {
-    Random ranGenerator = new Random();
     HashMap<String, SoundContainer> sounds = new HashMap<>();
     public void release(){
         for (HashMap.Entry<String, SoundContainer> entry:sounds.entrySet()){

@@ -3,7 +3,9 @@ package ch.band.jumpknock.game;
 import android.graphics.PointF;
 
 import androidx.annotation.DrawableRes;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class GameVariables {
     public static final int SEC_TO_NANO_SEC = 1_000_000_000;
     //The Size of the Screen:

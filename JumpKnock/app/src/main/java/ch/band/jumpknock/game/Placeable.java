@@ -1,7 +1,9 @@
 package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class Placeable {
 	public PointF position;
 	public int drawableId;

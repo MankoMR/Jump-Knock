@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Random;
 
 
+/*
+ *Copyright (c) 2020 Freddy Stalder, Manuel Koloska, All rights reserved.
+ */
 public class SqlBackend implements StorageBackendInterface {
 
     private  Context context;

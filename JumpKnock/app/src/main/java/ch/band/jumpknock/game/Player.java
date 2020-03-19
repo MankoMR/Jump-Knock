@@ -5,7 +5,9 @@ import android.hardware.SensorManager;
 import android.util.Log;
 
 import androidx.annotation.DrawableRes;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class Player extends Placeable {
 	private static final String TAG = Player.class.getCanonicalName();
 	public PointF velocity;

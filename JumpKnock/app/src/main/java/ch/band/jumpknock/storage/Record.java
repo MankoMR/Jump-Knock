@@ -2,7 +2,9 @@ package ch.band.jumpknock.storage;
 
 import androidx.annotation.NonNull;
 
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, Fredy Stalder, All rights reserved.
+ */
 public class Record implements Comparable {
 
 	private String nickname;

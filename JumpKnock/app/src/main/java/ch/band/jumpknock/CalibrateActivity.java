@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class CalibrateActivity extends AppCompatActivity implements SensorEventListener {
 
 	private SensorManager sensorManager;

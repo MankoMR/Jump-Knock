@@ -16,6 +16,9 @@ import java.util.Random;
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
 
+/*
+ *Copyright (c) 2020 Freddy Stalder, All rights reserved.
+ */
 public class RecordActivity extends AppCompatActivity {
 
     private Record record;

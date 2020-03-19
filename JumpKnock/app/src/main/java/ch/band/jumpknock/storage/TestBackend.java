@@ -3,7 +3,9 @@ package ch.band.jumpknock.storage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 class TestBackend implements StorageBackendInterface {
 	private ArrayList<Record> records = new ArrayList<>();
 	TestBackend(){

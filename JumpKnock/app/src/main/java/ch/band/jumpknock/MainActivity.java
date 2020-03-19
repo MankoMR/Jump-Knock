@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+/*
+ *Copyright (c) 2020 Freddy Stalder, All rights reserved.
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

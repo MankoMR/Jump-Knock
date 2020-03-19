@@ -11,6 +11,9 @@ import android.widget.TextView;
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
 
+/*
+ *Copyright (c) 2020 Freddy Stalder, All rights reserved.
+ */
 public class ShowRecordsActivity extends AppCompatActivity {
 
     TextView[] tv_firstToThird = new TextView[3];

@@ -4,7 +4,9 @@ import android.content.Context;
 
 import java.util.Collections;
 import java.util.List;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class RecordRepository {
 	private StorageBackendInterface storageBackend;
 

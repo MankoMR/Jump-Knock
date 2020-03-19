@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ch.band.jumpknock.R;
-
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
 	GameVariables gameVariables;

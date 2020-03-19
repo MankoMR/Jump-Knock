@@ -40,6 +40,9 @@ import ch.band.jumpknock.game.UiNotifier;
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
 
+/*
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ */
 public class GameActivity extends AppCompatActivity implements UiNotifier, SensorEventListener {
     private static final String TAG = GameActivity.class.getCanonicalName();
     public static final  String REACHED_HEIGHT = "reached_height";
@@ -166,7 +169,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 flPlayerContainer.addView(player);
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) player.getLayoutParams();
                 Drawable dPlayer = getResources().getDrawable(R.drawable.jumper);
-                //TODO: Calculate Correct Size
                 lp.width = (int) (dPlayer.getIntrinsicWidth() * Scalefactor / platforWidthScale);
                 lp.height = (int) (dPlayer.getIntrinsicHeight() * Scalefactor / platforWidthScale);
                 lp.gravity = Gravity.LEFT | Gravity.BOTTOM;
@@ -353,18 +355,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
-        /*
-        final float alpha = time / event.timestamp;
-
-        gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
-        gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
-        gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
-
-        float[] linear_acceleration = new float[3];
-        linear_acceleration[0] = event.values[0] - gravity[0];
-        linear_acceleration[1] = event.values[1] - gravity[1];
-        linear_acceleration[2] = event.values[2] - gravity[2];
-        */
         long deltatime  = event.timestamp - time;
         //Log.d(TAG,"OldTime: "+time + "TimeStamp: "+event.timestamp +" delta: "+deltatime);
         time = event.timestamp;
