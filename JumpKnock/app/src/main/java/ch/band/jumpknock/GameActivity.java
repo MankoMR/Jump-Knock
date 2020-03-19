@@ -9,6 +9,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -25,12 +26,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.awt.font.NumericShaper;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import ch.band.jumpknock.game.GameManager;
 import ch.band.jumpknock.game.GameVariables;
@@ -69,7 +75,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private int bounceSoundCounter;
     private Random random;
     private Handler handler;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
