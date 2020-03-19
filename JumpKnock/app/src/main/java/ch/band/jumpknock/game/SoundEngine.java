@@ -25,12 +25,12 @@ public class SoundEngine {
             sounds.remove(entry.getKey());
         }
     }
-    public void Add(String name, @RawRes int[] soundVariations, float soundVolume,
+    public void add(String name, @RawRes int[] soundVariations, float soundVolume,
                     int mediaPlayerCount, boolean shouldPlayRandom,
                     Context applicationContext){
         sounds.put(name,new SoundContainer(soundVariations,soundVolume,mediaPlayerCount,shouldPlayRandom,applicationContext));
     }
-    public void Play(String name){
+    public void play(String name){
         sounds.get(name).play();
     }
     private class SoundContainer{
@@ -39,7 +39,7 @@ public class SoundEngine {
         @RawRes
         private int[] soundVariations;
         private int soundVariationCounter = 0;
-        private boolean shouldPlayRandom = false;
+        private boolean shouldPlayRandom;
         public SoundContainer(@RawRes int[] soundVariations, float soundVolume,
                               int mediaPlayerCount, boolean shouldPlayRandom,
                               Context applicationContext){
@@ -85,7 +85,7 @@ public class SoundEngine {
             for(MediaPlayer player:mediaPlayers){
                 player.release();
                 mediaPlayers.remove(player);
-                player == null;
+                //player == null;
             }
         }
     }

@@ -8,8 +8,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -26,22 +23,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.awt.font.NumericShaper;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import ch.band.jumpknock.game.GameManager;
 import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
+import ch.band.jumpknock.game.SoundEngine;
 import ch.band.jumpknock.game.UiNotifier;
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
@@ -68,13 +61,9 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private SensorManager sensorManager;
     private Sensor movementSensor;
     private float[] ofSetValues = new float[4];
-    private MediaPlayer[] bounceSounds = new MediaPlayer[3];
-    private MediaPlayer[] bloobSounds = new MediaPlayer[7];
-    private MediaPlayer backgroundMusic;
-    private MediaPlayer fallSound;
-    private int bounceSoundCounter;
     private Random random;
     private Handler handler;
+    private SoundEngine soundEngine = new SoundEngine();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,45 +89,25 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         ExecuteGameInitialisation();
     }
     private void InitSounds(){
-        bounceSounds[0] = MediaPlayer.create(getBaseContext(), R.raw.bounce1);
-        bounceSounds[1] = MediaPlayer.create(getBaseContext(), R.raw.bounce2);
-        bounceSounds[2] = MediaPlayer.create(getBaseContext(), R.raw.bounce3);
+        int[] bounceSounds = new int[3];
+        int[] bloobSounds = new int[7];
+        int[] fallSound = new int[1];
+        bounceSounds[0] = R.raw.bounce1;
+        bounceSounds[1] = R.raw.bounce2;
+        bounceSounds[2] = R.raw.bounce3;
 
-        bloobSounds[0] = MediaPlayer.create(getBaseContext(), R.raw.bloop01);
-        bloobSounds[1] = MediaPlayer.create(getBaseContext(), R.raw.bloop02);
-        bloobSounds[2] = MediaPlayer.create(getBaseContext(), R.raw.bloop03);
-        bloobSounds[3] = MediaPlayer.create(getBaseContext(), R.raw.bloop04);
-        bloobSounds[4] = MediaPlayer.create(getBaseContext(), R.raw.bloop05);
-        bloobSounds[5] = MediaPlayer.create(getBaseContext(), R.raw.bloop06);
-        bloobSounds[6] = MediaPlayer.create(getBaseContext(), R.raw.bloop07);
-        fallSound = MediaPlayer.create(getBaseContext(), R.raw.fall);
-        fallSound.setVolume(0.3f,0.3f);
-    }
-    private void ReleaseSounds(){
-        for(MediaPlayer player:bounceSounds){
-            player.release();
-        }
-        for (MediaPlayer player:bloobSounds){
-            player.release();
-        }
-        //backgroundMusic.release();
-        fallSound.release();
-    }
-    private void playBounce(){
-        MediaPlayer bouncer = bounceSounds[bounceSoundCounter%bounceSounds.length];
-        bounceSoundCounter++;
-        bouncer.seekTo(0);
-        bouncer.start();
-    }
-    private void playBloob(){
-        MediaPlayer bloober = bloobSounds[bounceSoundCounter%(bloobSounds.length)];
-        bounceSoundCounter++;
-        bloober.seekTo(0);
-        bloober.start();
-    }
-    private void playFall(){
-        fallSound.seekTo(0);
-        fallSound.start();
+        bloobSounds[0] = R.raw.bloop01;
+        bloobSounds[1] = R.raw.bloop02;
+        bloobSounds[2] = R.raw.bloop03;
+        bloobSounds[3] = R.raw.bloop04;
+        bloobSounds[4] = R.raw.bloop05;
+        bloobSounds[5] = R.raw.bloop06;
+        bloobSounds[6] = R.raw.bloop07;
+        fallSound[0] = R.raw.fall;
+        //fallSound.setVolume(0.3f,0.3f);
+        soundEngine.add("bounce",bounceSounds,1f,3,false,getApplicationContext());
+        soundEngine.add("bloop",bounceSounds,1f,3,true,getApplicationContext());
+        soundEngine.add("fall",fallSound,0.3f,1,false,getApplicationContext());
     }
     private void InitDebugStuff(){
         debugContainer = findViewById(R.id.LlDebug);
@@ -152,10 +121,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         heightoffset.setVisibility(View.VISIBLE);
 
         btnBounce.setOnClickListener((view)->{
-            playBounce();
+            soundEngine.play("bounce");
         });
         btnGameOver.setOnClickListener(view -> {
-            playFall();
+            soundEngine.play("fall");
         });
         btnFinish.setOnClickListener(view ->{
             gameOver(random.nextInt(20001));
@@ -306,7 +275,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
     @Override
     protected void onDestroy() {
-        ReleaseSounds();
+        soundEngine.release();
         super.onDestroy();
     }
 
@@ -340,7 +309,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     @Override
     public void gameOver(float height) {
-        playFall();
+        soundEngine.play("fall");
         handler.postDelayed(()->{
             Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
@@ -351,14 +320,14 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     @Override
     public void playerCollidedWith(Platform platform) {
         if(platform.isOneTimeUse){
-            playBloob();
+            soundEngine.play("bloop");
             handler.postDelayed(()->{
                 removePlatform(platform);
                 gameManager.removePlatform(platform);
             },1000);
         }
         else
-            playBounce();
+            soundEngine.play("bounce");
     }
     @Override
     public float getSmartPhoneRotation() {
