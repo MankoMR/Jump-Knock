@@ -22,71 +22,44 @@ public class SoundEngine {
     public void release(){
         for (HashMap.Entry<String, SoundContainer> entry:sounds.entrySet()){
             entry.getValue().release();
-            sounds.remove(entry.getKey());
         }
+        sounds.clear();
     }
     public void add(String name, @RawRes int[] soundVariations, float soundVolume,
-                    int mediaPlayerCount, boolean shouldPlayRandom,
                     Context applicationContext){
-        sounds.put(name,new SoundContainer(soundVariations,soundVolume,mediaPlayerCount,shouldPlayRandom,applicationContext));
+        sounds.put(name,new SoundContainer(soundVariations,soundVolume,applicationContext));
     }
     public void play(String name){
         sounds.get(name).play();
     }
     private class SoundContainer{
         private final String TAG = SoundContainer.class.getCanonicalName();
-        private Queue<MediaPlayer> mediaPlayers;
-        @RawRes
-        private int[] soundVariations;
+        private MediaPlayer[] soundVariations;
         private int soundVariationCounter = 0;
-        private boolean shouldPlayRandom;
         public SoundContainer(@RawRes int[] soundVariations, float soundVolume,
-                              int mediaPlayerCount, boolean shouldPlayRandom,
                               Context applicationContext){
+            this.soundVariations = new MediaPlayer[soundVariations.length];
 
-            this.soundVariations = soundVariations;
-            this.shouldPlayRandom = shouldPlayRandom;
-            mediaPlayers = new ArrayBlockingQueue<MediaPlayer>(mediaPlayerCount);
-
-            for(int i = 0;i < mediaPlayerCount;i++){
-                MediaPlayer player = new MediaPlayer();
-                setMediaPlayerSource(player,applicationContext);
+            for(int i = 0;i < soundVariations.length;i++){
+                MediaPlayer player = MediaPlayer.create(applicationContext,soundVariations[i]);
+                player.setVolume(soundVolume,soundVolume);
                 player.setOnCompletionListener((mp)->{
-                    setMediaPlayerSource(mp,applicationContext);
+                    mp.seekTo(0);
                 });
-                mediaPlayers.add(player);
-            }
-        }
-        private void setMediaPlayerSource(MediaPlayer player, Context applicationContext){
-            if(shouldPlayRandom){
-                try {
-                    player.setDataSource(applicationContext,
-                            Uri.parse(Constants.RESSOURCE_URI_PREFIX+soundVariations[ranGenerator.nextInt(soundVariations.length)]));
-                    player.prepareAsync();
-                } catch (IOException e) {
-                    Log.d(TAG,"play: ",e);
-                }
-            }else {
-                try {
-                    player.setDataSource(applicationContext,
-                            Uri.parse(Constants.RESSOURCE_URI_PREFIX+soundVariations[soundVariationCounter %soundVariations.length]));
-                    player.prepareAsync();
-                } catch (IOException e) {
-                    Log.d(TAG,"play: ",e);
-                }
+                this.soundVariations[i] = player;
             }
         }
         public void play() {
-            MediaPlayer player = mediaPlayers.poll();
-            player.start();
-            mediaPlayers.add(player);
+            soundVariations[soundVariationCounter%soundVariations.length].start();
+            soundVariationCounter++;
         }
         public void release(){
-            for(MediaPlayer player:mediaPlayers){
+            for(MediaPlayer player:soundVariations){
+                player.stop();
+                player.setOnCompletionListener(null);
                 player.release();
-                mediaPlayers.remove(player);
-                //player == null;
             }
+            soundVariations = null;
         }
     }
 }

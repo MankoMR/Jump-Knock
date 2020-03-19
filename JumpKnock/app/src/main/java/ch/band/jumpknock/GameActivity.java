@@ -84,8 +84,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         random = new Random();
         ofSetValues = getIntent().getFloatArrayExtra(CalibrateActivity.SENSOR_OFFSETS);
         handler = new Handler();
-        InitDebugStuff();
-        InitSounds();
+        //InitDebugStuff();
         ExecuteGameInitialisation();
     }
     private void InitSounds(){
@@ -105,13 +104,13 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         bloobSounds[6] = R.raw.bloop07;
         fallSound[0] = R.raw.fall;
         //fallSound.setVolume(0.3f,0.3f);
-        soundEngine.add("bounce",bounceSounds,1f,3,false,getApplicationContext());
-        soundEngine.add("bloop",bounceSounds,1f,3,true,getApplicationContext());
-        soundEngine.add("fall",fallSound,0.3f,1,false,getApplicationContext());
+        soundEngine.add("bounce",bounceSounds,1f,getApplicationContext());
+        soundEngine.add("bloop",bounceSounds,1f,getApplicationContext());
+        soundEngine.add("fall",fallSound,0.3f,getApplicationContext());
     }
     private void InitDebugStuff(){
         debugContainer = findViewById(R.id.LlDebug);
-        //debugContainer.setVisibility(View.VISIBLE);
+        debugContainer.setVisibility(View.VISIBLE);
         btnBounce = findViewById(R.id.BtnBounce);
         btnGameOver = findViewById(R.id.BtnGameOver);
         btnFinish = findViewById(R.id.BtnGameFinished);
@@ -208,7 +207,9 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 sensorManager.registerListener(sensorEventListener,movementSensor,SensorManager.SENSOR_DELAY_GAME);
 
                 Log.d(TAG,"Screen: "+screenSize.toString()+" | Player: "+playerSize.toString()+" | Plat: "+platformSize);
+                InitSounds();
                 flContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
             }
         });
     }
