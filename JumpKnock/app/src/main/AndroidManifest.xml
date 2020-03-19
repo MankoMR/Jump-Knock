@@ -14,15 +14,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
-        <activity android:name=".CalibrateActivity" android:theme="@style/MainTheme"></activity>
+        <activity android:name=".CalibrateActivity"
+            android:theme="@style/MainTheme"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ShowRecordsActivity"
-            android:theme="@style/RecordTheme" />
+            android:theme="@style/RecordTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RecordActivity"
-            android:theme="@style/GoodTheme" />
-        <activity android:name=".GameActivity"></activity>
-        <activity android:name=".MainActivity">
+            android:theme="@style/GoodTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GameActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
