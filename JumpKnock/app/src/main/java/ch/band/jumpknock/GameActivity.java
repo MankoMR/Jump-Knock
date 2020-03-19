@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         fallSound[0] = R.raw.fall;
         //fallSound.setVolume(0.3f,0.3f);
         soundEngine.add("bounce",bounceSounds,1f,getApplicationContext());
-        soundEngine.add("bloop",bounceSounds,1f,getApplicationContext());
+        soundEngine.add("bloop",bloobSounds,1f,getApplicationContext());
         soundEngine.add("fall",fallSound,0.3f,getApplicationContext());
     }
     private void InitDebugStuff(){
@@ -322,7 +322,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             handler.postDelayed(()->{
                 removePlatform(platform);
                 gameManager.removePlatform(platform);
-            },500);
+            },1000);
         }
         else
             soundEngine.play("bounce");

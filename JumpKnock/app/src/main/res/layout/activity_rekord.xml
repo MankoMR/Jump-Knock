@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_LeftGold"
@@ -33,14 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_BottomSilver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <TextView
         android:id="@+id/tv_NewRecordGameEnded"
@@ -102,12 +95,12 @@
         android:id="@+id/btn_SaveAndBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="btnBackToStartGameClicked"
         android:text="@string/btn_saveAndBack"
         app:layout_constraintEnd_toEndOf="@id/gl_RightGold"
         app:layout_constraintStart_toStartOf="@id/gl_LeftGold"
-        app:layout_constraintTop_toTopOf="@+id/gl_BottomSilver" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
