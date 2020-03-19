@@ -17,12 +17,7 @@ import ch.band.jumpknock.storage.RecordRepository;
 
 public class RecordActivity extends AppCompatActivity {
 
-    private SQLiteDatabase mydatabase;
-    private static String dbTable = "Records";
-    private static String dbName = "knockJumpDB";
-    private int reachedHeight;
-    public static final  String SHOWTEXT = "showText";
-    private String text;
+    private Record record;
 
     TextView tv_name;
     TextView tv_points;
@@ -35,11 +30,8 @@ public class RecordActivity extends AppCompatActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_points = findViewById(R.id.tv_points);
         //TODO Test
-
-        reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
+        int reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
-        Record curRec = new Record(null,reachedHeight);
-        boolean isInTopTen = recordRepository.IsInTopTen(curRec);
         Record[] topTen = recordRepository.GetTopTen();
         HashMap<String,Integer> usedNames = new HashMap<>();
         for (Record rec:topTen){
@@ -49,10 +41,14 @@ public class RecordActivity extends AppCompatActivity {
             nameCount++;
             usedNames.put(rec.getNickname(),nameCount);
         }
-        String mostUsedName = "Friedrich der Schnössel Berger";
+        String mostUsedName = "Jumper";
         int usedCount = -1;
-        //Todo: get Name whose name is most used from usedNames;
+        for(HashMap.Entry<String,Integer> entry:usedNames.entrySet()){
+            if(entry.getValue() >= usedCount)
+                mostUsedName = entry.getKey();
+        }
 
+        record = new Record(mostUsedName,reachedHeight);
         tv_name.setText(mostUsedName);
         tv_points.setText(reachedHeight +"");
     }
@@ -63,17 +59,7 @@ public class RecordActivity extends AppCompatActivity {
      */
     public void btnBackToStartGameClicked(View view)
     {
-
-        Integer points = Integer.parseInt("" + tv_points.getText());
-        String name = "" + tv_name.getText();
-        Record record = new Record(name,points);
-
-
-        mydatabase = openOrCreateDatabase(dbName,MODE_PRIVATE,null);
-        //mydatabase.execSQL("DROP TABLE IF EXISTS " + dbTable);
-        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS " + dbTable + " (Name VARCHAR, Height INTEGER);");
         updateDB(record);
-
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
     }
@@ -86,13 +72,6 @@ public class RecordActivity extends AppCompatActivity {
     {
         RecordRepository recordRepository = new RecordRepository(this);
         Random random = new Random();
-        newRecord.setHeight(random.nextInt(10000));
         recordRepository.Save(newRecord);
-        /*
-        Random random = new Random();
-        int height = random.nextInt(10000);
-        mydatabase.execSQL("INSERT INTO " + dbTable + " VALUES('" + newRecord.getNickname() + "','" + height + "');");
-        //mydatabase.execSQL("INSERT INTO " + dbTable + " VALUES('" + newRecord.getNickname() + "','" + newRecord.getHeight() + "');");
-    */
     }
 }

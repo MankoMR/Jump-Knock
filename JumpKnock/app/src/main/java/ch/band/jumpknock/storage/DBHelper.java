@@ -57,6 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean saveRecord(Record record)
     {
         SQLiteDatabase db = this.getReadableDatabase();
+        //db.execSQL("CREATE TABLE IF NOT EXISTS " + RECORD_TABLE_NAME + " ("+RECORD_NICKNAME+" VARCHAR, "+RECORD_HEIGHT+" INTEGER);");
         db.execSQL("INSERT INTO " + RECORD_TABLE_NAME + " VALUES('" + record.getNickname() + "','" + record.getHeight() + "');");
         ContentValues values = new ContentValues();
         values.put(RECORD_NICKNAME,record.getNickname());
