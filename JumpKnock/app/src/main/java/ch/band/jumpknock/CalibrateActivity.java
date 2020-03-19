@@ -37,6 +37,7 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 			Intent i = new Intent(this, GameActivity.class);
 			i.putExtra(SENSOR_OFFSETS,ofSetValues);
 			startActivity(i);
+			finish();
 		});
 	}
 

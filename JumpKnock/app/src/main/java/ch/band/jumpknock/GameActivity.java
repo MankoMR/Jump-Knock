@@ -1,5 +1,6 @@
 package ch.band.jumpknock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
@@ -68,12 +69,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /* TODO für testzwecke
-        Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
-        recordIntent.putExtra(REACHED_HEIGHT,(int)5000);
-        startActivity(recordIntent);
-        */
 
         setContentView(R.layout.activity_game);
         //Initialising variables.
@@ -317,6 +312,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             startActivity(recordIntent);
             gameManager.isStopped = true;
             soundEngine.release();
+            finish();
         },4000);
     }
     @Override
@@ -326,7 +322,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             handler.postDelayed(()->{
                 removePlatform(platform);
                 gameManager.removePlatform(platform);
-            },1000);
+            },500);
         }
         else
             soundEngine.play("bounce");

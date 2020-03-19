@@ -2,6 +2,7 @@ package ch.band.jumpknock;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class RecordActivity extends AppCompatActivity {
         updateDB(record);
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
+        finish();
     }
 
     /**
