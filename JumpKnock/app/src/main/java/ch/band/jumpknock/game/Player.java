@@ -12,12 +12,13 @@ public class Player extends Placeable {
 	private static final String TAG = Player.class.getCanonicalName();
 	public PointF velocity;
 	public float gravity;
-	private float maxSpeedPerSec;
+	public float maxSpeedPerSec;
+
 	public Player(GameVariables gameVariables, @DrawableRes int picRessource){
 		super();
 		this.position = new PointF(
 				gameVariables.gameFieldSize.x / 2 - gameVariables.playerSize.x / 2,
-				gameVariables.gameFieldSize.y / 4);
+				gameVariables.gameFieldSize.y / 2);
 		this.drawableId = picRessource;
 		this.velocity = new PointF();
 		this.velocity.y = 1.800f;
@@ -30,13 +31,19 @@ public class Player extends Placeable {
 	public void update(int deltaTimeNs) {
 		super.update(deltaTimeNs);
 	}
+
 	public float update(GameVariables gameVariables, float heightOffset, int deltaTimeNs){
 		float calcMaxVelocity = getPositionDelta(maxSpeedPerSec,GameVariables.SEC_TO_NANO_SEC);
 
+		/*
+		//Unecessary since it is already capped by GameManager.getAcceleration
 		if(velocity.x < -calcMaxVelocity)
 			velocity.x = -calcMaxVelocity;
 		if(velocity.x > calcMaxVelocity)
 			velocity.x = calcMaxVelocity;
+		 */
+
+		//Cap falldown speed at max velocity;
 		if(velocity.y < -calcMaxVelocity)
 			velocity.y = -calcMaxVelocity;
 		if(velocity.y > calcMaxVelocity)

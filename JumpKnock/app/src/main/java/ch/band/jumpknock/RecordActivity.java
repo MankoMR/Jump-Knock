@@ -1,6 +1,7 @@
 package ch.band.jumpknock;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -23,8 +24,10 @@ public class RecordActivity extends AppCompatActivity {
 
     private Record record;
 
-    TextView tv_name;
-    TextView tv_points;
+    private TextView tv_name;
+    private TextView tv_points;
+    private ConstraintLayout cl_root;
+    private TextView tv_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,27 @@ public class RecordActivity extends AppCompatActivity {
 
         tv_name = findViewById(R.id.tv_name);
         tv_points = findViewById(R.id.tv_points);
+        cl_root = findViewById(R.id.cl_record_root);
+        tv_title = findViewById(R.id.tv_NewRecordGameEnded);
         //TODO Test
         int reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
         Record[] topTen = recordRepository.GetTopTen();
         HashMap<String,Integer> usedNames = new HashMap<>();
+        int rang = 11;
+        int count = 1;
         for (Record rec:topTen){
             Integer nameCount = usedNames.get(rec.getNickname());
             if(nameCount == null)
                 nameCount = new Integer(0);
             nameCount++;
             usedNames.put(rec.getNickname(),nameCount);
+
+            if(reachedHeight >= rec.getHeight()){
+                rang = count;
+            }
+            count++;
+        }
         }
         String mostUsedName = "Jumper";
         int usedCount = -1;
@@ -63,6 +76,7 @@ public class RecordActivity extends AppCompatActivity {
      */
     public void btnBackToStartGameClicked(View view)
     {
+        record.setNickname(tv_name.getText().toString());
         updateDB(record);
         Intent main = new Intent(this, MainActivity.class);
         startActivity(main);
@@ -76,7 +90,6 @@ public class RecordActivity extends AppCompatActivity {
     public void updateDB(Record newRecord)
     {
         RecordRepository recordRepository = new RecordRepository(this);
-        Random random = new Random();
         recordRepository.Save(newRecord);
     }
 }

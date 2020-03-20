@@ -72,7 +72,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * loop für die Views zum sie Unsichtbar zu machen, falls es keine Daten hat
      * @param nbr nummer der View 1-3
      */

@@ -321,10 +321,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     public void playerCollidedWith(Platform platform) {
         if(platform.isOneTimeUse){
             soundEngine.play("bloop");
-            handler.postDelayed(()->{
-                removePlatform(platform);
-                gameManager.removePlatform(platform);
-            },1000);
         }
         else
             soundEngine.play("bounce");
@@ -335,7 +331,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
 
     long time;
-    /**
+    /*
      * Called when there is a new sensor event.  Note that "on changed"
      * is somewhat of a misnomer, as this will also be called if we have a
      * new reading from a sensor with the exact same sensor values (but a

@@ -96,6 +96,8 @@ public class GameManager {
 		if (platforms.size() !=  0)
 			distance = currentHeight + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
+
+		//Add platform if distance is sufficiently big enough
 		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 5 ){
 			Platform p = new Platform();
 			p.position = new PointF(
@@ -103,9 +105,11 @@ public class GameManager {
 					currentHeight + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
 			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
 
+			//Clouds are one time use Platforms
 			if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
 				p.isOneTimeUse = true;
 
+			//Blocks with
 			if(r.nextBoolean() && (
 					p.drawableId == R.drawable.grasblock1
 					|| p.drawableId == R.drawable.grasblock2
@@ -117,8 +121,8 @@ public class GameManager {
 			}
 			platforms.add(p);
 			uiNotifier.addPlatform(p);
-
 		}
+		// Remove platforms if they are out of the screen.
 		for(int i = 0;i < platforms.size();i++){
 			Platform plat = platforms.get(i);
 			if(plat.position.y + gameVariables.platformSize.y * 3 - currentHeight <= 0){
@@ -138,13 +142,14 @@ public class GameManager {
 		return (int)diff;
 	}
 	public void getAcceleration(float acceleration, long deltaTime){
-		float pixPerSec = 30;
+		float pixPerSec = player.maxSpeedPerSec;
 		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.SEC_TO_NANO_SEC;
+		//multiplied with constant to dampen the "feedback" of the sensor
 		float multiplier = calcSpeed / 1.5f;
-
 		//Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);
 		acceleration *= multiplier ;
 
+		//Cap velocity at the max speed allowed for the player.
 		this.player.velocity.x += acceleration;
 		if(player.velocity.x < -calcSpeed)
 			player.velocity.x = -calcSpeed;
@@ -162,6 +167,10 @@ public class GameManager {
 					player.velocity.y = 1.2500f;
 					uiNotifier.playerCollidedWith(plat);
 					if(plat.isOneTimeUse) {
+						gameRunner.postDelayed(()->{
+							uiNotifier.removePlatform(plat);
+							this.platforms.remove(plat);
+						},100);
 					}
 				}
 		}
