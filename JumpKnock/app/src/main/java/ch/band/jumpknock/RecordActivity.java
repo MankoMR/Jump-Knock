@@ -57,7 +57,6 @@ public class RecordActivity extends AppCompatActivity {
             }
             count++;
         }
-        }
         String mostUsedName = "Jumper";
         int usedCount = -1;
         for(HashMap.Entry<String,Integer> entry:usedNames.entrySet()){
