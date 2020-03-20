@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -67,6 +68,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private float[] ofSetValues = new float[4];
     private Random random;
     private Handler handler;
+    //to stop the record activity from appearing when pressing back button
+    private boolean cancelGameOverRunnable = false;
     private SoundEngine soundEngine = new SoundEngine();
 
     @Override
@@ -86,6 +89,13 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         InitSounds();
         ExecuteGameInitialisation();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.cancelGameOverRunnable = true;
+    }
+
     private void InitSounds(){
         int[] bounceSounds = new int[3];
         int[] bloobSounds = new int[7];
@@ -255,6 +265,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     }
     @Override
     protected void onPause() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         this.gameManager.isPaused = true;
         sensorManager.unregisterListener(this);
         super.onPause();
@@ -262,6 +273,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
     @Override
     protected void onResume() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(gameManager != null)
             this.gameManager.isPaused = false;
         if(movementSensor != null)
@@ -305,10 +317,13 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     public void updateUi(float height) {
         tvReachedHeight.setText(String.valueOf(height));
     }
+
     @Override
     public void gameOver(float height) {
         soundEngine.play("fall");
         handler.postDelayed(()->{
+            if(cancelGameOverRunnable)
+                return;
             Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
