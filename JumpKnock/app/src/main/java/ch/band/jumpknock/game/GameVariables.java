@@ -13,24 +13,25 @@ import androidx.annotation.DrawableRes;
  */
 public class GameVariables {
     private static final int SEC_TO_NANO_SEC = 1_000_000_000;
-    //The Size of the Screen:
+    //The size of the screen:
     private final PointF screenSize;
-    //The Size where entities can be set. Its bigger than the screen.
+    //The size where entities can be set. Its bigger than the screen.
     private final PointF gameFieldSize;
-    //The Size of the playerfigur
+    //The size of the player figure
     private final PointF playerSize;
-    //The PictureId of the Player
+    //The PictureId of the player
     @DrawableRes
     private final int playerDrawId;
-    //The Size of a platform without decoration
+    //The size of a platform without decoration
     private final PointF platformSize;
-    //Possible Platform Pictures to use
+    //Possible platform pictures to use
     @DrawableRes
     private final int[] platformDrawIds;
-    //Possible Decoration Pictures to use
+    //Possible decoration pictures to use
     @DrawableRes
     private final int[] decorationDrawIds;
-    public GameVariables(PointF screenSize, PointF gameFieldSize, PointF playerSize,PointF platformSize, int playerDrawId,  int[] platformDrawIds, int[] decorationDrawIds) {
+
+    public GameVariables(PointF screenSize, PointF gameFieldSize, PointF playerSize,PointF platformSize, int playerDrawId, @DrawableRes  int[] platformDrawIds,@DrawableRes int[] decorationDrawIds) {
         this.screenSize = screenSize;
         this.gameFieldSize = gameFieldSize;
         this.playerSize = playerSize;
@@ -41,82 +42,79 @@ public class GameVariables {
     }
 
     /**
-     * gibt den wert aus SEC_TO_NANO_SEC zurück
-     * @return
+     * @return multiplier to get get from nanosecond to second
      */
     public static int getSecToNanoSec() {
         return SEC_TO_NANO_SEC;
     }
 
     /**
-     * gibt den wert aus sreenSize zurück
-     * @return
+     * @return the size of the screen
+     * must be smaller than game-field size
      */
     public PointF getScreenSize() {
         return screenSize;
     }
 
     /**
-     * gibt den wert aus gameFieldSize zurück
-     * @return
+     * @return the size of the game-field
+     * must be larger the the screenSize.
      */
     public PointF getGameFieldSize() {
         return gameFieldSize;
     }
 
     /**
-     * gibt den wert aus playerSize zurück
-     * @return
+     * @return the size the player must have.
      */
     public PointF getPlayerSize() {
         return playerSize;
     }
 
     /**
-     * gibt den wert aus playerDrawId zurück
-     * @return
+     * @return the player picture
      */
+    @DrawableRes
     public int getPlayerDrawId() {
         return playerDrawId;
     }
 
     /**
-     * gibt den wert aus platformSize zurück
-     * @return
+     * @return the Size  that a platform must have.
      */
     public PointF getPlatformSize() {
         return platformSize;
     }
 
     /**
-     * gibt den wert aus platformDrawIds zurück
-     * @return
+     * @return possible types of platform pictures
      */
+    @DrawableRes
     public int[] getPlatformDrawIds() {
         return platformDrawIds;
     }
 
     /**
-     * gibt den wert aus decorationDrawIds zurück
-     * @return
+     * @return all possible decoration pictures which can be placed on platforms
      */
+    @DrawableRes
     public int[] getDecorationDrawIds() {
         return decorationDrawIds;
     }
 
     /**
-     * berechnet die margin von oben und unten
-	 * (gamefield height - screen height) / 2
-     * @return
+     * Calculates the top or bottom margin between screenSize and gameFieldSize
+	 *
+     * @return (gamefield height - screen height) / 2
      */
     public float getTopOrBottomMargin(){
         return  (gameFieldSize.y - screenSize.y )/ 2;
     }
 
     /**
-     * berechnet die margin von links und rechts
-	 * (gamefield width - screen width) / 2
-     * @return
+     * Calculates the left or right margin between screenSize and gameFieldSize
+	 *
+     * @return (gamefield width - screen width) / 2
      */
     public float getLeftOrRightMargin(){
         return  (gameFieldSize.x - screenSize.x )/ 2;
@@ -124,7 +122,8 @@ public class GameVariables {
 
     /**
 	 * Calculates the Position of the Screen on the Gamefield.
-     * @return
+     *
+     * @return position of screen on the gamefield.
      */
     public PointF getScreenPosition(){
         return new PointF(getLeftOrRightMargin(),getTopOrBottomMargin());
