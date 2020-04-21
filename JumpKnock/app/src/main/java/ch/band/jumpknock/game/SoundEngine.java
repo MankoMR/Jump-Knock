@@ -93,19 +93,19 @@ public class SoundEngine {
 
             for(int i = 0;i < soundVariations.length;i++){
                 MediaPlayer player = MediaPlayer.create(applicationContext,soundVariations[i]);
+                //On some devices the source file can't be read and initialization fails. It those Situation it returns null.
+                //Therefore all access needs to be null checked.
                 if (player == null){
                     Log.d(TAG,"Error during MediaPlayer creation disallows playing Sound");
                     continue;
                 }
-                player.setOnPreparedListener(p ->{
-                    player.setVolume(soundVolume,soundVolume);
-                    player.setOnCompletionListener((mp)->{
-                        if(mp == null){
-                            return;
-                        }
-                        mp.pause();
-                        mp.seekTo(0);
-                    });
+                player.setVolume(soundVolume,soundVolume);
+                player.setOnCompletionListener((mp)->{
+                    if(mp == null){
+                        return;
+                    }
+                    mp.pause();
+                    mp.seekTo(0);
                 });
                 this.soundVariations[i] = player;
             }
