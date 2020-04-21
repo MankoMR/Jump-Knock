@@ -9,7 +9,7 @@ import java.util.Random;
 
 import ch.band.jumpknock.R;
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
@@ -21,14 +21,13 @@ public class GameManager {
 	private Player player;
 	private ArrayList<Platform> platforms = new ArrayList<>();
 	private Random r;
-	public boolean isPaused;
-	public boolean isStopped;
+	private boolean isPaused;
+	private boolean isStopped;
 	private boolean isGameOver = false;
 
 	private UiNotifier uiNotifier;
 	private Handler gameRunner;
 	private static int FPS = 60;
-	Platform top;
 
 	public GameManager(UiNotifier uiNotifier,GameVariables gameVariables){
 		this.uiNotifier = uiNotifier;
@@ -40,8 +39,44 @@ public class GameManager {
 		gameRunner.postDelayed(createGameLoop(),1000);
 
 	}
+
+	/**
+	 * gibt den wert aus isPaused zurück
+	 * @return
+	 */
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	/**
+	 * speichert den mitgebenen wert in paused
+	 * @param paused
+	 */
+	public void setPaused(boolean paused) {
+		isPaused = paused;
+	}
+
+	/**
+	 * gibt den wert von isStopped zurück
+	 * @return
+	 */
+	public boolean isStopped() {
+		return isStopped;
+	}
+
+	/**
+	 * speichert den mitgebenen wert in isStopped
+	 * @param stopped
+	 */
+	public void setStopped(boolean stopped) {
+		isStopped = stopped;
+	}
+
+	/**
+	 * creaiert einen Loop
+	 * @return
+	 */
 	private Runnable createGameLoop(){
-		final GameManager gameManager = this;
 		return new Runnable() {
 			@Override
 			public void run() {
@@ -55,37 +90,44 @@ public class GameManager {
 			}
 		};
 	}
-	public void ChangeDisplayVariables(GameVariables gameVariables){
-		this.gameVariables = gameVariables;
-	}
+
+	/**
+	 * gibt die aktuelle höche zurück
+	 * @return
+	 */
 	public float getCurrentHeight() {return currentHeight; }
 
+	/**
+	 * aktualiesiert den bildschirm
+	 * @return
+	 */
 	public int update(){
 		int deltaTime = GetDeltaTime();
 		if (isPaused)
 			return deltaTime;
 		int speedPerSecond = 400;
-		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.SEC_TO_NANO_SEC);
+		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.getSecToNanoSec());
 		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
 		//currentHeight += adjustedSpeed;
 
 		float delta = player.update(gameVariables, currentHeight,deltaTime);
-		float playerheight = player.position.y + gameVariables.playerSize.y;
+
+		float playerheight = player.position.y + gameVariables.getPlayerSize().y;
 		currentHeight += delta;
 		if(currentHeight >= reachedHeight)
 			reachedHeight = currentHeight;
 
 		if(delta <= 0){
 			testForCollision();
-			if(player.position.y + gameVariables.gameFieldSize.y < reachedHeight){
+			if(player.position.y + gameVariables.getGameFieldSize().y < reachedHeight){
 				boolean cheatMode = false;
 				if(!isGameOver && !cheatMode){
 					uiNotifier.gameOver(reachedHeight);
 					isGameOver = true;
-					Log.d(TAG,"Lost Game: Player Velocity: "+player.velocity.toString()+" Position:"+ player.position.toString());
+					Log.d(TAG,"Lost Game: Player Velocity: "+player.getVelocity().toString()+" Position:"+ player.position.toString());
 				}
 				if(cheatMode){
-					player.velocity.y = 1.2500f;
+					player.getVelocity().y = 1.2500f;
 					uiNotifier.playerCollidedWith(null);
 				}
 				//currentHeight +=delta;
@@ -94,20 +136,20 @@ public class GameManager {
 		//player.position.y += adjustedSpeed;
 		float distance = 0;
 		if (platforms.size() !=  0)
-			distance = currentHeight + gameVariables.gameFieldSize.y - platforms.get(platforms.size() - 1).position.y;
+			distance = currentHeight + gameVariables.getGameFieldSize().y - platforms.get(platforms.size() - 1).position.y;
 		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
 
 		//Add platform if distance is sufficiently big enough
-		if (platforms.size() == 0 || distance > gameVariables.platformSize.y * 5 ){
+		if (platforms.size() == 0 || distance > gameVariables.getPlatformSize().y * 5 ){
 			Platform p = new Platform();
 			p.position = new PointF(
-					r.nextFloat() * (gameVariables.gameFieldSize.x - gameVariables.platformSize.x),
-					currentHeight + gameVariables.gameFieldSize.y + gameVariables.platformSize.y);
-			p.drawableId = gameVariables.platformDrawIds[r.nextInt(gameVariables.platformDrawIds.length)];
+					r.nextFloat() * (gameVariables.getGameFieldSize().x - gameVariables.getPlatformSize().x),
+					currentHeight + gameVariables.getGameFieldSize().y + gameVariables.getPlatformSize().y);
+			p.drawableId = gameVariables.getPlatformDrawIds()[r.nextInt(gameVariables.getPlatformDrawIds().length)];
 
 			//Clouds are one time use Platforms
 			if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
-				p.isOneTimeUse = true;
+				p.setOneTimeUse(true);
 
 			//Blocks with
 			if(r.nextBoolean() && (
@@ -115,9 +157,9 @@ public class GameManager {
 					|| p.drawableId == R.drawable.grasblock2
 					|| p.drawableId == R.drawable.stoneblockwithgrass1
 					|| p.drawableId == R.drawable.stoneblockwithgrass2 )){
-				p.decoration = new Decoration();
-				p.decoration.position = r.nextFloat();
-				p.decoration.drawableId = gameVariables.decorationDrawIds[r.nextInt(gameVariables.decorationDrawIds.length)];
+				p.setDecoration(new Decoration(gameVariables.getDecorationDrawIds()[r.nextInt(gameVariables.getDecorationDrawIds().length)],r.nextFloat()));
+				//p.getDecoration().setPosition(r.nextFloat());
+				//p.getDecoration().setDrawableId(gameVariables.getDecorationDrawIds()[r.nextInt(gameVariables.getDecorationDrawIds().length)]);
 			}
 			platforms.add(p);
 			uiNotifier.addPlatform(p);
@@ -125,7 +167,7 @@ public class GameManager {
 		// Remove platforms if they are out of the screen.
 		for(int i = 0;i < platforms.size();i++){
 			Platform plat = platforms.get(i);
-			if(plat.position.y + gameVariables.platformSize.y * 3 - currentHeight <= 0){
+			if(plat.position.y + gameVariables.getPlatformSize().y * 3 - currentHeight <= 0){
 				uiNotifier.removePlatform(plat);
 				platforms.remove(i);
 				i--;
@@ -135,38 +177,53 @@ public class GameManager {
 		uiNotifier.UpdateGame(platforms,player, currentHeight,gameVariables);
 		return deltaTime;
 	}
+
+	/**
+	 * gibt Zeit differenz zurück.
+	 * @return
+	 */
 	private int GetDeltaTime(){
 		long now = System.nanoTime();
 		long diff = now - playTimeNs;
 		playTimeNs = now;
 		return (int)diff;
 	}
+
+	/**
+	 *berechnet die bewegung
+	 * @param acceleration
+	 * @param deltaTime
+	 */
 	public void getAcceleration(float acceleration, long deltaTime){
-		float pixPerSec = player.maxSpeedPerSec;
-		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.SEC_TO_NANO_SEC;
+		float pixPerSec = player.getMaxSpeedPerSec();
+		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.getSecToNanoSec();
 		//multiplied with constant to dampen the "feedback" of the sensor
 		float multiplier = calcSpeed / 1.5f;
 		//Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);
 		acceleration *= multiplier ;
 
 		//Cap velocity at the max speed allowed for the player.
-		this.player.velocity.x += acceleration;
-		if(player.velocity.x < -calcSpeed)
-			player.velocity.x = -calcSpeed;
-		if(player.velocity.x > calcSpeed)
-			player.velocity.x = calcSpeed;
+		this.player.getVelocity().x += acceleration;
+		if(player.getVelocity().x < -calcSpeed)
+			player.getVelocity().x = -calcSpeed;
+		if(player.getVelocity().x > calcSpeed)
+			player.getVelocity().x = calcSpeed;
 		//Log.d(TAG,"Velocity: "+ player.velocity.toString()+ " Position: "+ player.position.toString());
 	}
+
+	/**
+	 * überprüft ob die figur aufprallt
+	 */
 	private void testForCollision(){
 		for (int i = 0; i < platforms.size();i++){
 			Platform plat = platforms.get(i);
 			//test if overlays with the platform horizontally.
-			if(plat.position.x <= player.position.x + gameVariables.playerSize.x && plat.position.x+ gameVariables.platformSize.x >= player.position.x)
+			if(plat.position.x <= player.position.x + gameVariables.getPlayerSize().x && plat.position.x+ gameVariables.getPlatformSize().x >= player.position.x)
 				//checking if the player overlays with the platform vertically
-				if (plat.position.y + gameVariables.platformSize.y >= player.position.y && plat.position.y <= player.position.y){
-					player.velocity.y = 1.2500f;
+				if (plat.position.y + gameVariables.getPlatformSize().y >= player.position.y && plat.position.y <= player.position.y){
+					player.getVelocity().y = 1.2500f;
 					uiNotifier.playerCollidedWith(plat);
-					if(plat.isOneTimeUse) {
+					if(plat.isOneTimeUse()) {
 						gameRunner.postDelayed(()->{
 							uiNotifier.removePlatform(plat);
 							this.platforms.remove(plat);
@@ -174,8 +231,5 @@ public class GameManager {
 					}
 				}
 		}
-	}
-	public boolean removePlatform(Platform platform){
-		return platforms.remove(platform);
 	}
 }

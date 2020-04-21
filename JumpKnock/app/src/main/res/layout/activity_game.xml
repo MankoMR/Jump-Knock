@@ -61,44 +61,4 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1559m" />
 
-    <LinearLayout
-        android:id="@+id/LlDebug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal|fill_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/BtnBounce"
-            android:layout_width="149dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="start|top"
-            android:text="Bounce Sound" />
-
-        <Button
-            android:id="@+id/BtnGameOver"
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Gameover Sound" />
-
-        <Button
-            android:id="@+id/BtnGameFinished"
-            android:layout_width="69dp"
-            android:layout_height="wrap_content"
-            android:text="Finish" />
-
-        <EditText
-            android:id="@+id/EtvHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

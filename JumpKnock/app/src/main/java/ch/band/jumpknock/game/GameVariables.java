@@ -4,24 +4,24 @@ import android.graphics.PointF;
 
 import androidx.annotation.DrawableRes;
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class GameVariables {
-    public static final int SEC_TO_NANO_SEC = 1_000_000_000;
+    private static final int SEC_TO_NANO_SEC = 1_000_000_000;
     //The Size of the Screen:
-    public final PointF screenSize;
+    private final PointF screenSize;
     //The Size where entities can be set. Its bigger than the screen.
-    public final PointF gameFieldSize;
+    private final PointF gameFieldSize;
     //The Size of the playerfigur
-    public final PointF playerSize;
+    private final PointF playerSize;
     @DrawableRes
-    public final int playerDrawId;
+    private final int playerDrawId;
     //The Size of a platform without decoration
-    public final PointF platformSize;
+    private final PointF platformSize;
     @DrawableRes
-    public final int[] platformDrawIds;
+    private final int[] platformDrawIds;
     @DrawableRes
-    public final int[] decorationDrawIds;
+    private final int[] decorationDrawIds;
     public GameVariables(PointF screenSize, PointF gameFieldSize, PointF playerSize,PointF platformSize, int playerDrawId,  int[] platformDrawIds, int[] decorationDrawIds) {
         this.screenSize = screenSize;
         this.gameFieldSize = gameFieldSize;
@@ -32,12 +32,90 @@ public class GameVariables {
         this.decorationDrawIds = decorationDrawIds;
     }
 
+    /**
+     * gibt den wert aus SEC_TO_NANO_SEC zurück
+     * @return
+     */
+    public static int getSecToNanoSec() {
+        return SEC_TO_NANO_SEC;
+    }
+
+    /**
+     * gibt den wert aus sreenSize zurück
+     * @return
+     */
+    public PointF getScreenSize() {
+        return screenSize;
+    }
+
+    /**
+     * gibt den wert aus gameFieldSize zurück
+     * @return
+     */
+    public PointF getGameFieldSize() {
+        return gameFieldSize;
+    }
+
+    /**
+     * gibt den wert aus playerSize zurück
+     * @return
+     */
+    public PointF getPlayerSize() {
+        return playerSize;
+    }
+
+    /**
+     * gibt den wert aus playerDrawId zurück
+     * @return
+     */
+    public int getPlayerDrawId() {
+        return playerDrawId;
+    }
+
+    /**
+     * gibt den wert aus platformSize zurück
+     * @return
+     */
+    public PointF getPlatformSize() {
+        return platformSize;
+    }
+
+    /**
+     * gibt den wert aus platformDrawIds zurück
+     * @return
+     */
+    public int[] getPlatformDrawIds() {
+        return platformDrawIds;
+    }
+
+    /**
+     * gibt den wert aus decorationDrawIds zurück
+     * @return
+     */
+    public int[] getDecorationDrawIds() {
+        return decorationDrawIds;
+    }
+
+    /**
+     * berechnet die margin von oben und unten
+     * @return
+     */
     public float getTopOrBottomMargin(){
         return  (gameFieldSize.y - screenSize.y )/ 2;
     }
+
+    /**
+     * berechnet die margin von links und rechts
+     * @return
+     */
     public float getLeftOrRightMargin(){
         return  (gameFieldSize.x - screenSize.x )/ 2;
     }
+
+    /**
+     * gibt die bildschirmposition zurück
+     * @return
+     */
     public PointF getScreenPosition(){
         return new PointF(getLeftOrRightMargin(),getTopOrBottomMargin());
     }

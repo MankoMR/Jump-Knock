@@ -1,18 +1,21 @@
 package ch.band.jumpknock.storage;
 
-import androidx.annotation.NonNull;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /*
- *Copyright (c) 2020 Manuel Koloska, Fredy Stalder, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class Record implements Comparable {
 
 	private String nickname;
 	private int height;
+	private Timestamp dateAndTime;
 
-	public Record(String nickname,int height){
+	public Record(String nickname,int height, Timestamp dateAndTime){
 		this.nickname = nickname;
 		this.height = height;
+		this.dateAndTime = dateAndTime;
 	}
 
 
@@ -66,13 +69,20 @@ public class Record implements Comparable {
 		return 1;
 	}
 
+	/**
+	 * gibt den namen und die höche als String zurück
+	 * @return
+	 */
 	@Override
 	public String toString()
 	{
 		return nickname + " " + height;
 	}
 
-
+	/**
+	 * gibt den Nicknamen zurück
+	 * @return
+	 */
 	public String getNickname()
 	{
 		return nickname;
@@ -103,5 +113,20 @@ public class Record implements Comparable {
 	public void setHeight(int height)
 	{
 		this.height = height;
+	}
+
+	/**
+	 * gibt den Wert dateAndTime zurück
+	 * @return dateAndTime
+	 */
+	public Timestamp getDateAndTime(){ return dateAndTime; }
+
+	/**
+	 * speichert das mitgebenen Date als dateAndTime ab
+	 * @param dateAndTime
+	 */
+	public void setDateAndTime(Timestamp dateAndTime)
+	{
+		this.dateAndTime = dateAndTime;
 	}
 }

@@ -16,23 +16,41 @@ import java.util.concurrent.ArrayBlockingQueue;
 import ch.band.jumpknock.Constants;
 import ch.band.jumpknock.GameActivity;
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class SoundEngine {
     HashMap<String, SoundContainer> sounds = new HashMap<>();
+
+    /**
+     * löscht den sound
+     */
     public void release(){
         for (HashMap.Entry<String, SoundContainer> entry:sounds.entrySet()){
             entry.getValue().release();
         }
         sounds.clear();
     }
+
+    /**
+     * fügt einen sound hinzu
+     * @param name
+     * @param soundVariations
+     * @param soundVolume
+     * @param applicationContext
+     */
     public void add(String name, @RawRes int[] soundVariations, float soundVolume,
                     Context applicationContext){
         sounds.put(name,new SoundContainer(soundVariations,soundVolume,applicationContext));
     }
+
+    /**
+     * spielt den sound ab
+     * @param name
+     */
     public void play(String name){
         sounds.get(name).play();
     }
+
     private class SoundContainer{
         private final String TAG = SoundContainer.class.getCanonicalName();
         private MediaPlayer[] soundVariations;
@@ -51,10 +69,18 @@ public class SoundEngine {
                 this.soundVariations[i] = player;
             }
         }
+
+        /**
+         * spielt den sound ab
+         */
         public void play() {
             soundVariations[soundVariationCounter%soundVariations.length].start();
             soundVariationCounter++;
         }
+
+        /**
+         * stopt den soundplayer
+         */
         public void release(){
             for(MediaPlayer player:soundVariations){
                 player.stop();

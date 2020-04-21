@@ -10,14 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 /*
- *Copyright (c) 2020 Freddy Stalder, Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class SqlBackend implements StorageBackendInterface {
 
     private  Context context;
 
+    /**
+     * construktor
+     * @param context
+     */
     public SqlBackend(Context context)
     {
         this.context = context;
@@ -49,7 +52,7 @@ public class SqlBackend implements StorageBackendInterface {
 
     /**
      * gibt eine Liste mit allen Records aus der Datenbank zurück
-     * @return
+     * @return Liste mit Records
      */
     @Override
     public List<Record> getRecords() {
@@ -57,5 +60,18 @@ public class SqlBackend implements StorageBackendInterface {
         ArrayList<Record> records = dbHelper.getAllRecords();
         dbHelper.close();
         return records;
+    }
+
+    /**
+     * hollt sich den zuletzt gespeicherten Datensatz aus der Datenbank
+     * @return Record
+     */
+    @Override
+    public  Record getNewesRecord()
+    {
+        DBHelper dbHelper = new DBHelper(context);
+        Record record = dbHelper.getNewestRecord();
+        dbHelper.close();
+        return record;
     }
 }

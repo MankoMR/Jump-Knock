@@ -12,13 +12,17 @@ import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
 
 /*
- *Copyright (c) 2020 Freddy Stalder, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class ShowRecordsActivity extends AppCompatActivity {
 
     TextView[] tv_firstToThird = new TextView[3];
     LinearLayout ll_fourthToTenth;
 
+    /**
+     * setzt die view passend den anzahl datensätze an und zeigt ensprechend so viele Pokale, Badges
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,8 @@ public class ShowRecordsActivity extends AppCompatActivity {
         tv_firstToThird[1] = findViewById(R.id.tv_second);
         tv_firstToThird[2] = findViewById(R.id.tv_third);
 
+        //TODO zeigt nur die ersten 9 resulate an
+
         ll_fourthToTenth = findViewById(R.id.ll_fourthToTenth);
 
         RecordRepository recordRepository = new RecordRepository(this);
@@ -35,7 +41,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
 
         //damit es keine probleme bei der weiterverarbeitung gibt muss topTen aus 10 Record datenstätze bestenen
         Record[] topTen = new Record[10];
-        for(int i = 0; i < topTen.length - 1; i++)
+        for(int i = 0; i < topTen.length; i++)
         {
             if(i < foundRecords.length)
             {
@@ -72,7 +78,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
         }
     }
 
-    /*
+    /**
      * loop für die Views zum sie Unsichtbar zu machen, falls es keine Daten hat
      * @param nbr nummer der View 1-3
      */
