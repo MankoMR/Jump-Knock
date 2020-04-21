@@ -15,9 +15,15 @@ public class Placeable {
 	protected int drawableId;
 
 	/**
-	 * updatet deltaTime
+	 * runs logic which should be run each update
 	 * @param deltaTimeNs
+	 *
+	 * Its marked as deprecated, because children classes need a variety of additional
+	 * and or different information than just the delta in time.
+	 * Therefore its marked as deprecated.
+	 * TODO: remove it
 	 */
+	@Deprecated
 	public void update(int deltaTimeNs){
 
 	}
@@ -26,7 +32,7 @@ public class Placeable {
 	 * Calculates the distance reached with
 	 * @param velocity    the velocity
 	 * @param timeDeltaNs the time delta ns
-	 * @returns the Distance with the velocity und delta time.
+	 * @returns the distance with the velocity und delta time.
 	 */
 	public static float calcDistance(float velocity, long timeDeltaNs){
 		float delta = velocity * ((float)GameVariables.getSecToNanoSec() / timeDeltaNs);
@@ -34,16 +40,14 @@ public class Placeable {
 	}
 
 	/**
-	 * gibt den wert position zurück
-	 * @return
+	 * @return the position on the game-field
 	 */
 	public PointF getPosition() {
 		return position;
 	}
 
 	/**
-	 * gibt den wert in drawableId zurück
-	 * @return
+	 * @return the resource id of the drawable represented by this class
 	 */
 	public int getDrawableId() {
 		return drawableId;

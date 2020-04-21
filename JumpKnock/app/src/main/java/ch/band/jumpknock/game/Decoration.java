@@ -10,7 +10,7 @@ import androidx.annotation.FloatRange;
 
 /**
  * The type Decoration.
- * Stores necessary Information for placing Decoration on a Platform.
+ * Stores necessary information for placing decoration on a platform.
  */
 public class Decoration {
 
@@ -20,8 +20,8 @@ public class Decoration {
 	@DrawableRes
 	private int drawableId;
 	/**
-	 * The horizontal relativ Position on the Platform.
-	 * 0 means the leftside of the Decoration is aligned with the left side of the platform and
+	 * The horizontal relative position on the platform.
+	 * 0 means the left side of the decoration is aligned with the left side of the platform and
 	 * otherwise with 1.0 for the right side.
 	 */
 	@FloatRange(from = 0.0, to = 1.0)
@@ -34,15 +34,15 @@ public class Decoration {
 	}
 
 	/**
-	 * gives back the value of drawableId
-	 * @return
+	 * @return the Id of the drawable resource.
 	 */
 	public int getDrawableId() {
 		return drawableId;
 	}
 
 	/**
-	 * save the value in drawableId
+	 * change the drawable resource
+	 *
 	 * @param drawableId
 	 */
 	public void setDrawableId(int drawableId) {
@@ -50,15 +50,14 @@ public class Decoration {
 	}
 
 	/**
-	 * gives back the value of position
-	 * @return
+	 * @return the relative position of the decoration
 	 */
 	public float getPosition() {
 		return position;
 	}
 
 	/**
-	 * saves the value in position
+	 * change the position of the decoration
 	 * @param position
 	 */
 	public void setPosition(float position) {
