@@ -59,8 +59,7 @@ public class GameManager {
 	}
 
 	/**
-	 * gibt den wert aus isPaused zurück
-	 *
+	 * Wether game is Paused.
 	 * @return boolean
 	 */
 	public boolean isPaused() {
@@ -68,27 +67,23 @@ public class GameManager {
 	}
 
 	/**
-	 * speichert den mitgebenen wert in paused
-	 *
-	 * @param paused the paused
+	 * Pauses the game to then continue sometime after.
 	 */
 	public void pause() {
 		isPaused = true;
 	}
 
 	/**
-	 * gibt den wert von isStopped zurück
-	 *
-	 * @return boolean
+	 * @return boolean whether the GameManager is stopped
 	 */
 	public boolean isStopped() {
 		return isStopped;
 	}
 
 	/**
-	 * speichert den mitgebenen wert in isStopped
-	 *
-	 * @param stopped the stopped
+	 * Stops the game.
+	 * Should only be called when game should for some reason be finished.
+	 * This is because GameManager can't get restarted. (The gameRunner hasn't anything to run anymore.)
 	 */
 	public void stop() {
 		isStopped = true;
@@ -106,6 +101,7 @@ public class GameManager {
 			public void run() {
 				int deltaTime = update();
 				if(!isStopped){
+					//calculations to approximate the update rate to @FPS
 					long toWait = 1000 / FPS - deltaTime / 1_000_000;
 					toWait = toWait < 0 ? 0 : toWait;
 					//Log.d(getClass().getSimpleName(),"Run loop in "+ toWait + "ms");
@@ -116,7 +112,7 @@ public class GameManager {
 	}
 
 	/**
-	 *
+	 * The height is conceptually measured from the bottom the game to the feets of the player.
 	 * @return current height
 	 */
 	public float getCurrentHeight() {return currentHeight; }
@@ -176,7 +172,7 @@ public class GameManager {
 			if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
 				p.setOneTimeUse(true);
 
-			//Blocks with
+			//Places randomised decoration on Platform with grass.
 			if(r.nextBoolean() && (
 					p.drawableId == R.drawable.grasblock1
 					|| p.drawableId == R.drawable.grasblock2
@@ -204,8 +200,8 @@ public class GameManager {
 	}
 
 	/**
-	 * It should only be called Once per update or when the Delta is to big
-	 * to properly Update the game (eg: after pausing the game, the delta will be way to big,
+	 * It should only be called Once per update or when the delta is to big
+	 * to properly update the game. (eg: After pausing the game, the delta will be way to big,
 	 * because the pause counts a one update.)
 	 *
 	 * @return the delta in time in nanoseconds between the current method- and last method-call.
@@ -218,9 +214,9 @@ public class GameManager {
 	}
 
 	/**
-	 * berechnet die bewegung
+	 * This methods should called to control the players horizontal position with an acceleration sensor.
 	 *
-	 * @param acceleration the acceleration
+	 * @param acceleration the acceleration during the deltaTime
 	 * @param deltaTime    the delta time in Ns
 	 */
 	public void setHorizontalPlayerAcceleration(float acceleration, long deltaTime){
@@ -254,6 +250,7 @@ public class GameManager {
 					uiNotifier.playerCollidedWith(plat);
 					if(plat.isOneTimeUse()) {
 						gameRunner.postDelayed(()->{
+							//This gets called a little later, or it would look like the player should have broken through the platform.
 							uiNotifier.removePlatform(plat);
 							this.platforms.remove(plat);
 						},100);
