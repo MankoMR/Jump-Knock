@@ -24,7 +24,7 @@ public class GameManager {
     /**
      * The Game variables.
      */
-    GameVariables gameVariables;
+	private GameVariables gameVariables;
     private long playTimeNs;
     //should always be in the middle of the screen.
     private float currentHeight;
@@ -122,7 +122,7 @@ public class GameManager {
      * When appropriate it commands which action needs to be taken through the UiNotifier.
      * @return the deltatime of @GetDeltaTime.
      */
-    public int update(){
+	private int update(){
         int deltaTime = GetDeltaTime();
         if (isPaused)
             return deltaTime;
@@ -221,7 +221,7 @@ public class GameManager {
 	 */
 	public void setHorizontalPlayerAcceleration(float acceleration, long deltaTime){
 		float pixPerSec = player.getMaxSpeedPerSec();
-		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.getSecToNanoSec();
+		float calcSpeed = pixPerSec * (float)deltaTime / GameVariables.getSecToNanoSec();
 		//multiplied with constant to dampen the "feedback" of the sensor
 		float multiplier = calcSpeed / 1.5f;
 		//Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);

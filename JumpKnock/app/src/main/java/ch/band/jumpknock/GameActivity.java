@@ -358,15 +358,6 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             soundEngine.play("bounce");
     }
 
-    /**
-     * gibt 0 zurück
-     * @return
-     */
-    @Override
-    public float getSmartPhoneRotation() {
-        return 0;
-    }
-
     long time;
     /*
      * Called when there is a new sensor event.  Note that "on changed"
