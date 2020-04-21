@@ -51,7 +51,8 @@ public class GameManager {
 		this.gameVariables = gameVariables;
 		r = new Random();
 		player = new Player(gameVariables,R.drawable.jumper);
-		isPaused = isStopped = false;
+		isStopped = false;
+		isPaused = true;
 		gameRunner = new Handler();
 		gameRunner.postDelayed(createGameLoop(gameRunner),1000);
 
@@ -71,8 +72,8 @@ public class GameManager {
 	 *
 	 * @param paused the paused
 	 */
-	public void setPaused(boolean paused) {
-		isPaused = paused;
+	public void pause() {
+		isPaused = true;
 	}
 
 	/**
@@ -89,8 +90,8 @@ public class GameManager {
 	 *
 	 * @param stopped the stopped
 	 */
-	public void setStopped(boolean stopped) {
-		isStopped = stopped;
+	public void stop() {
+		isStopped = true;
 	}
 
 	/**
@@ -222,7 +223,7 @@ public class GameManager {
 	 * @param acceleration the acceleration
 	 * @param deltaTime    the delta time in Ns
 	 */
-	public void getAcceleration(float acceleration, long deltaTime){
+	public void setHorizontalPlayerAcceleration(float acceleration, long deltaTime){
 		float pixPerSec = player.getMaxSpeedPerSec();
 		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.getSecToNanoSec();
 		//multiplied with constant to dampen the "feedback" of the sensor
@@ -259,5 +260,9 @@ public class GameManager {
 					}
 				}
 		}
+	}
+	
+	public void start() {
+		isPaused = false;
 	}
 }
