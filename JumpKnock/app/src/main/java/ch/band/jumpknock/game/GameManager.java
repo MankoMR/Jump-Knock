@@ -1,4 +1,5 @@
-﻿
+﻿package ch.band.jumpknock.game;
+
 import android.graphics.PointF;
 import android.os.Handler;
 import android.util.Log;
