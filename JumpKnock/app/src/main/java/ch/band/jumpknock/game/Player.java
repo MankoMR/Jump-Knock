@@ -94,7 +94,7 @@ public class Player extends Placeable {
 		float calcMaxVelocity = calcDistance(maxSpeedPerSec,GameVariables.getSecToNanoSec());
 
 		/*
-		//Unecessary since it is already capped by GameManager.getAcceleration
+		//Unecessary since it is already capped by GameManager.setHorizontalPlayerAcceleration
 		if(velocity.x < -calcMaxVelocity)
 			velocity.x = -calcMaxVelocity;
 		if(velocity.x > calcMaxVelocity)

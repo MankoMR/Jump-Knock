@@ -248,7 +248,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
      */
     @Override
     protected void onStop() {
-        this.gameManager.setStopped(true);
+        this.gameManager.stop();
         super.onStop();
     }
 
@@ -259,7 +259,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     @Override
     protected void onPause() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        this.gameManager.setPaused(true);
+        this.gameManager.pause();
         sensorManager.unregisterListener(this);
         super.onPause();
     }
@@ -271,7 +271,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     protected void onResume() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(gameManager != null)
-            this.gameManager.setPaused(false);
+            this.gameManager.start();
         if(movementSensor != null)
             sensorManager.registerListener(this,movementSensor,SensorManager.SENSOR_DELAY_GAME);
         time = System.nanoTime();
@@ -339,7 +339,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
-            gameManager.setStopped(true);
+            gameManager.stop();
             //soundEngine.release();
             finish();
         },4000);
@@ -408,7 +408,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:873)
         2020-04-20 11:10:37.501 1653-1653/? E/MQSEventManagerDelegate: failed to get MQSService.
          */
-        gameManager.getAcceleration(event.values[1] - ofSetValues[1],deltatime);
+        gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
         //Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
     }
 

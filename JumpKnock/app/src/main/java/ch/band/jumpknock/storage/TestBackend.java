@@ -8,8 +8,7 @@ import java.util.Random;
  */
 
 /**
- * testklasee
- * //TODO löschen
+ * Intended to be used as a mockup or for testing purposes without persisting state after closing app
  */
 class TestBackend implements StorageBackendInterface {
 	private ArrayList<Record> records = new ArrayList<>();
