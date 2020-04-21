@@ -29,7 +29,6 @@ import ch.band.jumpknock.GameActivity;
 public class SoundEngine {
     HashMap<String, SoundContainer> sounds = new HashMap<>();
 
-<<<<<<< HEAD
      /*
      * Releases resources associated with the SoundEngine object.
      * It is considered good practice to call this method when you're
@@ -47,12 +46,7 @@ public class SoundEngine {
      * of the same codec are supported, some performance degradation
      * may be expected when unnecessary multiple instances are used
      * at the same time.
-      */
-=======
-    /**
-     * löscht den sound
      */
->>>>>>> a0ef24cbe7d54a69208c022107a762bfe78b848b
     public void release(){
         for (HashMap.Entry<String, SoundContainer> entry:sounds.entrySet()){
             entry.getValue().release();
@@ -60,8 +54,6 @@ public class SoundEngine {
         sounds.clear();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * fügt einen sound hinzu
      * @param name
@@ -69,19 +61,15 @@ public class SoundEngine {
      * @param soundVolume
      * @param applicationContext
      */
->>>>>>> a0ef24cbe7d54a69208c022107a762bfe78b848b
     public void add(String name, @RawRes int[] soundVariations, float soundVolume,
                     Context applicationContext){
         sounds.put(name,new SoundContainer(soundVariations,soundVolume,applicationContext));
     }
 
-<<<<<<< HEAD
-=======
     /**
      * spielt den sound ab
      * @param name
      */
->>>>>>> a0ef24cbe7d54a69208c022107a762bfe78b848b
     public void play(String name){
         sounds.get(name).play();
     }
@@ -115,12 +103,8 @@ public class SoundEngine {
         }
 
         /**
-<<<<<<< HEAD
          * Play.
          * Plays the next variation.
-=======
-         * spielt den sound ab
->>>>>>> a0ef24cbe7d54a69208c022107a762bfe78b848b
          */
         public void play() {
             soundVariations[soundVariationCounter%soundVariations.length].start();
@@ -128,12 +112,8 @@ public class SoundEngine {
         }
 
         /**
-<<<<<<< HEAD
          * Release.
          * Needs to be called to properly release
-=======
-         * stopt den soundplayer
->>>>>>> a0ef24cbe7d54a69208c022107a762bfe78b848b
          */
         public void release(){
             for(MediaPlayer player:soundVariations){
