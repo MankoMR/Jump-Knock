@@ -67,7 +67,7 @@ public class SqlBackend implements StorageBackendInterface {
      * @return Record
      */
     @Override
-    public  Record getNewesRecord()
+    public  Record getNewestRecord()
     {
         DBHelper dbHelper = new DBHelper(context);
         Record record = dbHelper.getNewestRecord();

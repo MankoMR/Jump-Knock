@@ -9,5 +9,5 @@ public interface StorageBackendInterface {
 	boolean removeRecord(Record record);
 	//TODO braucht es ein removeRecord?
 	List<Record> getRecords();
-	Record getNewesRecord();
+	Record getNewestRecord();
 }

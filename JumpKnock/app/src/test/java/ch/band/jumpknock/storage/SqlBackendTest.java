@@ -1,13 +1,9 @@
 package ch.band.jumpknock.storage;
 
-import android.content.Context;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +37,7 @@ public class SqlBackendTest {
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Rio", 1,timestamp);
-        Record newRecord = sqlBackend.getNewesRecord();
+        Record newRecord = sqlBackend.getNewestRecord();
         assertTrue(newRecord.getNickname() == "Rio");
     }
 
