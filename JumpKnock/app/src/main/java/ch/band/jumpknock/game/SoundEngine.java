@@ -15,8 +15,16 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 import ch.band.jumpknock.Constants;
 import ch.band.jumpknock.GameActivity;
+
+
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+ */
+
+/**
+ * The type Sound engine.
+ *
+ * It handles the lifetime of mediaplayers and playing of sounds when many sound-types with variations are needed.
  */
 public class SoundEngine {
     HashMap<String, SoundContainer> sounds = new HashMap<>();

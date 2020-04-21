@@ -8,8 +8,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ch.band.jumpknock.R;
+
+
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+ */
+/**
+ * The type Game manager.
+ * It handles the the overall Logic for the Game.
+ * Specifically updating gamestate, interacting with UI, handling win / lose conditions and managing platforms
  */
 public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();

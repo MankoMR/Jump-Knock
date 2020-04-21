@@ -6,6 +6,11 @@ import androidx.annotation.DrawableRes;
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
+
+/**
+ * The type GameVariables.
+ * It is used to simplify the parameter passing for creating GameManager und functions within.
+ */
 public class GameVariables {
     private static final int SEC_TO_NANO_SEC = 1_000_000_000;
     //The Size of the Screen:
@@ -14,12 +19,15 @@ public class GameVariables {
     private final PointF gameFieldSize;
     //The Size of the playerfigur
     private final PointF playerSize;
+    //The PictureId of the Player
     @DrawableRes
     private final int playerDrawId;
     //The Size of a platform without decoration
     private final PointF platformSize;
+    //Possible Platform Pictures to use
     @DrawableRes
     private final int[] platformDrawIds;
+    //Possible Decoration Pictures to use
     @DrawableRes
     private final int[] decorationDrawIds;
     public GameVariables(PointF screenSize, PointF gameFieldSize, PointF playerSize,PointF platformSize, int playerDrawId,  int[] platformDrawIds, int[] decorationDrawIds) {
@@ -98,6 +106,7 @@ public class GameVariables {
 
     /**
      * berechnet die margin von oben und unten
+	 * (gamefield height - screen height) / 2
      * @return
      */
     public float getTopOrBottomMargin(){
@@ -106,6 +115,7 @@ public class GameVariables {
 
     /**
      * berechnet die margin von links und rechts
+	 * (gamefield width - screen width) / 2
      * @return
      */
     public float getLeftOrRightMargin(){
@@ -113,7 +123,7 @@ public class GameVariables {
     }
 
     /**
-     * gibt die bildschirmposition zurück
+	 * Calculates the Position of the Screen on the Gamefield.
      * @return
      */
     public PointF getScreenPosition(){

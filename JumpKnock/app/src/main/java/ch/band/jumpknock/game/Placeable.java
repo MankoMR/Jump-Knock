@@ -1,8 +1,14 @@
 package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
+
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+ */
+
+/**
+ * The type Placeable.
+ * It is the base Type for Platform and Player. It contains the necessary Information for moving Objects
  */
 public class Placeable {
 	protected PointF position;
@@ -17,12 +23,12 @@ public class Placeable {
 	}
 
 	/**
-	 * gibt ein delta aus geschwindikeit und der zeit zurück
-	 * @param velocity
-	 * @param timeDeltaNs
-	 * @return
+	 * Calculates the distance reached with
+	 * @param velocity    the velocity
+	 * @param timeDeltaNs the time delta ns
+	 * @returns the Distance with the velocity und delta time.
 	 */
-	public static float getPositionDelta( float velocity, long timeDeltaNs){
+	public static float calcDistance(float velocity, long timeDeltaNs){
 		float delta = velocity * ((float)GameVariables.getSecToNanoSec() / timeDeltaNs);
 		return delta;
 	}

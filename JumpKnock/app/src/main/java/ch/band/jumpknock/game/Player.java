@@ -2,7 +2,6 @@ package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
 import android.hardware.SensorManager;
-import android.util.Log;
 
 import androidx.annotation.DrawableRes;
 /*
@@ -92,7 +91,7 @@ public class Player extends Placeable {
 	 * @return
 	 */
 	public float update(GameVariables gameVariables, float heightOffset, int deltaTimeNs){
-		float calcMaxVelocity = getPositionDelta(maxSpeedPerSec,GameVariables.getSecToNanoSec());
+		float calcMaxVelocity = calcDistance(maxSpeedPerSec,GameVariables.getSecToNanoSec());
 
 		/*
 		//Unecessary since it is already capped by GameManager.getAcceleration
@@ -109,8 +108,8 @@ public class Player extends Placeable {
 			velocity.y = calcMaxVelocity;
 
 		PointF futurePosition = new PointF(
-				position.x + getPositionDelta(velocity.x,deltaTimeNs),
-				position.y + getPositionDelta(velocity.y,deltaTimeNs));
+				position.x + calcDistance(velocity.x,deltaTimeNs),
+				position.y + calcDistance(velocity.y,deltaTimeNs));
 		float deltaHeight = futurePosition.y - position.y;
 		//Case player is out of screen on the left side;
 		if(futurePosition.x <= 0)
@@ -127,7 +126,7 @@ public class Player extends Placeable {
 		}
 		position.y = futurePosition.y;
 		//Simulate Gravity
-		velocity.y -= getPositionDelta(calcMaxVelocity / 70000,deltaTimeNs);
+		velocity.y -= calcDistance(calcMaxVelocity / 70000,deltaTimeNs);
 		//Log.d(TAG,"Velocity: "+velocity.toString()+" FuturePosition: "+futurePosition.toString()+" currentPosition:"+position);
 		return deltaHeight;
 	}
