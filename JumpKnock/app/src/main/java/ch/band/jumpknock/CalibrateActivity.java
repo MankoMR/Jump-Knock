@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class CalibrateActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -21,6 +21,10 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 	public static final String SENSOR_OFFSETS = "sensor_offsets";
 	private float[] ofSetValues;
 
+	/**
+	 * startet die aktivität
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,6 +35,9 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 		movementSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 	}
 
+	/**
+	 * wird beim wiederstarten der aktivität aufgerufen
+	 */
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -43,6 +50,9 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 		});
 	}
 
+	/**
+	 * wird beim pausieren der aktivität aufgerufen
+	 */
 	@Override
 	protected void onPause() {
 		ok.setOnClickListener(null);

@@ -61,12 +61,29 @@
         app:srcCompat="@drawable/goldpokal" />
 
     <TextView
+        android:id="@+id/tv_badgeNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number"
+        android:visibility="invisible"
+        android:textColor="@color/trophyText"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_trophy"
+        app:layout_constraintEnd_toEndOf="@+id/iv_trophy"
+        app:layout_constraintStart_toStartOf="@+id/iv_trophy"
+        app:layout_constraintTop_toTopOf="@+id/iv_trophy"
+        app:layout_constraintVertical_bias="0.24"
+        />
+
+    <TextView
         android:id="@+id/tv_nameOnTrophy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Manuel"
         android:textColor="@color/trophyText"
         android:textSize="8dp"
+        android:visibility="invisible"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintBottom_toBottomOf="@+id/iv_trophy"
         app:layout_constraintEnd_toEndOf="@+id/iv_trophy"
         app:layout_constraintStart_toStartOf="@+id/iv_trophy"
@@ -85,21 +102,34 @@
         app:layout_constraintTop_toTopOf="@+id/gl_BottomGold" />
 
     <EditText
+        android:id="@+id/eT_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="EditView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintEnd_toEndOf="@id/gl_RightGold"
+        app:layout_constraintStart_toStartOf="@id/gl_LeftGold"
+        app:layout_constraintTop_toBottomOf="@+id/tv_points" />
+
+    <TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Manuel"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/gl_RightGold"
         app:layout_constraintStart_toStartOf="@id/gl_LeftGold"
         app:layout_constraintTop_toBottomOf="@+id/tv_points" />
+
 
     <Button
         android:id="@+id/btn_SaveAndBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:onClick="btnBackToStartGameClicked"
         android:text="@string/btn_saveAndBack"
         app:layout_constraintEnd_toEndOf="@id/gl_RightGold"

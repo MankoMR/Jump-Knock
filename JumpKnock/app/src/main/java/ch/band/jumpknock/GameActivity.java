@@ -38,11 +38,9 @@ import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
 import ch.band.jumpknock.game.SoundEngine;
 import ch.band.jumpknock.game.UiNotifier;
-import ch.band.jumpknock.storage.Record;
-import ch.band.jumpknock.storage.RecordRepository;
 
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class GameActivity extends AppCompatActivity implements UiNotifier, SensorEventListener {
     private static final String TAG = GameActivity.class.getCanonicalName();
@@ -53,10 +51,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     FrameLayout flContainer;
     //The the player needs to be always in the foreground. That makes a separate framelayout necessary.
     FrameLayout flPlayerContainer;
-    //For Debug Purposes
-    LinearLayout debugContainer;
-    Button btnBounce, btnGameOver, btnFinish;
-    EditText etHeight;
+
     //To manage the platforms groupview a mapping is necessesary to associate a platform to its visual oponent.
     HashMap<Platform, ConstraintLayout> platforms = new HashMap<>();
     //managing the player is easier
@@ -72,6 +67,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     private boolean cancelGameOverRunnable = false;
     private SoundEngine soundEngine = new SoundEngine();
 
+    /**
+     * creirt die Game activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,12 +89,18 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         ExecuteGameInitialisation();
     }
 
+    /**
+     * beenden das game beim zurück button click
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         this.cancelGameOverRunnable = true;
     }
 
+    /**
+     * fügt den Sound hinzu
+     */
     private void InitSounds(){
         int[] bounceSounds = new int[3];
         int[] bloobSounds = new int[7];
@@ -117,35 +122,10 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         soundEngine.add("bloop",bloobSounds,1f,getApplicationContext());
         soundEngine.add("fall",fallSound,0.3f,getApplicationContext());
     }
-    private void InitDebugStuff(){
-        debugContainer = findViewById(R.id.LlDebug);
-        debugContainer.setVisibility(View.VISIBLE);
-        btnBounce = findViewById(R.id.BtnBounce);
-        btnGameOver = findViewById(R.id.BtnGameOver);
-        btnFinish = findViewById(R.id.BtnGameFinished);
-        etHeight = findViewById(R.id.EtvHeight);
-        etHeight.setText(random.nextInt(20001)+"");
-        heightoffset = findViewById(R.id.TvHeightOffset);
-        heightoffset.setVisibility(View.VISIBLE);
 
-        btnBounce.setOnClickListener((view)->{
-            soundEngine.play("bounce");
-        });
-        btnGameOver.setOnClickListener(view -> {
-            soundEngine.play("fall");
-        });
-        btnFinish.setOnClickListener(view ->{
-            gameOver(random.nextInt(20001));
-        });
-    }
-    private void NavigateGameOver(int reachedHeight){
-        RecordRepository recordRepository = new RecordRepository(getApplicationContext());
-        boolean isTopTen = recordRepository.IsInTopTen(new Record("",reachedHeight));
-        if(isTopTen){
-        }else {
-
-        }
-    }
+    /**
+     * startet das spiel
+     */
     private void ExecuteGameInitialisation(){
         final UiNotifier notifier = this;
         final SensorEventListener sensorEventListener = this;
@@ -220,13 +200,19 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
             }
         });
     }
+
+    /**
+     * füegt eine platform auf dem layout hinzu
+     * @param platform
+     * @return
+     */
     private ConstraintLayout Add(Platform platform){
         LayoutInflater rl = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ConstraintLayout template = (ConstraintLayout) rl.inflate(R.layout.placeable_template,null);
         ImageView plat = template.findViewById(R.id.IvPlatform);
         ImageView dec = template.findViewById(R.id.IvDeco);
 
-        plat.setImageResource(platform.drawableId);
+        plat.setImageResource(platform.getDrawableId());
         ConstraintLayout.LayoutParams platLayout = (ConstraintLayout.LayoutParams) plat.getLayoutParams();
         int width = flContainer.getWidth();
         platLayout.width = width / platforWidthScale;
@@ -234,9 +220,9 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         ConstraintLayout.LayoutParams decLatout = (ConstraintLayout.LayoutParams) dec.getLayoutParams();
         decLatout.width = platLayout.width / 3;
-        if (platform.decoration != null){
-            dec.setImageResource(platform.decoration.drawableId);
-            decLatout.horizontalBias = platform.decoration.position;
+        if (platform.getDecoration() != null){
+            dec.setImageResource(platform.getDecoration().getDrawableId());
+            decLatout.horizontalBias = platform.getDecoration().getPosition();
         }else {
             dec.setVisibility(View.GONE);
         }
@@ -244,8 +230,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         flContainer.addView(template);
         FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams)template.getLayoutParams();
-        layoutParams.leftMargin = (int)platform.position.x;
-        layoutParams.bottomMargin = (int)platform.position.y;
+        layoutParams.leftMargin = (int)platform.getPosition().x;
+        layoutParams.bottomMargin = (int)platform.getPosition().y;
         layoutParams.gravity = Gravity.BOTTOM | Gravity.LEFT;
         layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -253,29 +239,43 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         return  template;
     }
 
+    /**
+     * rueft von der superklass die onStart methode auf
+     */
     @Override
     protected void onStart() {
         super.onStart();
     }
 
+    /**
+     * rueft von der superklass die onStop methode auf
+     */
     @Override
     protected void onStop() {
-        this.gameManager.isStopped = true;
+        this.gameManager.setStopped(true);
         super.onStop();
     }
+
+    /**
+     * rueft von der superklass die onPause methode auf
+     * und pausiert das spiel
+     */
     @Override
     protected void onPause() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        this.gameManager.isPaused = true;
+        this.gameManager.setPaused(true);
         sensorManager.unregisterListener(this);
         super.onPause();
     }
 
+    /**
+     * wird aufgerufen beim wiederstarten der activity
+     */
     @Override
     protected void onResume() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if(gameManager != null)
-            this.gameManager.isPaused = false;
+            this.gameManager.setPaused(false);
         if(movementSensor != null)
             sensorManager.registerListener(this,movementSensor,SensorManager.SENSOR_DELAY_GAME);
         time = System.nanoTime();
@@ -283,6 +283,9 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
     }
 
+    /**
+     * beendet den sound effeckt
+     */
     @Override
     protected void onDestroy() {
         soundEngine.release();
@@ -304,42 +307,65 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         for (Platform platform: platforms){
             ConstraintLayout layout = this.platforms.get(platform);
             FrameLayout.LayoutParams layoutParams =  (FrameLayout.LayoutParams) layout.getLayoutParams();
-            layoutParams.bottomMargin =  (int)(platform.position.y - reachedHeight);
-            layoutParams.leftMargin = (int)platform.position.x;
+            layoutParams.bottomMargin =  (int)(platform.getPosition().y - reachedHeight);
+            layoutParams.leftMargin = (int)platform.getPosition().x;
             layout.setLayoutParams(layoutParams);
         }
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) this.player.getLayoutParams();
-        lp.bottomMargin = (int)(player.position.y - reachedHeight);
-        lp.leftMargin = (int)player.position.x;
+        lp.bottomMargin = (int)(player.getPosition().y - reachedHeight);
+        lp.leftMargin = (int)player.getPosition().x;
         this.player.setLayoutParams(lp);
     }
+
+    /**
+     * Aktualisiert die auf dem Bildschirm angezeigte höche.
+     * @param height höche vom Spieler
+     */
     @Override
     public void updateUi(float height) {
-        tvReachedHeight.setText(String.valueOf(height));
+        int showHeight = (int) height;
+        tvReachedHeight.setText(String.valueOf(showHeight));
+
     }
 
+    /**
+     * bendet das spiel und ruft die activity record auf
+     * @param height
+     */
     @Override
     public void gameOver(float height) {
         soundEngine.play("fall");
         handler.postDelayed(()->{
-            if(cancelGameOverRunnable)
+            if(cancelGameOverRunnable) {
                 return;
+            }
+
             Intent recordIntent = new Intent(getBaseContext(), RecordActivity.class);
             recordIntent.putExtra(REACHED_HEIGHT,(int)height);
             startActivity(recordIntent);
-            gameManager.isStopped = true;
+            gameManager.setStopped(true);
             //soundEngine.release();
             finish();
         },4000);
     }
+
+    /**
+     * gibt den passenden soundeffekt für die plattform zurück
+     * @param platform
+     */
     @Override
     public void playerCollidedWith(Platform platform) {
-        if(platform.isOneTimeUse){
+        if(platform.isOneTimeUse()){
             soundEngine.play("bloop");
         }
         else
             soundEngine.play("bounce");
     }
+
+    /**
+     * gibt 0 zurück
+     * @return
+     */
     @Override
     public float getSmartPhoneRotation() {
         return 0;

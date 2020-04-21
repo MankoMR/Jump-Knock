@@ -4,15 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 /*
- *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+ */
+
+/**
+ * testklasee
+ * //TODO löschen
  */
 class TestBackend implements StorageBackendInterface {
 	private ArrayList<Record> records = new ArrayList<>();
+	//TODO in den tescht verschieben?
+	//TODO dateAndTime null wert anpassen
 	TestBackend(){
 		int testAmount = 15;
 		Random random = new Random();
 		for(int i = 0; i < testAmount; i++){
-			Record r = new Record("Tester "+i,random.nextInt(3000));
+			Record r = new Record("Tester "+i,random.nextInt(3000),null);
 			records.add(r);
 		}
 	}
@@ -37,5 +44,10 @@ class TestBackend implements StorageBackendInterface {
 	@Override
 	public List<Record> getRecords() {
 		return records;
+	}
+
+	@Override
+	public Record getNewesRecord() {
+		return null;
 	}
 }
