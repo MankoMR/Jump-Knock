@@ -1,6 +1,5 @@
 package ch.band.jumpknock;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PointF;
@@ -18,11 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +32,7 @@ import ch.band.jumpknock.game.GameManager;
 import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
-import ch.band.jumpknock.game.SoundEngine;
+import ch.band.jumpknock.game.sound.SoundEngine;
 import ch.band.jumpknock.game.UiNotifier;
 
 /*
