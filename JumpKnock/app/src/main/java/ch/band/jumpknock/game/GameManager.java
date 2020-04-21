@@ -48,7 +48,7 @@ public class GameManager {
 	}
 
 	/**
-	 * gibt den wert aus isPaused zurück
+	 * gives back the value of isPaused
 	 * @return
 	 */
 	public boolean isPaused() {
@@ -56,7 +56,7 @@ public class GameManager {
 	}
 
 	/**
-	 * speichert den mitgebenen wert in paused
+	 * saves the value in isPaused
 	 * @param paused
 	 */
 	public void setPaused(boolean paused) {
