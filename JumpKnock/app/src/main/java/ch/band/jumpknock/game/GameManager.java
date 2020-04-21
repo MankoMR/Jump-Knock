@@ -13,6 +13,7 @@ import ch.band.jumpknock.R;
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
+
 /**
  * The type Game manager.
  * It handles the the overall Logic for the Game.
@@ -20,6 +21,9 @@ import ch.band.jumpknock.R;
  */
 public class GameManager {
 	private static final String TAG = GameManager.class.getCanonicalName();
+	/**
+	 * The Game variables.
+	 */
 	GameVariables gameVariables;
 	private long playTimeNs;
 	//should always be in the middle of the screen.
@@ -36,6 +40,12 @@ public class GameManager {
 	private Handler gameRunner;
 	private static int FPS = 60;
 
+	/**
+	 * Instantiates a new Game manager.
+	 *
+	 * @param uiNotifier    the ui notifier
+	 * @param gameVariables the game variables
+	 */
 	public GameManager(UiNotifier uiNotifier,GameVariables gameVariables){
 		this.uiNotifier = uiNotifier;
 		this.gameVariables = gameVariables;
@@ -43,13 +53,14 @@ public class GameManager {
 		player = new Player(gameVariables,R.drawable.jumper);
 		isPaused = isStopped = false;
 		gameRunner = new Handler();
-		gameRunner.postDelayed(createGameLoop(),1000);
+		gameRunner.postDelayed(createGameLoop(gameRunner),1000);
 
 	}
 
 	/**
 	 * gibt den wert aus isPaused zurück
-	 * @return
+	 *
+	 * @return boolean
 	 */
 	public boolean isPaused() {
 		return isPaused;
@@ -57,7 +68,8 @@ public class GameManager {
 
 	/**
 	 * speichert den mitgebenen wert in paused
-	 * @param paused
+	 *
+	 * @param paused the paused
 	 */
 	public void setPaused(boolean paused) {
 		isPaused = paused;
@@ -65,7 +77,8 @@ public class GameManager {
 
 	/**
 	 * gibt den wert von isStopped zurück
-	 * @return
+	 *
+	 * @return boolean
 	 */
 	public boolean isStopped() {
 		return isStopped;
@@ -73,17 +86,20 @@ public class GameManager {
 
 	/**
 	 * speichert den mitgebenen wert in isStopped
-	 * @param stopped
+	 *
+	 * @param stopped the stopped
 	 */
 	public void setStopped(boolean stopped) {
 		isStopped = stopped;
 	}
 
 	/**
-	 * creaiert einen Loop
-	 * @return
+	 * It creates the Game loop
+	 * the Runnable posts itself to the runner to run again.
+	 * This results in a "while" loop which only can be broken out by setting isStopped to true.
+	 * @return the game loop as a runnable
 	 */
-	private Runnable createGameLoop(){
+	private Runnable createGameLoop(Handler runner){
 		return new Runnable() {
 			@Override
 			public void run() {
@@ -92,21 +108,22 @@ public class GameManager {
 					long toWait = 1000 / FPS - deltaTime / 1_000_000;
 					toWait = toWait < 0 ? 0 : toWait;
 					//Log.d(getClass().getSimpleName(),"Run loop in "+ toWait + "ms");
-					gameRunner.postDelayed(this,toWait);
+					runner.postDelayed(this,toWait);
 				}
 			}
 		};
 	}
 
 	/**
-	 * gibt die aktuelle höche zurück
-	 * @return
+	 *
+	 * @return current height
 	 */
 	public float getCurrentHeight() {return currentHeight; }
 
 	/**
-	 * aktualiesiert den bildschirm
-	 * @return
+	 * This methods gets called in a loop and runs the game-logic.
+	 * When appropriate it commands which action needs to be taken through the UiNotifier.
+	 * @return the deltatime of @GetDeltaTime.
 	 */
 	public int update(){
 		int deltaTime = GetDeltaTime();
@@ -186,8 +203,11 @@ public class GameManager {
 	}
 
 	/**
-	 * gibt Zeit differenz zurück.
-	 * @return
+	 * It should only be called Once per update or when the Delta is to big
+	 * to properly Update the game (eg: after pausing the game, the delta will be way to big,
+	 * because the pause counts a one update.)
+	 *
+	 * @return the delta in time in nanoseconds between the current method- and last method-call.
 	 */
 	private int GetDeltaTime(){
 		long now = System.nanoTime();
@@ -197,9 +217,10 @@ public class GameManager {
 	}
 
 	/**
-	 *berechnet die bewegung
-	 * @param acceleration
-	 * @param deltaTime
+	 * berechnet die bewegung
+	 *
+	 * @param acceleration the acceleration
+	 * @param deltaTime    the delta time in Ns
 	 */
 	public void getAcceleration(float acceleration, long deltaTime){
 		float pixPerSec = player.getMaxSpeedPerSec();
@@ -217,9 +238,9 @@ public class GameManager {
 			player.getVelocity().x = calcSpeed;
 		//Log.d(TAG,"Velocity: "+ player.velocity.toString()+ " Position: "+ player.position.toString());
 	}
-
 	/**
-	 * überprüft ob die figur aufprallt
+	 * Tests all platforms for a collision with the player.
+	 * If a collision occurs, it executes the apropriate game-logic.
 	 */
 	private void testForCollision(){
 		for (int i = 0; i < platforms.size();i++){
