@@ -47,7 +47,7 @@ class TestBackend implements StorageBackendInterface {
 	}
 
 	@Override
-	public Record getNewesRecord() {
+	public Record getNewestRecord() {
 		return null;
 	}
 }

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -82,6 +84,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekord);
 
+        //TODO vereinfachen
         eT_name = findViewById(R.id.eT_name);
         tv_points = findViewById(R.id.tv_points);
         cl_root = findViewById(R.id.cl_record_root);
@@ -90,6 +93,20 @@ public class RecordActivity extends AppCompatActivity {
         iv_pokal = findViewById(R.id.iv_trophy);
         tv_badgeNumber = findViewById(R.id.tv_badgeNumber);
 
+        eT_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                tv_nameOnTrophy.setText(eT_name.getText());
+            }
+        });
 
         int reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
@@ -138,36 +155,6 @@ public class RecordActivity extends AppCompatActivity {
 
         Record lastRecord = recordRepository.GetNewestRecord();
         String mostUsedName = lastRecord.getNickname();
-        //TODO how much to delete?
-        //TODO funktion timesave datensatz
-
-
-
-
-        HashMap<String,Integer> usedNames = new HashMap<>();
-        int rang = 11;
-        int count = 1;
-        //TODO löschen
-        //TODO was ist das für ein scheiss
-        /*for (Record rec:topTen){
-            Integer nameCount = usedNames.get(rec.getNickname());
-            if(nameCount == null)
-                nameCount = new Integer(0);
-            nameCount++;
-            usedNames.put(rec.getNickname(),nameCount);
-
-            if(reachedHeight >= rec.getHeight()){
-                rang = count;
-            }
-            count++;
-        }*/
-        /*
-        String mostUsedName = "Jumper";
-        int usedCount = -1;
-        for(HashMap.Entry<String,Integer> entry:usedNames.entrySet()){
-            if(entry.getValue() >= usedCount)
-                mostUsedName = entry.getKey();
-        }*/
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         record = new Record(mostUsedName,reachedHeight,timestamp);

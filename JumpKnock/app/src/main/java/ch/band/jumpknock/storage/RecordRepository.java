@@ -38,7 +38,7 @@ public class RecordRepository {
 			{
 				return 1;
 			}
-			return topTenArray.length;
+			return topTenArray.length + 1;
 		}
 		return -1;
 	}
@@ -80,7 +80,7 @@ public class RecordRepository {
 	 */
 	public Record GetNewestRecord()
 	{
-		Record record = storageBackend.getNewesRecord();
+		Record record = storageBackend.getNewestRecord();
 		return record;
 	}
 

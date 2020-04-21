@@ -34,7 +34,7 @@ public class Decoration {
 	}
 
 	/**
-	 * gibt den int wert drawableId zurück
+	 * gives back the value of drawableId
 	 * @return
 	 */
 	public int getDrawableId() {
@@ -42,7 +42,7 @@ public class Decoration {
 	}
 
 	/**
-	 * speichert den mitgebenen wert in drawableId ab
+	 * save the value in drawableId
 	 * @param drawableId
 	 */
 	public void setDrawableId(int drawableId) {
@@ -50,7 +50,7 @@ public class Decoration {
 	}
 
 	/**
-	 * gibt den float wert aus position zurück
+	 * gives back the value of position
 	 * @return
 	 */
 	public float getPosition() {
@@ -58,7 +58,7 @@ public class Decoration {
 	}
 
 	/**
-	 * speichert den mitgebenen wert in position ab
+	 * saves the value in position
 	 * @param position
 	 */
 	public void setPosition(float position) {
