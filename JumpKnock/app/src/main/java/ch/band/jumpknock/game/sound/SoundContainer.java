@@ -9,8 +9,9 @@ import androidx.annotation.RawRes;
 public class SoundContainer {
 
     private final String TAG = SoundContainer.class.getCanonicalName();
+    
     private MediaPlayer[] soundVariations;
-    private int soundVariationCounter = 0;
+    private int soundVariationPosition = 0;
 
 
     /**
@@ -49,11 +50,11 @@ public class SoundContainer {
       * Plays the next variation.
       */
      public void play() {
-        MediaPlayer player = soundVariations[soundVariationCounter%soundVariations.length];
+        MediaPlayer player = soundVariations[soundVariationPosition %soundVariations.length];
         if (player != null){
             player.start();
         }
-        soundVariationCounter++;
+        soundVariationPosition++;
      }
 
      /**
