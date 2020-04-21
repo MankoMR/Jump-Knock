@@ -93,10 +93,19 @@ public class SoundEngine {
 
             for(int i = 0;i < soundVariations.length;i++){
                 MediaPlayer player = MediaPlayer.create(applicationContext,soundVariations[i]);
-                player.setVolume(soundVolume,soundVolume);
-                player.setOnCompletionListener((mp)->{
-                    mp.pause();
-                    mp.seekTo(0);
+                if (player == null){
+                    Log.d(TAG,"Error during MediaPlayer creation disallows playing Sound");
+                    continue;
+                }
+                player.setOnPreparedListener(p ->{
+                    player.setVolume(soundVolume,soundVolume);
+                    player.setOnCompletionListener((mp)->{
+                        if(mp == null){
+                            return;
+                        }
+                        mp.pause();
+                        mp.seekTo(0);
+                    });
                 });
                 this.soundVariations[i] = player;
             }
@@ -107,7 +116,10 @@ public class SoundEngine {
          * Plays the next variation.
          */
         public void play() {
-            soundVariations[soundVariationCounter%soundVariations.length].start();
+            MediaPlayer player = soundVariations[soundVariationCounter%soundVariations.length];
+            if (player != null){
+                player.start();
+            }
             soundVariationCounter++;
         }
 
@@ -117,6 +129,8 @@ public class SoundEngine {
          */
         public void release(){
             for(MediaPlayer player:soundVariations){
+                if(player == null)
+                    continue;
                 player.stop();
                 player.setOnCompletionListener(null);
                 player.release();
