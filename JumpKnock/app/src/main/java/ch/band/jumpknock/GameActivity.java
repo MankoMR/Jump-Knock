@@ -401,6 +401,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
                 at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:873)
         2020-04-20 11:10:37.501 1653-1653/? E/MQSEventManagerDelegate: failed to get MQSService.
          */
+        if(event.values == null || (event.values[1] == Float.NaN))
+        	return;
 		gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
 		//Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
 	}
