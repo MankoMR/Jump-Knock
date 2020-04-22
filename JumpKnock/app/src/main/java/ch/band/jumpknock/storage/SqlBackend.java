@@ -1,4 +1,4 @@
-package ch.band.jumpknock.storage;
+﻿package ch.band.jumpknock.storage;
 
 
 
@@ -37,17 +37,6 @@ public class SqlBackend implements StorageBackendInterface {
         boolean saved = dbHelper.saveRecord(record);
         dbHelper.close();
         return saved;
-    }
-
-    /**
-     * Removes record from the database.
-     * @param record to remove
-     * @return if it was successful.
-     */
-    @Override
-    public boolean removeRecord(Record record) {
-        throw new Error("removeRecord didnt get implemented");
-        //TODO maybe should refactor Interface to remove function. But it might be practical
     }
 
     /**

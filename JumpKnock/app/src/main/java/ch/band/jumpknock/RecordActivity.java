@@ -46,13 +46,7 @@ public class RecordActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        tv_name = findViewById(R.id.tv_name);
-        eT_name = findViewById(R.id.eT_name);
-        tv_points = findViewById(R.id.tv_points);
-        cl_root = findViewById(R.id.cl_record_root);
-        tv_title = findViewById(R.id.tv_NewRecordGameEnded);
-        iv_pokal = findViewById(R.id.iv_trophy);
-        tv_nameOnTrophy = findViewById(R.id.tv_nameOnTrophy);
+       findViewsById();
 
         int reachedHeight = getIntent().getIntExtra(GameActivity.REACHED_HEIGHT,-1);
         RecordRepository recordRepository = new RecordRepository(getApplicationContext());
@@ -76,6 +70,20 @@ public class RecordActivity extends AppCompatActivity {
     }
 
     /**
+     * weist den variblen die werte zue
+     */
+    private void findViewsById(){
+        tv_name = findViewById(R.id.tv_name);
+        eT_name = findViewById(R.id.eT_name);
+        tv_points = findViewById(R.id.tv_points);
+        cl_root = findViewById(R.id.cl_record_root);
+        tv_title = findViewById(R.id.tv_NewRecordGameEnded);
+        iv_pokal = findViewById(R.id.iv_trophy);
+        tv_nameOnTrophy = findViewById(R.id.tv_nameOnTrophy);
+        tv_badgeNumber = findViewById(R.id.tv_badgeNumber);
+    }
+
+    /**
      * zeig die ensprechenden Bilder und Text für den ensprechenden Rang an.
      * @param savedInstanceState
      */
@@ -84,14 +92,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rekord);
 
-        //TODO vereinfachen
-        eT_name = findViewById(R.id.eT_name);
-        tv_points = findViewById(R.id.tv_points);
-        cl_root = findViewById(R.id.cl_record_root);
-        tv_title = findViewById(R.id.tv_NewRecordGameEnded);
-        tv_nameOnTrophy = findViewById(R.id.tv_nameOnTrophy);
-        iv_pokal = findViewById(R.id.iv_trophy);
-        tv_badgeNumber = findViewById(R.id.tv_badgeNumber);
+        findViewsById();
 
         eT_name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,7 +161,6 @@ public class RecordActivity extends AppCompatActivity {
         record = new Record(mostUsedName,reachedHeight,timestamp);
         eT_name.setText(mostUsedName);
         tv_points.setText(reachedHeight +"");
-        //TODO anpassen das der zuletzt verwendete name gebraucht wird. es macht keinen Sinn einen anderen namen zu verwenden
     }
 
     /**
