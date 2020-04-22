@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Knock Jump</string>
+    <string name="btn_play">Spielen</string>
+    <string name="btn_showRecords">Zeige Rekorde</string>
+    <string name="record_first_de">Erster Platz!</string>
+    <string name="record_second_de">Zweiter Platz!</string>
+    <string name="record_third_de">Dritter Platz!</string>
+    <string name="record_fourth_de">Vierter Platz!</string>
+    <string name="record_fifth_de">Fünfter Platz!</string>
+    <string name="record_sixth_de">Sechster Platz!</string>
+    <string name="record_seventh_de">Siebter Platz!</string>
+    <string name="record_eighth_de">Achter Platz!</string>
+    <string name="record_ninth_de">Neunter Platz!</string>
+    <string name="record_tenth_de">Zehnter Platz!</string>
+    <string name="btn_saveAndBack">Speichern und zum Startbildschirm</string>
+    <string name="btn_back">Zum Startbildschirm</string>
+    <string name="title_calibrate">Kalibrieren</string>
+    <string name="calibrate_info">Bitte halten sie das Geräte gerade und drücken Sie auf OK.</string>
+</resources>

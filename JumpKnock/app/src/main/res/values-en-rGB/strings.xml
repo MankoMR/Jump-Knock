@@ -1,6 +1,4 @@
-<!--
- *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
--->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Knock Jump</string>
     <string name="btn_back">To home screen</string>
