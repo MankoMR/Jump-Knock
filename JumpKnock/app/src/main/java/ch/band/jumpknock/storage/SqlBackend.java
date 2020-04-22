@@ -1,5 +1,4 @@
-﻿package ch.band.jumpknock.storage;
-
+package ch.band.jumpknock.storage;
 
 
 import android.content.Context;
@@ -9,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import ch.band.jumpknock.storage.DBHelper;
+import ch.band.jumpknock.storage.Record;
+import ch.band.jumpknock.storage.StorageBackendInterface;
 
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
