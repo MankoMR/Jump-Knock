@@ -1,6 +1,9 @@
 package ch.band.jumpknock.storage;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 /*
@@ -12,13 +15,12 @@ import java.util.Random;
  */
 class TestBackend implements StorageBackendInterface {
 	private ArrayList<Record> records = new ArrayList<>();
-	//TODO in den tescht verschieben?
-	//TODO dateAndTime null wert anpassen
+
 	TestBackend(){
 		int testAmount = 15;
 		Random random = new Random();
 		for(int i = 0; i < testAmount; i++){
-			Record r = new Record("Tester "+i,random.nextInt(3000),null);
+			Record r = new Record("Tester "+i,random.nextInt(3000), null);
 			records.add(r);
 		}
 	}

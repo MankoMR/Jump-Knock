@@ -40,14 +40,14 @@ public class SqlBackend implements StorageBackendInterface {
     }
 
     /**
-     * gibt false zurück
-     * @param record
-     * @return
+     * Removes record from the database.
+     * @param record to remove
+     * @return if it was successful.
      */
     @Override
     public boolean removeRecord(Record record) {
-        return false;
-        //TODO useless
+        throw new Error("removeRecord didnt get implemented");
+        //TODO maybe should refactor Interface to remove function. But it might be practical
     }
 
     /**
