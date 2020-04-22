@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ *Copyright (c) 2020 Manuel Koloska, All rights reserved.
+ Translated with www.deepl.com.
+-->
+<resources>
+    <string name="app_name">Knock Jump</string>
+    <string name="btn_back">Vers l\'écran d\'accueil</string>
+    <string name="btn_play">Jouer</string>
+    <string name="btn_saveAndBack">Sauvegarder et aller à l\'écran d\'accueil</string>
+    <string name="calibrate_info">Veuillez tenir l\'appareil droit et appuyer sur OK.</string>
+    <string name="btn_showRecords">Afficher les records</string>
+    <string name="record_eighth_de">Huitième place !</string>
+    <string name="record_fifth_de">Cinquième place !</string>
+    <string name="record_first_de">Première place !</string>
+    <string name="record_fourth_de">Quatrième place !</string>
+    <string name="record_ninth_de">Neuvième place !</string>
+    <string name="record_second_de">Deuxième place !</string>
+    <string name="record_seventh_de">Septième place !</string>
+    <string name="record_sixth_de">Sixième place !</string>
+    <string name="record_tenth_de">10e place !</string>
+    <string name="record_third_de">Troisième place !</string>
+    <string name="title_calibrate">Calibrer</string>
+</resources>

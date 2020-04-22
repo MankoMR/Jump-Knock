@@ -1,4 +1,4 @@
-﻿package ch.band.jumpknock.game;
+package ch.band.jumpknock.game;
 
 import android.graphics.PointF;
 import android.os.Handler;
@@ -20,25 +20,25 @@ import ch.band.jumpknock.R;
  * Specifically updating gamestate, interacting with UI, handling win / lose conditions and managing platforms
  */
 public class GameManager {
-    private static final String TAG = GameManager.class.getCanonicalName();
-    /**
-     * The Game variables.
-     */
-    GameVariables gameVariables;
-    private long playTimeNs;
-    //should always be in the middle of the screen.
-    private float currentHeight;
-    private float reachedHeight;
-    private Player player;
-    private ArrayList<Platform> platforms = new ArrayList<>();
-    private Random r;
-    private boolean isPaused;
-    private boolean isStopped;
-    private boolean isGameOver = false;
+	private static final String TAG = GameManager.class.getCanonicalName();
+	/**
+	 * The Game variables.
+	 */
+	private GameVariables gameVariables;
+	private long playTimeNs;
+	//should always be in the middle of the screen.
+	private float currentHeight;
+	private float reachedHeight;
+	private Player player;
+	private ArrayList<Platform> platforms = new ArrayList<>();
+	private Random r;
+	private boolean isPaused;
+	private boolean isStopped;
+	private boolean isGameOver = false;
 
-    private UiNotifier uiNotifier;
-    private Handler gameRunner;
-    private static int FPS = 60;
+	private UiNotifier uiNotifier;
+	private Handler gameRunner;
+	private static int FPS = 60;
 
 	/**
 	 * Instantiates a new Game manager.
@@ -56,7 +56,7 @@ public class GameManager {
 		gameRunner = new Handler();
 		gameRunner.postDelayed(createGameLoop(gameRunner),1000);
 
-    }
+	}
 
 	/**
 	 * Wether game is Paused.
@@ -117,67 +117,67 @@ public class GameManager {
 	 */
 	public float getCurrentHeight() {return currentHeight; }
 
-    /**
-     * This methods gets called in a loop and runs the game-logic.
-     * When appropriate it commands which action needs to be taken through the UiNotifier.
-     * @return the deltatime of @GetDeltaTime.
-     */
-    public int update(){
-        int deltaTime = GetDeltaTime();
-        if (isPaused)
-            return deltaTime;
-        int speedPerSecond = 400;
-        float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.getSecToNanoSec());
-        //Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
-        //currentHeight += adjustedSpeed;
+	/**
+	 * This methods gets called in a loop and runs the game-logic.
+	 * When appropriate it commands which action needs to be taken through the UiNotifier.
+	 * @return the deltatime of @GetDeltaTime.
+	 */
+	private int update(){
+		int deltaTime = GetDeltaTime();
+		if (isPaused)
+			return deltaTime;
+		int speedPerSecond = 400;
+		float adjustedSpeed = speedPerSecond * ((float)deltaTime / GameVariables.getSecToNanoSec());
+		//Log.d(TAG,"delta: "+deltaTime+" adjustedSpeed: "+adjustedSpeed);
+		//currentHeight += adjustedSpeed;
 
-        float delta = player.update(gameVariables, currentHeight,deltaTime);
+		float delta = player.update(gameVariables, currentHeight,deltaTime);
 
-        float playerheight = player.position.y + gameVariables.getPlayerSize().y;
-        currentHeight += delta;
-        if(currentHeight >= reachedHeight)
-            reachedHeight = currentHeight;
+		float playerheight = player.position.y + gameVariables.getPlayerSize().y;
+		currentHeight += delta;
+		if(currentHeight >= reachedHeight)
+			reachedHeight = currentHeight;
 
-        if(delta <= 0){
-            testForCollision();
-            if(player.position.y + gameVariables.getGameFieldSize().y < reachedHeight){
-                boolean cheatMode = false;
-                if(!isGameOver && !cheatMode){
-                    uiNotifier.gameOver(reachedHeight);
-                    isGameOver = true;
-                    Log.d(TAG,"Lost Game: Player Velocity: "+player.getVelocity().toString()+" Position:"+ player.position.toString());
-                }
-                if(cheatMode){
-                    player.getVelocity().y = 1.2500f;
-                    uiNotifier.playerCollidedWith(null);
-                }
-                //currentHeight +=delta;
-            }
-        }
-        //player.position.y += adjustedSpeed;
-        float distance = 0;
-        if (platforms.size() !=  0)
-            distance = currentHeight + gameVariables.getGameFieldSize().y - platforms.get(platforms.size() - 1).position.y;
-        //Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
+		if(delta <= 0){
+			testForCollision();
+			if(player.position.y + gameVariables.getGameFieldSize().y < reachedHeight){
+				boolean cheatMode = false;
+				if(!isGameOver && !cheatMode){
+					uiNotifier.gameOver(reachedHeight);
+					isGameOver = true;
+					Log.d(TAG,"Lost Game: Player Velocity: "+player.getVelocity().toString()+" Position:"+ player.position.toString());
+				}
+				if(cheatMode){
+					player.getVelocity().y = 1.2500f;
+					uiNotifier.playerCollidedWith(null);
+				}
+				//currentHeight +=delta;
+			}
+		}
+		//player.position.y += adjustedSpeed;
+		float distance = 0;
+		if (platforms.size() !=  0)
+			distance = currentHeight + gameVariables.getGameFieldSize().y - platforms.get(platforms.size() - 1).position.y;
+		//Log.d(TAG,"Condition for Adding: platforms.size()["+platforms.size()+"] == 0 || distance["+distance+"] > platformSize.y["+platformSize.y+"] * 3 ["+platformSize.y * 5+"]");
 
-        //Add platform if distance is sufficiently big enough
-        if (platforms.size() == 0 || distance > gameVariables.getPlatformSize().y * 5 ){
-            Platform p = new Platform();
-            p.position = new PointF(
-                    r.nextFloat() * (gameVariables.getGameFieldSize().x - gameVariables.getPlatformSize().x),
-                    currentHeight + gameVariables.getGameFieldSize().y + gameVariables.getPlatformSize().y);
-            p.drawableId = gameVariables.getPlatformDrawIds()[r.nextInt(gameVariables.getPlatformDrawIds().length)];
+		//Add platform if distance is sufficiently big enough
+		if (platforms.size() == 0 || distance > gameVariables.getPlatformSize().y * 5 ){
+			Platform p = new Platform();
+			p.position = new PointF(
+					r.nextFloat() * (gameVariables.getGameFieldSize().x - gameVariables.getPlatformSize().x),
+					currentHeight + gameVariables.getGameFieldSize().y + gameVariables.getPlatformSize().y);
+			p.drawableId = gameVariables.getPlatformDrawIds()[r.nextInt(gameVariables.getPlatformDrawIds().length)];
 
-            //Clouds are one time use Platforms
-            if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
-                p.setOneTimeUse(true);
+			//Clouds are one time use Platforms
+			if(p.drawableId == R.drawable.cloud1 || p.drawableId == R.drawable.cloud2 || p.drawableId == R.drawable.cloudwithlightning)
+				p.setOneTimeUse(true);
 
 			//Places randomised decoration on Platform with grass.
 			if(r.nextBoolean() && (
 					p.drawableId == R.drawable.grasblock1
-					|| p.drawableId == R.drawable.grasblock2
-					|| p.drawableId == R.drawable.stoneblockwithgrass1
-					|| p.drawableId == R.drawable.stoneblockwithgrass2 )){
+							|| p.drawableId == R.drawable.grasblock2
+							|| p.drawableId == R.drawable.stoneblockwithgrass1
+							|| p.drawableId == R.drawable.stoneblockwithgrass2 )){
 				p.setDecoration(new Decoration(gameVariables.getDecorationDrawIds()[r.nextInt(gameVariables.getDecorationDrawIds().length)],r.nextFloat()));
 				//p.getDecoration().setPosition(r.nextFloat());
 				//p.getDecoration().setDrawableId(gameVariables.getDecorationDrawIds()[r.nextInt(gameVariables.getDecorationDrawIds().length)]);
@@ -221,7 +221,7 @@ public class GameManager {
 	 */
 	public void setHorizontalPlayerAcceleration(float acceleration, long deltaTime){
 		float pixPerSec = player.getMaxSpeedPerSec();
-		float calcSpeed = pixPerSec * (float)deltaTime / gameVariables.getSecToNanoSec();
+		float calcSpeed = pixPerSec * (float)deltaTime / GameVariables.getSecToNanoSec();
 		//multiplied with constant to dampen the "feedback" of the sensor
 		float multiplier = calcSpeed / 1.5f;
 		//Log.d(TAG," multiplier: "+ multiplier+" acceleration: "+ acceleration + " result: "+ acceleration * multiplier);
@@ -258,7 +258,7 @@ public class GameManager {
 				}
 		}
 	}
-	
+
 	public void start() {
 		isPaused = false;
 	}

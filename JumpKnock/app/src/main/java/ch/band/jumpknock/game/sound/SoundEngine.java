@@ -55,11 +55,11 @@ public class SoundEngine {
     }
 
     /**
-     * fügt einen sound hinzu
-     * @param name
-     * @param soundVariations
-     * @param soundVolume
-     * @param applicationContext
+     * add and initialises a sound with different variations
+     * @param name needs be unique as its the identifier to the sound to call it later.
+     * @param soundVariations are the resource ids to play as a variation of the song. Needs at least one variation.
+     * @param soundVolume to play the variations with.
+     * @param applicationContext to initialize mediaplayers
      */
     public void add(String name, @RawRes int[] soundVariations, float soundVolume,
                     Context applicationContext){
@@ -67,8 +67,8 @@ public class SoundEngine {
     }
 
     /**
-     * spielt den sound ab
-     * @param name
+     * plays the specified sound
+     * @param name of the sound to play.
      */
     public void play(String name){
         sounds.get(name).play();

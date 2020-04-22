@@ -8,6 +8,9 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
+/*
+ *Copyright (c) 2020 Fredy Stalder, All rights reserved.
+ */
 public class RecordTest {
 
     private Date date;
