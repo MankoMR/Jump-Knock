@@ -32,7 +32,6 @@ public class ShowRecordsActivity extends AppCompatActivity {
         tv_firstToThird[1] = findViewById(R.id.tv_second);
         tv_firstToThird[2] = findViewById(R.id.tv_third);
 
-        //TODO zeigt nur die ersten 9 resulate an
 
         ll_fourthToTenth = findViewById(R.id.ll_fourthToTenth);
 

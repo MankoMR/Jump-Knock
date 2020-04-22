@@ -21,7 +21,6 @@ public class Placeable {
 	 * Its marked as deprecated, because children classes need a variety of additional
 	 * and or different information than just the delta in time.
 	 * Therefore its marked as deprecated.
-	 * TODO: remove it
 	 */
 	@Deprecated
 	public void update(int deltaTimeNs){

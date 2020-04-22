@@ -40,17 +40,6 @@ public class SqlBackend implements StorageBackendInterface {
     }
 
     /**
-     * gibt false zurück
-     * @param record
-     * @return
-     */
-    @Override
-    public boolean removeRecord(Record record) {
-        return false;
-        //TODO useless
-    }
-
-    /**
      * gibt eine Liste mit allen Records aus der Datenbank zurück
      * @return Liste mit Records
      */

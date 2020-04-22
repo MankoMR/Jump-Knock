@@ -11,6 +11,4 @@ public interface UiNotifier {
 	void updateUi(float height);
 	void gameOver(float height);
 	void playerCollidedWith(Platform platform);
-	//TODO wird das gebraucht?
-	float getSmartPhoneRotation();
 }
