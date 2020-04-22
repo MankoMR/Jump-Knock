@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+-->
 <resources>
     <string name="app_name">Knock Jump</string>
     <string name="btn_play">Spielen</string>

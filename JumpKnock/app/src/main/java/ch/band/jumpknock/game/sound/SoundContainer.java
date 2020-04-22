@@ -5,7 +5,9 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import androidx.annotation.RawRes;
-
+/*
+ *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
+ */
 public class SoundContainer {
 
     private final String TAG = SoundContainer.class.getCanonicalName();
