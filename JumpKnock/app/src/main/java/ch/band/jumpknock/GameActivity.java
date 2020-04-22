@@ -387,21 +387,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 		time = event.timestamp;
 
 		//Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
-		//Todo: Fix attempt to read from null array
-        /*
-                    Process: ch.band.jumpknock, PID: 1653
-            java.lang.NullPointerException: Attempt to read from null array
-                at ch.band.jumpknock.GameActivity.onSensorChanged(GameActivity.java:374)
-                at android.hardware.SystemSensorManager$SensorEventQueue.dispatchSensorEvent(SystemSensorManager.java:851)
-                at android.os.MessageQueue.nativePollOnce(Native Method)
-                at android.os.MessageQueue.next(MessageQueue.java:326)
-                at android.os.Looper.loop(Looper.java:165)
-                at android.app.ActivityThread.main(ActivityThread.java:6810)
-                at java.lang.reflect.Method.invoke(Native Method)
-                at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:547)
-                at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:873)
-        2020-04-20 11:10:37.501 1653-1653/? E/MQSEventManagerDelegate: failed to get MQSService.
-         */
+
         if(event.values == null || (event.values[1] == Float.NaN))
         	return;
 		gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
