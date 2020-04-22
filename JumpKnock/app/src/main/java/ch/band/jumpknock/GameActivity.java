@@ -391,8 +391,11 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         //Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
 
-		if(event.values == null || (event.values[1] == Float.NaN))
-			return;
+        //If it can't correctly set the acceleration it should return to mainmenu.
+		if(event.values == null || ofSetValues == null){
+            finish();
+            return;
+        }
 		gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
 		//Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
 	}

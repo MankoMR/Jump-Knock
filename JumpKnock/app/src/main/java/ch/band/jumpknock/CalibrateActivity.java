@@ -20,7 +20,7 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 	Button ok;
 	public static final String SENSOR_OFFSETS = "sensor_offsets";
 	private float[] ofSetValues;
-
+	private boolean pressedOk = false;
 	/**
 	 * startet die aktivität
 	 * @param savedInstanceState
@@ -43,10 +43,14 @@ public class CalibrateActivity extends AppCompatActivity implements SensorEventL
 		super.onResume();
 		sensorManager.registerListener(this,movementSensor,SensorManager.SENSOR_DELAY_GAME);
 		ok.setOnClickListener(view ->{
-			Intent i = new Intent(this, GameActivity.class);
-			i.putExtra(SENSOR_OFFSETS,ofSetValues);
-			startActivity(i);
-			finish();
+			//Pressing multiples Times on Ok results in GameActivity getting null for ofSetValues.
+			if(!pressedOk){
+				pressedOk = true;
+				Intent i = new Intent(this, GameActivity.class);
+				i.putExtra(SENSOR_OFFSETS,ofSetValues);
+				startActivity(i);
+				finish();
+			}
 		});
 	}
 
