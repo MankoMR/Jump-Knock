@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -33,6 +34,7 @@ import ch.band.jumpknock.CalibrateActivity;
 import ch.band.jumpknock.R;
 import ch.band.jumpknock.RecordActivity;
 import ch.band.jumpknock.game.GameManager;
+import ch.band.jumpknock.game.GameSurfaceView;
 import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
@@ -52,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     FrameLayout flContainer;
     //The the player needs to be always in the foreground. That makes a separate framelayout necessary.
     FrameLayout flPlayerContainer;
+    private GameSurfaceView glSurfaceView;
 
     //To manage the platforms groupview a mapping is necessesary to associate a platform to its visual oponent.
     HashMap<Platform, ConstraintLayout> platforms = new HashMap<>();
@@ -81,6 +84,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
         tvReachedHeight = findViewById(R.id.TvHeight);
         flContainer = findViewById(R.id.FlPlatformContainer);
         flPlayerContainer = findViewById(R.id.FlPlayerContainer);
+        glSurfaceView = findViewById(R.id.gl_surface);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         random = new Random();
         ofSetValues = getIntent().getFloatArrayExtra(CalibrateActivity.SENSOR_OFFSETS);
