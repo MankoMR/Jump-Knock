@@ -12,6 +12,9 @@ import ch.band.jumpknock.RecordActivity;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
+/*
+ *Copyright (c) 2020 Fredy Stalder, All rights reserved.
+ */
 public class SqlBackendTest {
 
     @Test
