@@ -192,6 +192,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 				sensorManager.registerListener(sensorEventListener,movementSensor,SensorManager.SENSOR_DELAY_GAME);
 
 				Log.d(TAG,"Screen: "+screenSize.toString()+" | Player: "+playerSize.toString()+" | Plat: "+platformSize);
+				gameManager.start();
 				flContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
 			}
