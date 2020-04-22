@@ -58,11 +58,11 @@ public class RecordActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.RED);
             cl_root.setBackground(getDrawable(R.color.colorBad));
             hasNoDataToSave = true;
-            tv_title.setText("Kein neuer Rekord.");
+            tv_title.setText(R.string.record_no_record);
             iv_pokal.setVisibility(View.INVISIBLE);
             tv_nameOnTrophy.setVisibility(View.INVISIBLE);
-            tv_name.setText("Platzt 10 liegt bei einer Höhe von: " + topTen[9].getHeight());
-            tv_points.setText("Sie erreichten eine Höhe von: " + reachedHeight);
+            tv_name.setText(getText(R.string.record_rec10_height).toString() + topTen[9].getHeight());
+            tv_points.setText(getText(R.string.record_your_height).toString() + reachedHeight);
             tv_name.setVisibility(View.VISIBLE);
             eT_name.setVisibility(View.INVISIBLE);
             hasNoDataToSave = true;
@@ -116,34 +116,34 @@ public class RecordActivity extends AppCompatActivity {
            switch (recordRepository.getPositionOfHeight(reachedHeight))
            {
                case 1:
-                   setTrophyVisible("Erster Platz!", R.drawable.goldpokal);
+                   setTrophyVisible(R.string.record_first_de, R.drawable.goldpokal);
                    break;
                case 2:
-                   setTrophyVisible("Zweiter Platz!", R.drawable.silverpokal);
+                   setTrophyVisible(R.string.record_second_de, R.drawable.silverpokal);
                    break;
                case 3:
-                   setTrophyVisible("Dritter Platz!", R.drawable.bronzepokal);
+                   setTrophyVisible(R.string.record_third_de, R.drawable.bronzepokal);
                    break;
                case 4:
-                   setBadgeVisible("Vierter Platz!", "4");
+                   setBadgeVisible(R.string.record_fourth_de, "4");
                    break;
                case 5:
-                   setBadgeVisible("Fünfter Platz!", "5");
+                   setBadgeVisible(R.string.record_fifth_de, "5");
                    break;
                case 6:
-                   setBadgeVisible("Sechter Platz!", "6");
+                   setBadgeVisible(R.string.record_sixth_de, "6");
                    break;
                case 7:
-                   setBadgeVisible("Siebter Platz!", "7");
+                   setBadgeVisible(R.string.record_seventh_de, "7");
                    break;
                case 8:
-                   setBadgeVisible("Achter Platz!", "8");
+                   setBadgeVisible(R.string.record_eighth_de, "8");
                    break;
                case 9:
-                   setBadgeVisible("Neunter Platz!", "9");
+                   setBadgeVisible(R.string.record_ninth_de, "9");
                    break;
                case 10:
-                   setBadgeVisible("Zehnter Platz!", "10");
+                   setBadgeVisible(R.string.record_tenth_de, "10");
                    break;
                case -1:
                default:
@@ -168,7 +168,7 @@ public class RecordActivity extends AppCompatActivity {
      * @param text
      * @param revTrophy
      */
-    private void setTrophyVisible(String text, int revTrophy)
+    private void setTrophyVisible(int text, int revTrophy)
     {
         iv_pokal.setImageDrawable(getDrawable(revTrophy));
         tv_title.setText(text);
@@ -180,7 +180,7 @@ public class RecordActivity extends AppCompatActivity {
      * @param text
      * @param number
      */
-    private void setBadgeVisible(String text,String number)
+    private void setBadgeVisible( int text,String number)
     {
         tv_title.setText(text);
         iv_pokal.setImageDrawable(getDrawable(R.drawable.badge));

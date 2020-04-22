@@ -391,25 +391,25 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
         //Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
 
-        if(event.values == null || (event.values[1] == Float.NaN))
-            return;
-        gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
-        //Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
-    }
+		if(event.values == null || (event.values[1] == Float.NaN))
+			return;
+		gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
+		//Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
+	}
 
-    /**
-     * Called when the accuracy of the registered sensor has changed.  Unlike
-     * onSensorChanged(), this is only called when this accuracy value changes.
-     *
-     * <p>See the SENSOR_STATUS_* constants in
-     * {@link SensorManager SensorManager} for details.
-     *
-     * @param sensor
-     * @param accuracy The new accuracy of this sensor, one of
-     *                 {@code SensorManager.SENSOR_STATUS_*}
-     */
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+	/**
+	 * Called when the accuracy of the registered sensor has changed.  Unlike
+	 * onSensorChanged(), this is only called when this accuracy value changes.
+	 *
+	 * <p>See the SENSOR_STATUS_* constants in
+	 * {@link SensorManager SensorManager} for details.
+	 *
+	 * @param sensor
+	 * @param accuracy The new accuracy of this sensor, one of
+	 *                 {@code SensorManager.SENSOR_STATUS_*}
+	 */
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
-    }
+	}
 }

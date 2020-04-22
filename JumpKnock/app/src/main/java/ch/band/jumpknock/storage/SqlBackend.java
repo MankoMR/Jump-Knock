@@ -18,52 +18,52 @@ import ch.band.jumpknock.storage.StorageBackendInterface;
  */
 public class SqlBackend implements StorageBackendInterface {
 
-    private  Context context;
+	private  Context context;
 
-    /**
-     * construktor
-     * @param context
-     */
-    public SqlBackend(Context context)
-    {
-        this.context = context;
-    }
+	/**
+	 * construktor
+	 * @param context
+	 */
+	public SqlBackend(Context context)
+	{
+		this.context = context;
+	}
 
-    /**
-     * speichert den mitgeben Record in der Datenbank
-     * @param record
-     * @return ture falls zeug gespeichert wurde
-     */
-    @Override
-    public boolean addRecord(Record record) {
-        DBHelper dbHelper = new DBHelper(context);
-        boolean saved = dbHelper.saveRecord(record);
-        dbHelper.close();
-        return saved;
-    }
+	/**
+	 * speichert den mitgeben Record in der Datenbank
+	 * @param record
+	 * @return ture falls zeug gespeichert wurde
+	 */
+	@Override
+	public boolean addRecord(Record record) {
+		DBHelper dbHelper = new DBHelper(context);
+		boolean saved = dbHelper.saveRecord(record);
+		dbHelper.close();
+		return saved;
+	}
 
-    /**
-     * gibt eine Liste mit allen Records aus der Datenbank zurück
-     * @return Liste mit Records
-     */
-    @Override
-    public List<Record> getRecords() {
-        DBHelper dbHelper = new DBHelper(context);
-        ArrayList<Record> records = dbHelper.getAllRecords();
-        dbHelper.close();
-        return records;
-    }
+	/**
+	 * gibt eine Liste mit allen Records aus der Datenbank zurück
+	 * @return Liste mit Records
+	 */
+	@Override
+	public List<Record> getRecords() {
+		DBHelper dbHelper = new DBHelper(context);
+		ArrayList<Record> records = dbHelper.getAllRecords();
+		dbHelper.close();
+		return records;
+	}
 
-    /**
-     * hollt sich den zuletzt gespeicherten Datensatz aus der Datenbank
-     * @return Record
-     */
-    @Override
-    public  Record getNewestRecord()
-    {
-        DBHelper dbHelper = new DBHelper(context);
-        Record record = dbHelper.getNewestRecord();
-        dbHelper.close();
-        return record;
-    }
+	/**
+	 * hollt sich den zuletzt gespeicherten Datensatz aus der Datenbank
+	 * @return Record
+	 */
+	@Override
+	public  Record getNewestRecord()
+	{
+		DBHelper dbHelper = new DBHelper(context);
+		Record record = dbHelper.getNewestRecord();
+		dbHelper.close();
+		return record;
+	}
 }

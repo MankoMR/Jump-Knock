@@ -21,4 +21,7 @@
     <string name="record_tenth_de">10e place !</string>
     <string name="record_third_de">Troisième place !</string>
     <string name="title_calibrate">Calibrer</string>
+    <string name="record_no_record">Pas de nouveau record !</string>
+    <string name="record_rec10_height">La place 10 est à une hauteur de :</string>
+    <string name="record_your_height">Ils ont atteint une hauteur de :</string>
 </resources>
