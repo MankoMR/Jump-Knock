@@ -1,4 +1,4 @@
-﻿package ch.band.jumpknock;
+package ch.band.jumpknock;
 
 
 import android.content.Context;
@@ -388,8 +388,8 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
 
 		//Log.d(TAG, event.sensor.getName()+" " + Arrays.toString(event.values));
 
-        if(event.values == null || (event.values[1] == Float.NaN))
-        	return;
+		if(event.values == null || (event.values[1] == Float.NaN))
+			return;
 		gameManager.setHorizontalPlayerAcceleration(event.values[1] - ofSetValues[1],deltatime);
 		//Log.d(TAG,"Raw: "+ event.values[1] + " Normalized:"+ event.values[1] * deltatime );
 	}
