@@ -51,4 +51,8 @@ public class Placeable {
 	public int getDrawableId() {
 		return drawableId;
 	}
+
+	public void draw(){
+
+	}
 }
