@@ -1,20 +1,10 @@
 package ch.band.jumpknock.game.sound;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.RawRes;
 
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Queue;
-import java.util.Random;
-import java.util.concurrent.ArrayBlockingQueue;
-
-import ch.band.jumpknock.Constants;
-import ch.band.jumpknock.GameActivity;
 
 
 /*
