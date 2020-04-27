@@ -31,7 +31,7 @@ public class SoundContainer {
             //On some devices the source file can't be read and initialization fails. It those Situation it returns null.
             //Therefore all access needs to be null checked.
             if (player == null){
-                Log.d(TAG,"Error during MediaPlayer creation disallows playing Sound");
+               // Log.d(TAG,"Error during MediaPlayer creation disallows playing Sound");
                 continue;
             }
 
