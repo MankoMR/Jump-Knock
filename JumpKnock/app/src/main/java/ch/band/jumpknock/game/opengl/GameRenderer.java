@@ -1,9 +1,19 @@
 package ch.band.jumpknock.game.opengl;
 
 import android.opengl.GLES20;
+import android.opengl.GLES30;
+import android.opengl.GLES32;
 import android.opengl.GLSurfaceView;
 
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
 public class GameRenderer implements GLSurfaceView.Renderer {
@@ -36,8 +46,21 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 
 		// Set the background frame color
-		GLES20.glClearColor(41/255f, 182/255f, 246/255f, 1.0f);
+		GLES30.glClearColor(41/255f, 182/255f, 246/255f, 1.0f);
 
+		float[] positions = {
+				0,1,
+				1,0,
+				-1,0,
+		};
+		VertexBuffer recVertices = new VertexBuffer( FloatBuffer.wrap(positions),float.class,GLES30.GL_DYNAMIC_DRAW);
+		int[] recindex = {
+				0,
+				1,
+				2,
+				3,
+		};
+		IndexBuffer recIndexes = new IndexBuffer(IntBuffer.wrap(recindex),GLES30.GL_DYNAMIC_DRAW);
 	}
 
 	/**
@@ -66,7 +89,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	 */
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
-		GLES20.glViewport(0, 0, width, height);
+		GLES30.glViewport(0, 0, width, height);
 
 	}
 
@@ -90,19 +113,17 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	public void onDrawFrame(GL10 gl) {
 
 		// Redraw background color
-		GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-
-
+		GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 	}
 	public static int loadShader(int type, String shaderCode){
 
-		// create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-		// or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-		int shader = GLES20.glCreateShader(type);
+		// create a vertex shader type (GLES30.GL_VERTEX_SHADER)
+		// or a fragment shader type (GLES30.GL_FRAGMENT_SHADER)
+		int shader = GLES30.glCreateShader(type);
 
 		// add the source code to the shader and compile it
-		GLES20.glShaderSource(shader, shaderCode);
-		GLES20.glCompileShader(shader);
+		GLES30.glShaderSource(shader, shaderCode);
+		GLES30.glCompileShader(shader);
 
 		return shader;
 	}

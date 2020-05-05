@@ -1,7 +1,7 @@
 package ch.band.jumpknock.game.opengl;
 
 import android.content.Context;
-import android.opengl.GLES20;
+import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 
@@ -21,7 +21,7 @@ public class GameSurfaceView extends GLSurfaceView {
 	 */
 	public GameSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setEGLContextClientVersion(2);
+		setEGLContextClientVersion(3);
 		renderer = new GameRenderer();
 		setRenderer(renderer);
 	}
