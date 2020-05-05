@@ -13,20 +13,9 @@ public class Platform extends Placeable {
 	private boolean isOneTimeUse = false;
 	private Decoration decoration = null;
 
-	private  final int GlProgramHandle;
 
 	public Platform(){
 		super();
-		String vertextShaderRaw = "";
-		String fragmentShaderRaw = "";
-
-		int vertexShaderHandle = GameRenderer.loadShader(GLES20.GL_VERTEX_SHADER, vertextShaderRaw);
-		int fragmentShaderHandle = GameRenderer.loadShader(GLES20.GL_FRAGMENT_SHADER, vertextShaderRaw);
-
-		GlProgramHandle = GLES20.glCreateProgram();
-		GLES20.glAttachShader(GlProgramHandle,vertexShaderHandle);
-		GLES20.glAttachShader(GlProgramHandle,fragmentShaderHandle);
-		GLES20.glLinkProgram(GlProgramHandle);
 	}
 
 	/**
@@ -61,7 +50,6 @@ public class Platform extends Placeable {
 	@Override
 	public void draw() {
 		super.draw();
-
 
 	}
 }
