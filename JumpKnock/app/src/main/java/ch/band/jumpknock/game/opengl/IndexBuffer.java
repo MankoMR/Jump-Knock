@@ -5,7 +5,7 @@ import android.opengl.GLES30;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
-public class IndexBuffer implements IBindable {
+public class IndexBuffer implements IBindable, IDisposable {
     protected int rendererID;
     protected int count;
     protected IntBuffer data;
@@ -28,8 +28,11 @@ public class IndexBuffer implements IBindable {
 
     @Override
     protected void finalize() throws Throwable {
+        super.finalize();
+    }
+    @Override
+    public void dispose() {
         IntBuffer id = IntBuffer.wrap(new int[]{rendererID});
         GLES30.glDeleteBuffers(1,id);
-        super.finalize();
     }
 }
