@@ -1,22 +1,43 @@
 package ch.band.jumpknock.game.opengl;
 
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLES32;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 
+import androidx.annotation.RawRes;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
+import ch.band.jumpknock.R;
+
 public class GameRenderer implements GLSurfaceView.Renderer {
+	private static final String TAG = GameRenderer.class.getSimpleName();
+	private Context context;
+
+	public GameRenderer(Context context){
+		this.context = context;
+	}
 
 	/**
 	 * Called when the surface is created or recreated.
@@ -44,7 +65,11 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	 */
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-
+		int program = createProgram();
+		String vertex = loadFile(R.raw.vertex);
+		String fragment = loadFile(R.raw.fragment);
+		compileShader(vertex,GLES30.GL_VERTEX_SHADER,program);
+		compileShader(fragment,GLES30.GL_FRAGMENT_SHADER,program);
 		// Set the background frame color
 		GLES30.glClearColor(41/255f, 182/255f, 246/255f, 1.0f);
 
@@ -53,14 +78,19 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 				1,0,
 				-1,0,
 		};
-		VertexBuffer recVertices = new VertexBuffer( FloatBuffer.wrap(positions),float.class,GLES30.GL_DYNAMIC_DRAW);
+		VertexBuffer vbo = new VertexBuffer( FloatBuffer.wrap(positions),GLES30.GL_DYNAMIC_DRAW);
 		int[] recindex = {
 				0,
 				1,
 				2,
 				3,
 		};
-		IndexBuffer recIndexes = new IndexBuffer(IntBuffer.wrap(recindex),GLES30.GL_DYNAMIC_DRAW);
+		IndexBuffer ibo = new IndexBuffer(IntBuffer.wrap(recindex),GLES30.GL_DYNAMIC_DRAW);
+		VertexArray vao = new VertexArray();
+		VertexBufferLayout vbl = new VertexBufferLayout();
+		vbl.Push(2,Float.TYPE);
+		vao.AddBuffer(vbo,vbl);
+		ibo.bind();
 	}
 
 	/**
@@ -126,6 +156,32 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 		GLES30.glCompileShader(shader);
 
 		return shader;
+	}
+	public int compileShader(String shader,int shaderType,int program){
+		int sid = GLES30.glCreateShader(shaderType);
+		GLES30.glShaderSource(sid,shader);
+		GLES30.glCompileShader(sid);
+		GLES30.glAttachShader(program,sid);
+		return sid;
+	}
+	public int createProgram(){
+		int pid = GLES30.glCreateProgram();
+		return pid;
+	}
+	public String loadFile(@RawRes int id) {
+		InputStream stream = context.getResources().openRawResource(id);
+		BufferedReader reader = new  BufferedReader( new InputStreamReader(stream));
+		StringBuilder sb = new StringBuilder();
+		String line;
+		try {
+			while(( line = reader.readLine()) != null ) {
+				sb.append( line );
+				sb.append( '\n' );
+			}
+		} catch (IOException e) {
+			Log.e(TAG,"Could not open Ressource "+context.getResources().getResourceName(id)+".",e);
+		}
+		return sb.toString();
 	}
 
 }
