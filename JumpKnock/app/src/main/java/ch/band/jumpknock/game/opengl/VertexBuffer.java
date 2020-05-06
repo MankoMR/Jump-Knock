@@ -17,12 +17,12 @@ public class VertexBuffer implements IBindable {
         rendererID = id.get(0);
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER,rendererID);
         Object array = data.array();
-        GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER,data.limit() * IBindable.sizeof(dataType),data,usage);
+        GLES30.glBufferData(GLES30.GL_ARRAY_BUFFER,data.limit() * Util.GetBufferItemType(data).BYTES,data,usage);
     }
     public void bind(){
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER,rendererID);
     }
-    public void unBind(){
+    public void unbind(){
         GLES30.glBindBuffer(GLES30.GL_ARRAY_BUFFER,0);
     }
 

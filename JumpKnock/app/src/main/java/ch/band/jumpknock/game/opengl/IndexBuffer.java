@@ -22,7 +22,7 @@ public class IndexBuffer implements IBindable {
     public void bind(){
         GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER,rendererID);
     }
-    public void unBind(){
+    public void unbind(){
         GLES30.glBindBuffer(GLES30.GL_ELEMENT_ARRAY_BUFFER,0);
     }
 
