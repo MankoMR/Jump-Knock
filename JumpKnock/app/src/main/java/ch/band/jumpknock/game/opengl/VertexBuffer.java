@@ -3,15 +3,13 @@ package ch.band.jumpknock.game.opengl;
 import android.opengl.GLES30;
 
 import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 public class VertexBuffer implements IBindable {
     protected int rendererID;
     protected Buffer data;
 
-    public VertexBuffer(Buffer data, Class dataType, int usage){
+    public VertexBuffer(Buffer data, int usage){
         IntBuffer id = IntBuffer.allocate(1);
         GLES30.glGenBuffers(1,id);
         rendererID = id.get(0);
