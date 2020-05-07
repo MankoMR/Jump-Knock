@@ -22,7 +22,7 @@ public class GameSurfaceView extends GLSurfaceView {
 	public GameSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setEGLContextClientVersion(3);
-		renderer = new GameRenderer();
+		renderer = new GameRenderer(this.getContext());
 		setRenderer(renderer);
 	}
 

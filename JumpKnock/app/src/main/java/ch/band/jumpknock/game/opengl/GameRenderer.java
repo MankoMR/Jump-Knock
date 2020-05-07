@@ -34,6 +34,7 @@ import ch.band.jumpknock.R;
 public class GameRenderer implements GLSurfaceView.Renderer {
 	private static final String TAG = GameRenderer.class.getSimpleName();
 	private Context context;
+	private int program;
 
 	public GameRenderer(Context context){
 		this.context = context;
@@ -65,11 +66,14 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	 */
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-		int program = createProgram();
+		Log.d(TAG,"OpenGL version: "+ GLES30.glGetString(GLES30.GL_VERSION));
+		program = createProgram();
 		String vertex = loadFile(R.raw.vertex);
 		String fragment = loadFile(R.raw.fragment);
 		compileShader(vertex,GLES30.GL_VERTEX_SHADER,program);
 		compileShader(fragment,GLES30.GL_FRAGMENT_SHADER,program);
+		GLES30.glLinkProgram(program);
+		GLES30.glValidateProgram(program);
 		// Set the background frame color
 		GLES30.glClearColor(41/255f, 182/255f, 246/255f, 1.0f);
 
@@ -88,7 +92,7 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 		IndexBuffer ibo = new IndexBuffer(IntBuffer.wrap(recindex),GLES30.GL_DYNAMIC_DRAW);
 		VertexArray vao = new VertexArray();
 		VertexBufferLayout vbl = new VertexBufferLayout();
-		vbl.Push(2,Float.TYPE);
+		vbl.Push(2,Float.TYPE,"position");
 		vao.AddBuffer(vbo,vbl);
 		ibo.bind();
 	}
@@ -144,24 +148,20 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 
 		// Redraw background color
 		GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
+		GLES30.glUseProgram(program);
+		int uniformColor = GLES30.glGetUniformLocation(program,"vColor");
+		FloatBuffer color = FloatBuffer.wrap(new float[]{0,1,1,0});
+		GLES30.glUniform4fv(uniformColor,1,color);
+		GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP,0,4);
 	}
-	public static int loadShader(int type, String shaderCode){
 
-		// create a vertex shader type (GLES30.GL_VERTEX_SHADER)
-		// or a fragment shader type (GLES30.GL_FRAGMENT_SHADER)
-		int shader = GLES30.glCreateShader(type);
-
-		// add the source code to the shader and compile it
-		GLES30.glShaderSource(shader, shaderCode);
-		GLES30.glCompileShader(shader);
-
-		return shader;
-	}
 	public int compileShader(String shader,int shaderType,int program){
 		int sid = GLES30.glCreateShader(shaderType);
 		GLES30.glShaderSource(sid,shader);
 		GLES30.glCompileShader(sid);
 		GLES30.glAttachShader(program,sid);
+		String info = GLES30.glGetShaderInfoLog(sid);
+		Log.d(TAG,(shaderType == GLES30.GL_FRAGMENT_SHADER ? "Fragment": "Vertex") +"shader information: \n"+info);
 		return sid;
 	}
 	public int createProgram(){
