@@ -35,6 +35,8 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	private static final String TAG = GameRenderer.class.getSimpleName();
 	private Context context;
 	private int program;
+	private int colorcounter = 0;
+	private int sign  = +1;
 
 	public GameRenderer(Context context){
 		this.context = context;
@@ -84,10 +86,10 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 		};
 		VertexBuffer vbo = new VertexBuffer( FloatBuffer.wrap(positions),GLES30.GL_DYNAMIC_DRAW);
 		int[] recindex = {
-				0,
-				1,
-				2,
 				3,
+				2,
+				1,
+				0,
 		};
 		IndexBuffer ibo = new IndexBuffer(IntBuffer.wrap(recindex),GLES30.GL_DYNAMIC_DRAW);
 		VertexArray vao = new VertexArray();
@@ -145,14 +147,21 @@ public class GameRenderer implements GLSurfaceView.Renderer {
 	 */
 	@Override
 	public void onDrawFrame(GL10 gl) {
+		if(colorcounter == 255)
+			sign = -1;
+		if(colorcounter == 0)
+			sign = +1;
+
+		colorcounter += sign;
+		GLES30.glClearColor(colorcounter/255f, colorcounter/255f, colorcounter/255f, 1.0f);
 
 		// Redraw background color
 		GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
 		GLES30.glUseProgram(program);
-		int uniformColor = GLES30.glGetUniformLocation(program,"vColor");
-		FloatBuffer color = FloatBuffer.wrap(new float[]{0,1,1,0});
+		int uniformColor = GLES30.glGetUniformLocation(program,"iColor");
+		FloatBuffer color = FloatBuffer.wrap(new float[]{1,1,1,1});
 		GLES30.glUniform4fv(uniformColor,1,color);
-		GLES30.glDrawArrays(GLES30.GL_TRIANGLE_STRIP,0,4);
+		GLES30.glDrawArrays(GLES30.GL_TRIANGLES,0,4);
 	}
 
 	public int compileShader(String shader,int shaderType,int program){

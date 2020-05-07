@@ -1,8 +1,8 @@
 #version 300 es
-precision mediump float;
-uniform vec4 vColor;
-layout(location = 0) out vec4 gl_FragColor;
 
+layout(location = 0) uniform vec4 iColor;
+
+layout(location = 0) out vec4 oColor;
 void main() {
-    gl_FragColor = vColor;
+    oColor = vec4(1f,0f,0f,1f);
 }
