@@ -4,11 +4,12 @@ import android.opengl.GLES30;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
-final class Util {
+public final class Util {
 
     public static final GlType GetGlType(Class dataType)
     {
@@ -46,5 +47,26 @@ final class Util {
             this.BYTES = bytes;
             this.GLID = glid;
         }
+    }
+    public static final ByteBuffer createBuffer(float[] content){
+        ByteBuffer buf = ByteBuffer.allocateDirect(content.length * 4);
+        buf.order(ByteOrder.nativeOrder());
+        buf.asFloatBuffer().put(content);
+        buf.position(0);
+        return  buf;
+    }
+    public static final ByteBuffer createBuffer(int[] content){
+        ByteBuffer buf = ByteBuffer.allocateDirect(content.length * 4);
+        buf.order(ByteOrder.nativeOrder());
+        buf.asIntBuffer().put(content);
+        buf.position(0);
+        return  buf;
+    }
+    public static final ByteBuffer createBuffer(short[] content){
+        ByteBuffer buf = ByteBuffer.allocateDirect(content.length * 4);
+        buf.order(ByteOrder.nativeOrder());
+        buf.asShortBuffer().put(content);
+        buf.position(0);
+        return  buf;
     }
 }

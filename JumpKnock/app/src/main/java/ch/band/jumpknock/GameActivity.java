@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 import ch.band.jumpknock.game.GameManager;
-import ch.band.jumpknock.game.opengl.GameSurfaceView;
+import ch.band.jumpknock.game.basicgl.GameSurfaceView;
 import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
