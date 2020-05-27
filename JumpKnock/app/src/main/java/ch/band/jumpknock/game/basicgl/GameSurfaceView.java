@@ -10,7 +10,6 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
-import ch.band.jumpknock.game.opengl.GameRenderer;
 
 public class GameSurfaceView extends GLSurfaceView {
 
