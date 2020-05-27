@@ -4,7 +4,6 @@ import android.opengl.GLES20;
 
 import androidx.annotation.Nullable;
 
-import ch.band.jumpknock.game.opengl.GameRenderer;
 
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
