@@ -1,4 +1,4 @@
-package ch.band.manko.glrenderer.opengl;
+package ch.band.jumpknock.opengl;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 public class CustomGLSurfaceView extends GLSurfaceView {
 
-	private final ch.band.manko.glrenderer.opengl.Renderer renderer;
+	private final ch.band.jumpknock.opengl.Renderer renderer;
 
 	/**
 	 * Standard View constructor. In order to render something, you
@@ -18,7 +18,7 @@ public class CustomGLSurfaceView extends GLSurfaceView {
 	public CustomGLSurfaceView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setEGLContextClientVersion(2);
-		renderer = new ch.band.manko.glrenderer.opengl.Renderer(this.getContext());
+		renderer = new ch.band.jumpknock.opengl.Renderer(this.getContext());
 		setRenderer(renderer);
 	}
 

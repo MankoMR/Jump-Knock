@@ -1,4 +1,4 @@
-package ch.band.manko.glrenderer.opengl;
+package ch.band.jumpknock.opengl;
 
 import android.content.Context;
 import android.graphics.Bitmap;

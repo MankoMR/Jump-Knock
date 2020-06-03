@@ -1,4 +1,4 @@
-package ch.band.manko.glrenderer.opengl;
+package ch.band.jumpknock.opengl;
 
 import android.content.Context;
 import android.opengl.GLES30;
@@ -6,7 +6,6 @@ import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.os.SystemClock;
 import android.util.Log;
-import android.view.Display;
 
 import androidx.annotation.RawRes;
 
@@ -17,10 +16,10 @@ import java.io.InputStreamReader;
 import java.nio.IntBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 
-import ch.band.manko.glrenderer.R;
+import ch.band.jumpknock.R;
+
 
 public class Renderer implements GLSurfaceView.Renderer {
 	private static final String TAG = Renderer.class.getSimpleName();

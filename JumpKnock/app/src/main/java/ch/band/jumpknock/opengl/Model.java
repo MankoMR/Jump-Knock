@@ -1,9 +1,6 @@
-package ch.band.manko.glrenderer.opengl;
+package ch.band.jumpknock.opengl;
 
 import android.opengl.GLES30;
-import android.view.Display;
-
-import java.util.function.Consumer;
 
 public class Model implements IBindable, IDisposable {
     private VertexBuffer mVertexBuffer;

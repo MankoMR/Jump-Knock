@@ -1,6 +1,5 @@
-package ch.band.manko.glrenderer.opengl;
+package ch.band.jumpknock.opengl;
 
-import android.opengl.GLES20;
 import android.opengl.GLES30;
 
 import java.nio.IntBuffer;
@@ -34,7 +33,7 @@ public class VertexArray implements IBindable, IDisposable {
         GLES30.glBindVertexArray(rendererID);
     }
     public void bind(int textureSlot){
-        GLES30.glActiveTexture(GLES20.GL_TEXTURE0+textureSlot);
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0+textureSlot);
         bind();
     }
     @Override
