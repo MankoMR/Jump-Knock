@@ -30,12 +30,12 @@ import java.util.List;
 import java.util.Random;
 
 import ch.band.jumpknock.game.GameManager;
-import ch.band.jumpknock.game.basicgl.GameSurfaceView;
 import ch.band.jumpknock.game.GameVariables;
 import ch.band.jumpknock.game.Platform;
 import ch.band.jumpknock.game.Player;
 import ch.band.jumpknock.game.sound.SoundEngine;
 import ch.band.jumpknock.game.UiNotifier;
+import ch.band.jumpknock.opengl.CustomGLSurfaceView;
 
 /*
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
@@ -50,7 +50,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     FrameLayout flContainer;
     //The the player needs to be always in the foreground. That makes a separate framelayout necessary.
     FrameLayout flPlayerContainer;
-    private GameSurfaceView glSurfaceView;
+    private CustomGLSurfaceView glSurfaceView;
 
     //To manage the platforms groupview a mapping is necessesary to associate a platform to its visual oponent.
     HashMap<Platform, ConstraintLayout> platforms = new HashMap<>();

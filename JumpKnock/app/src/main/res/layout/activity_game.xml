@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ch.band.jumpknock.game.basicgl.GameSurfaceView
+    <ch.band.jumpknock.opengl.CustomGLSurfaceView
 
         android:id="@+id/gl_surface"
         android:layout_width="0dp"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </ch.band.jumpknock.game.basicgl.GameSurfaceView>
+    </ch.band.jumpknock.opengl.CustomGLSurfaceView>
 
     <FrameLayout
         android:id="@+id/FlPlatformContainer"
