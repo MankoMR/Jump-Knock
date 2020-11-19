@@ -8,7 +8,7 @@ import java.util.List;
  *Copyright (c) 2020 Fredy Stalder, Manuel Koloska, All rights reserved.
  */
 public class RecordRepository {
-	private StorageBackendInterface storageBackend;
+	private final StorageBackendInterface storageBackend;
 
 	public RecordRepository(Context context){
 		storageBackend = new SqlBackend(context);

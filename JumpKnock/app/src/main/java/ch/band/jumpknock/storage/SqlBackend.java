@@ -18,7 +18,7 @@ import ch.band.jumpknock.storage.StorageBackendInterface;
  */
 public class SqlBackend implements StorageBackendInterface {
 
-	private  Context context;
+	private final Context context;
 
 	/**
 	 * construktor

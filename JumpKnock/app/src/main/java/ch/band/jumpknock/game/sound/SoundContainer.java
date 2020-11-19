@@ -10,9 +10,9 @@ import androidx.annotation.RawRes;
  */
 public class SoundContainer {
 
-    private final String TAG = SoundContainer.class.getCanonicalName();
+    private static final String TAG = SoundContainer.class.getCanonicalName();
     
-    private MediaPlayer[] soundVariations;
+    private final MediaPlayer[] soundVariations;
     private int soundVariationPosition = 0;
 
 

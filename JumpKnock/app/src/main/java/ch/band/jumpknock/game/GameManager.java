@@ -30,21 +30,21 @@ public class GameManager {
     /**
      * The Game variables.
      */
-    private GameVariables gameVariables;
+    private final GameVariables gameVariables;
     private long playTimeNs;
     //should always be in the middle of the screen.
     private float currentHeight;
     private float reachedHeight;
-    private Player player;
-    private ArrayList<Platform> platforms = new ArrayList<>();
-    private Random r;
+    private final Player player;
+    private final ArrayList<Platform> platforms = new ArrayList<>();
+    private final Random r;
     private boolean isPaused;
     private boolean isStopped;
     private boolean isGameOver = false;
 
-    private UiNotifier uiNotifier;
-    private Handler gameRunner;
-    private static int FPS = 60;
+    private final UiNotifier uiNotifier;
+    private final Handler gameRunner;
+    private static final int FPS = 60;
 
     /**
      * Instantiates a new Game manager.
