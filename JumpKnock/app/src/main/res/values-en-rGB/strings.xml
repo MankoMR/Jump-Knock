@@ -22,6 +22,7 @@
     <string name="record_third_de">Third place!</string>
     <string name="title_calibrate">Calibrate</string>
     <string name="record_no_record">No new record!</string>
-    <string name="record_rec10_height">Place 10 is at a height of:</string>
-    <string name="record_your_height">You reached a height of:</string>
+    <string name="record_rec10_height">Place 10 is at a height of: %1$d</string>
+    <string name="record_your_height">You reached a height of: %1$d</string>
+    <string name="error_occured">An error has occurred.</string>
 </resources>

@@ -22,6 +22,7 @@
     <string name="record_third_de">Terzo posto!</string>
     <string name="title_calibrate">Calibrare</string>
     <string name="record_no_record">Nessun nuovo record!</string>
-    <string name="record_rec10_height">Il posto 10 è ad un\'altezza di:</string>
-    <string name="record_your_height">Hanno raggiunto un\'altezza di:</string>
+    <string name="record_rec10_height">Il posto 10 è ad un\'altezza di:  %1$d</string>
+    <string name="record_your_height">Hanno raggiunto un\'altezza di: %1$d</string>
+    <string name="error_occured">Si è verificato un errore.</string>
 </resources>

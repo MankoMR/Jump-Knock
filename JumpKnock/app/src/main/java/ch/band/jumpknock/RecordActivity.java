@@ -58,8 +58,8 @@ public class RecordActivity extends AppCompatActivity {
             tv_title.setText(R.string.record_no_record);
             iv_pokal.setVisibility(View.INVISIBLE);
             tv_nameOnTrophy.setVisibility(View.INVISIBLE);
-            tv_name.setText(getText(R.string.record_rec10_height).toString() + topTen[9].getHeight());
-            tv_points.setText(getText(R.string.record_your_height).toString() + reachedHeight);
+            tv_name.setText(getString(R.string.record_rec10_height,topTen[9].getHeight()));
+            tv_points.setText(getString(R.string.record_your_height,reachedHeight));
             tv_name.setVisibility(View.VISIBLE);
             eT_name.setVisibility(View.INVISIBLE);
             hasNoDataToSave = true;
@@ -145,7 +145,7 @@ public class RecordActivity extends AppCompatActivity {
                case -1:
                default:
                    iv_pokal.setVisibility(View.INVISIBLE);
-                   tv_title.setText("Ein Fehler ist aufgetreten.");
+                   tv_title.setText(getString(R.string.error_occured));
                    break;
 
            }
@@ -157,7 +157,7 @@ public class RecordActivity extends AppCompatActivity {
         Timestamp timestamp = new Timestamp(date.getTime());
         record = new Record(mostUsedName,reachedHeight,timestamp);
         eT_name.setText(mostUsedName);
-        tv_points.setText(reachedHeight +"");
+        tv_points.setText(String.format("%d",reachedHeight));
     }
 
     /**

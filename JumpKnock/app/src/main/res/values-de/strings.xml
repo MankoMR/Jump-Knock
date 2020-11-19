@@ -21,6 +21,7 @@
     <string name="title_calibrate">Kalibrieren</string>
     <string name="calibrate_info">Bitte halten sie das Geräte gerade und drücken Sie auf OK.</string>
     <string name="record_no_record">Kein neuer Rekord!</string>
-    <string name="record_rec10_height">Platz 10 liegt bei einer Höhe von:</string>
-    <string name="record_your_height">Sie erreichten eine Höhe von:</string>
+    <string name="record_rec10_height">Platz 10 liegt bei einer Höhe von:  %1$d</string>
+    <string name="record_your_height">Sie erreichten eine Höhe von: %1$d</string>
+    <string name="error_occured">Ein Fehler ist aufgetreten.</string>
 </resources>

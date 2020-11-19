@@ -3,6 +3,7 @@ package ch.band.jumpknock;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,6 +24,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
      * setzt die view passend den anzahl datensätze an und zeigt ensprechend so viele Pokale, Badges
      * @param savedInstanceState
      */
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,7 @@ public class ShowRecordsActivity extends AppCompatActivity {
             else
             {
                 ((TextView)((ConstraintLayout) ll_fourthToTenth.getChildAt(i)).getChildAt(0)).setText(topTen[i + 3].getNickname());
-                ((TextView)((ConstraintLayout) ll_fourthToTenth.getChildAt(i)).getChildAt(1)).setText(Integer.toString(topTen[i + 3].getHeight()));
+                ((TextView)((ConstraintLayout) ll_fourthToTenth.getChildAt(i)).getChildAt(1)).setText(String.format("%d",topTen[i + 3].getHeight()));
             }
         }
     }
