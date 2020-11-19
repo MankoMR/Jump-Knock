@@ -2,7 +2,9 @@ package ch.band.jumpknock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -53,7 +55,7 @@ public class RecordActivity extends AppCompatActivity {
         {
             this.setTheme(R.style.BadTheme);
             getWindow().setStatusBarColor(Color.RED);
-            cl_root.setBackground(getDrawable(R.color.colorBad));
+            cl_root.setBackground(ContextCompat.getDrawable(getBaseContext(),R.color.colorBad));
             hasNoDataToSave = true;
             tv_title.setText(R.string.record_no_record);
             iv_pokal.setVisibility(View.INVISIBLE);
@@ -84,6 +86,7 @@ public class RecordActivity extends AppCompatActivity {
      * zeig die ensprechenden Bilder und Text für den ensprechenden Rang an.
      * @param savedInstanceState
      */
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,7 +170,7 @@ public class RecordActivity extends AppCompatActivity {
      */
     private void setTrophyVisible(int text, int revTrophy)
     {
-        iv_pokal.setImageDrawable(getDrawable(revTrophy));
+        iv_pokal.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),revTrophy));
         tv_title.setText(text);
         tv_nameOnTrophy.setVisibility(View.VISIBLE);
     }
@@ -180,7 +183,7 @@ public class RecordActivity extends AppCompatActivity {
     private void setBadgeVisible( int text,String number)
     {
         tv_title.setText(text);
-        iv_pokal.setImageDrawable(getDrawable(R.drawable.badge));
+        iv_pokal.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),R.drawable.badge));
         tv_badgeNumber.setVisibility(View.VISIBLE);
         tv_badgeNumber.setText(number);
     }
@@ -217,6 +220,7 @@ public class RecordActivity extends AppCompatActivity {
 
     /**
      * für context in Test
+     * There should be a better way to test things with context.
      * @return
      */
     public static Context getRecordContext() {
