@@ -2,7 +2,6 @@ package ch.band.jumpknock.storage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class DBHelperTest {
 
     @Test
     public void saveRecord() {
-        DBHelper dbHelper = new DBHelper(RecordActivity.getAppContext());
+        DBHelper dbHelper = new DBHelper(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Helsinki", 43,timestamp);
@@ -28,7 +27,7 @@ public class DBHelperTest {
 
     @Test
     public void getAllRecords() {
-        DBHelper dbHelper = new DBHelper(RecordActivity.getAppContext());
+        DBHelper dbHelper = new DBHelper(RecordActivity.getRecordContext());
         ArrayList<Record> recordsArrayList = dbHelper.getAllRecords();
         Record[] recordArray = (Record[])recordsArrayList.toArray();
         assertTrue(recordArray.length > 1);
@@ -36,7 +35,7 @@ public class DBHelperTest {
 
     @Test
     public void getNewestRecord() {
-        DBHelper dbHelper = new DBHelper(RecordActivity.getAppContext());
+        DBHelper dbHelper = new DBHelper(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Rio", 1,timestamp);
@@ -46,7 +45,7 @@ public class DBHelperTest {
 
     @Before
     public void setUp() throws Exception {
-        DBHelper dbHelper = new DBHelper(RecordActivity.getAppContext());
+        DBHelper dbHelper = new DBHelper(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Tokio", 5,timestamp);

@@ -72,11 +72,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long countRows = db.insert(RECORD_TABLE_NAME, null,values);
 
-        if(countRows == -1)
-        {
-            return false;
-        }
-        return true;
+        return countRows != -1;
     }
 
     /**
@@ -96,6 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Record record = new Record(resultData.getString(0),resultData.getInt(1), Timestamp.valueOf(resultData.getString(2)));
             recordArrayList.add(record);
         }
+        resultData.close();
         return recordArrayList;
     }
 
@@ -119,6 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Timestamp timestamp = new Timestamp(date.getTime());
             record = new Record("Jumper",0,timestamp);
         }
+        resultData.close();
         return record;
     }
 }

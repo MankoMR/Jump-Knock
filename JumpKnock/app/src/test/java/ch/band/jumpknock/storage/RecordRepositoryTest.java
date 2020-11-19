@@ -1,12 +1,10 @@
 package ch.band.jumpknock.storage;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import ch.band.jumpknock.RecordActivity;
 
@@ -23,7 +21,7 @@ public class RecordRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Tokio", 5,timestamp);
@@ -35,7 +33,7 @@ public class RecordRepositoryTest {
 
     @Test
     public void getPositionOfHeight() {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         Record[] recordArray = recordRepository.GetTopTen();
         if (recordArray.length > 6)
         {
@@ -50,7 +48,7 @@ public class RecordRepositoryTest {
 
     @Test
     public void isHigherThan10Place() {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         Record[] recordArray = recordRepository.GetTopTen();
         if(recordArray.length == 10)
         {
@@ -62,7 +60,7 @@ public class RecordRepositoryTest {
 
     @Test
     public void getNewestRecord() {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Denver", 5,timestamp);
@@ -72,13 +70,13 @@ public class RecordRepositoryTest {
 
     @Test
     public void getTopTen() {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         assertTrue(recordRepository.GetTopTen().length < 11);
     }
 
     @Test
     public void save() {
-        recordRepository = new RecordRepository(RecordActivity.getAppContext());
+        recordRepository = new RecordRepository(RecordActivity.getRecordContext());
         date = new Date();
         timestamp = new Timestamp(date.getTime());
         Record record = new Record("Denver", 20, timestamp);

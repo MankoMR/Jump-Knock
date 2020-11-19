@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashMap;
 
 import ch.band.jumpknock.storage.Record;
 import ch.band.jumpknock.storage.RecordRepository;
@@ -37,7 +35,6 @@ public class RecordActivity extends AppCompatActivity {
     private TextView tv_nameOnTrophy;
     private TextView tv_badgeNumber;
     private boolean hasNoDataToSave = false;
-    public static Context context;
 
     /**
      * passt falls es kein neuer Rekord ist die View beim Start an.
@@ -222,7 +219,7 @@ public class RecordActivity extends AppCompatActivity {
      * für context in Test
      * @return
      */
-    public static Context getAppContext() {
-        return context;
+    public static Context getRecordContext() {
+        return null;
     }
 }

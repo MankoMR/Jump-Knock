@@ -19,7 +19,7 @@ public class SqlBackendTest {
 
     @Test
     public void addRecord() {
-        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getAppContext());
+        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Helsinki", 43,timestamp);
@@ -28,7 +28,7 @@ public class SqlBackendTest {
 
     @Test
     public void getRecords() {
-        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getAppContext());
+        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getRecordContext());
         List<Record> recordsList = sqlBackend.getRecords();
         Record[] recordArray = (Record[])recordsList.toArray();
         assertTrue(recordArray.length > 1);
@@ -36,7 +36,7 @@ public class SqlBackendTest {
 
     @Test
     public void getNewesRecord() {
-        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getAppContext());
+        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Rio", 1,timestamp);
@@ -46,7 +46,7 @@ public class SqlBackendTest {
 
     @Before
     public void setUp() throws Exception {
-        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getAppContext());
+        SqlBackend sqlBackend = new SqlBackend(RecordActivity.getRecordContext());
         Date date = new Date();
         Timestamp timestamp = new Timestamp(date.getTime());
         Record record = new Record("Tokio", 5,timestamp);
