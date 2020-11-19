@@ -34,8 +34,7 @@ public class Placeable {
 	 * @returns the distance with the velocity und delta time.
 	 */
 	public static float calcDistance(float velocity, long timeDeltaNs){
-		float delta = velocity * ((float)GameVariables.getSecToNanoSec() / timeDeltaNs);
-		return delta;
+		return velocity * ((float)GameVariables.getSecToNanoSec() / timeDeltaNs);
 	}
 
 	/**

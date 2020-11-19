@@ -23,7 +23,7 @@ public class RecordRepository {
 	{
 		List<Record> records = storageBackend.getRecords();
 		Collections.sort(records);
-		List<Record> topTen = records.subList(0, records.size() >= 10 ? 10 : records.size());
+		List<Record> topTen = records.subList(0, Math.min(records.size(), 10));
 		Record[] topTenArray = topTen.toArray(new Record[topTen.size()]);
 		for(int i = 0; i < topTenArray.length; i++)
 		{
@@ -53,7 +53,7 @@ public class RecordRepository {
 	{
 		List<Record> records = storageBackend.getRecords();
 		Collections.sort(records);
-		List<Record> topTen = records.subList(0, records.size() >= 10 ? 10 : records.size());
+		List<Record> topTen = records.subList(0, Math.min(records.size(), 10));
 		Record[] topTenArray = topTen.toArray(new Record[topTen.size()]);
 		if(topTenArray.length < 10)
 		{
@@ -80,8 +80,7 @@ public class RecordRepository {
 	 */
 	public Record GetNewestRecord()
 	{
-		Record record = storageBackend.getNewestRecord();
-		return record;
+		return storageBackend.getNewestRecord();
 	}
 
 	/**
@@ -91,9 +90,8 @@ public class RecordRepository {
 	public Record[] GetTopTen(){
 		List<Record> records = storageBackend.getRecords();
 		Collections.sort(records);
-		List<Record> topten = records.subList(0, records.size() >= 10 ? 10 : records.size());
-		Record[] recordArray = topten.toArray(new Record[topten.size()]);
-		return recordArray;
+		List<Record> topten = records.subList(0, Math.min(records.size(), 10));
+		return topten.toArray(new Record[topten.size()]);
 	}
 
 	/**
