@@ -71,6 +71,9 @@ public class SoundEngine {
      * @param name of the sound to play.
      */
     public void play(String name){
-        sounds.get(name).play();
+        SoundContainer sound = sounds.get(name);
+        if(sound != null){
+            sound.play();
+        }
     }
 }
