@@ -12,10 +12,10 @@ import javax.microedition.khronos.opengles.GL10;
 public class Shaderprogram implements IDisposable, IBindable {
     private static final String TAG = Shaderprogram.class.getCanonicalName();
 
-    private int mVertexShaderId;
-    private int mFragmentShaderId;
-    private int mId;
-    private HashMap<String,Integer> mUniformLocationCache = new HashMap<>();
+    private final int mVertexShaderId;
+    private final int mFragmentShaderId;
+    private final int mId;
+    private final HashMap<String,Integer> mUniformLocationCache = new HashMap<>();
 
     private Shaderprogram(int vertexShader, int fragmentShader, int program){
         mVertexShaderId = vertexShader;
@@ -157,7 +157,7 @@ public class Shaderprogram implements IDisposable, IBindable {
         private final String TAG = ProgramBuilder.class.getCanonicalName();
         private int mFragmentShader;
         private int mVertexShader;
-        private int mProgram;
+        private final int mProgram;
         private boolean used = false;
 
         public ProgramBuilder(){

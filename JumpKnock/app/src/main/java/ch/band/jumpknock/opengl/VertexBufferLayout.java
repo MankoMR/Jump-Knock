@@ -5,7 +5,7 @@ import java.util.List;
 
 class VertexBufferLayout {
 
-    private ArrayList<VertexBufferElement> elements;
+    private final ArrayList<VertexBufferElement> elements;
     private int stride;
 
     public VertexBufferLayout(){

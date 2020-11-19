@@ -23,7 +23,7 @@ import ch.band.jumpknock.R;
 
 public class Renderer implements GLSurfaceView.Renderer {
 	private static final String TAG = Renderer.class.getSimpleName();
-	private Context context;
+	private final Context context;
 	private Shaderprogram program;
 	Texture texture;
 	/**

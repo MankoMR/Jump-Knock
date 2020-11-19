@@ -5,7 +5,7 @@ import android.opengl.GLES30;
 import java.nio.IntBuffer;
 
 public class VertexArray implements IBindable, IDisposable {
-    private int rendererID;
+    private final int rendererID;
 
     public VertexArray(){
         IntBuffer buffer = IntBuffer.allocate(1);

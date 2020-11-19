@@ -11,10 +11,10 @@ import androidx.annotation.RawRes;
 import java.nio.IntBuffer;
 
 public class Texture implements IBindable, IDisposable {
-    private int mId;
-    private int mWidth;
-    private int mHeight;
-    private int mInternalFormat;
+    private final int mId;
+    private final int mWidth;
+    private final int mHeight;
+    private final int mInternalFormat;
     private final int mType;
 
     public Texture(@RawRes int drawable, Context context){

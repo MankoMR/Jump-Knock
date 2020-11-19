@@ -3,12 +3,12 @@ package ch.band.jumpknock.opengl;
 import android.opengl.GLES30;
 
 public class Model implements IBindable, IDisposable {
-    private VertexBuffer mVertexBuffer;
-    private VertexArray mVertexArray;
-    private IndexBuffer mIndexBuffer;
-    private Shaderprogram mShaderprogram;
+    private final VertexBuffer mVertexBuffer;
+    private final VertexArray mVertexArray;
+    private final IndexBuffer mIndexBuffer;
+    private final Shaderprogram mShaderprogram;
     private Texture mTexture;
-    private OnDraw mDrawAction;
+    private final OnDraw mDrawAction;
 
     public Model(VertexBuffer vertexBuffer, VertexArray vertexArray, IndexBuffer indexBuffer,
                  Shaderprogram shaderprogram, OnDraw drawAction){
