@@ -308,6 +308,7 @@ public class GameActivity extends AppCompatActivity implements UiNotifier, Senso
     public void UpdateGame(List<Platform> platforms, Player player, float reachedHeight,GameVariables gameVariables) {
         for (Platform platform: platforms){
             ConstraintLayout layout = this.platforms.get(platform);
+            assert layout != null;
             FrameLayout.LayoutParams layoutParams =  (FrameLayout.LayoutParams) layout.getLayoutParams();
             layoutParams.bottomMargin =  (int)(platform.getPosition().y - reachedHeight);
             layoutParams.leftMargin = (int)platform.getPosition().x;
